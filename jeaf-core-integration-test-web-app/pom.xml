@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.anaptecs.jeaf.core</groupId>
+		<artifactId>jeaf-core-impl-project</artifactId>
+		<version>1.8.1-SNAPSHOT</version>
+	</parent>
+
+	<name>JEAF Core Integration Test Web App</name>
+	<artifactId>jeaf-core-integration-test-web-app</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-integration-test-services-impl</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- JEAF X-Fun Default Runtime is required during execution -->
+		<dependency>
+			<groupId>com.anaptecs.jeaf.x-fun</groupId>
+			<artifactId>jeaf-x-fun-default-runtime</artifactId>
+			<version>${jeaf.x-fun.impl.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-service-channel-web</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-service-channel-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Dependency is required as Maven WAR plugin otherwise will not be able to run properly -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${javaee-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Dependency on JEAF Fast Lane implementation is only required for test purposes -->
+		<!-- 
+		     Dependency is defined without test scope as the whole project is a test project and otherwise some JEAF 
+		     config files would miss. However this is not a JEAF issue but just a limitation in the setup of this test 
+		     project. Same also applied for dependency on JEAF Workload Management.
+		-->
+		<dependency>
+			<groupId>com.anaptecs.jeaf.fast-lane</groupId>
+			<artifactId>jeaf-fast-lane-impl</artifactId>
+			<version>${jeaf.fastlane.impl.version}</version>
+		</dependency>
+		
+		<!-- Dependency on JEAF Workload Management is only required for test purposes -->
+		<dependency>
+			<groupId>com.anaptecs.jeaf.workload</groupId>
+			<artifactId>jeaf-workload-impl</artifactId>
+			<version>${jeaf.workload.impl.version}</version>
+		</dependency>
+		
+
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>${okhttp.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- JEAF Maven Plugin to generate JEAF configuration files -->
+			<plugin>
+				<groupId>com.anaptecs.jeaf.maven</groupId>
+				<artifactId>jeaf-maven-plugin</artifactId>
+				<version>${maven.jeaf-plugin.version}</version>
+				<executions>
+					<!--  Cleanup run -->
+					<execution>
+						<id>Clean</id>
+						<goals>
+							<goal>GenerateJEAFConfig</goal>
+						</goals>
+						<phase>clean</phase>
+						<configuration>
+							<resourceGenDirectory>${basedir}/src-gen/main/resources</resourceGenDirectory>
+							<cleanMetaInfDirectory>true</cleanMetaInfDirectory>
+							<cleanOnly>true</cleanOnly>
+						</configuration>
+					</execution>
+
+					<!-- Generate configuration files -->
+					<execution>
+						<id>GenerateConfigs</id>
+						<goals>
+							<goal>GenerateJEAFConfig</goal>
+						</goals>
+						<configuration>
+							<resourceGenDirectory>${basedir}/src-gen/main/resources</resourceGenDirectory>
+							<targetDirectory>${basedir}/target/classes</targetDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.version}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.anaptecs.jeaf.maven</groupId>
+										<artifactId>jeaf-maven-plugin</artifactId>
+										<versionRange>[1.6.4,)</versionRange>
+										<goals>
+											<goal>GenerateJEAFConfig</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.anaptecs.jeaf.core</groupId>
+		<artifactId>jeaf-core-impl-project</artifactId>
+		<version>1.8.1-SNAPSHOT</version>
+	</parent>
+
+	<name>JEAF Core JEE Commons</name>
+	<artifactId>jeaf-core-jee-commons</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-service-channel-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!--  As of Java 11 RMI / CORBA are no longer part of JSE. That why we have to add them here -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.rmi/jboss-rmi-api_1.0_spec -->
+		<dependency>
+		    <groupId>org.jboss.spec.javax.rmi</groupId>
+		    <artifactId>jboss-rmi-api_1.0_spec</artifactId>
+		    <version>${jboss-rmi-api.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--  As of Java 11 RMI / CORBA are no longer part of JSE. That why we have to add them here -->
+		<!-- https://mvnrepository.com/artifact/org.glassfish.corba/glassfish-corba-orb -->
+		<dependency>
+		    <groupId>org.glassfish.corba</groupId>
+		    <artifactId>glassfish-corba-orb</artifactId>
+		    <version>${glassfish-corba-orb.version}</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.anaptecs.jeaf.generator</groupId>
+				<artifactId>jeaf-generator-maven-plugin</artifactId>
+				<version>${maven.jeaf-generator-plugin.version}</version>
+				<goals>Generator</goals>
+				<configuration>
+					<!-- Define input files and directories where output should be write to. -->
+					<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+					<sourceGenDirectory>${project.basedir}/src-gen/main/java</sourceGenDirectory>
+					<resourceDirectory>${project.basedir}/src/main/resources</resourceDirectory>
+					<resourceGenDirectory>${project.basedir}/src-gen/main/resources</resourceGenDirectory>
+
+					<!-- Configure behavior concerning existing files in src-gen and res-gen directory. It is strongly recommended to clean directories before generating new files. -->
+					<cleanSourceGen>true</cleanSourceGen>
+					<cleanResourceGen>true</cleanResourceGen>
+
+					<!-- Define resource files that should be ignored when generating message constant classes from resources. -->
+					<ignoredResourceFiles>
+					</ignoredResourceFiles>
+
+					<!-- Define what should be generated. By default nothing is generated. -->
+					<generateMessageConstants>true</generateMessageConstants>
+
+					<!-- Define information that are written to file headers -->
+					<fileHeaderCompany>anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany</fileHeaderCompany>
+					<fileHeaderAuthor>JEAF Generator</fileHeaderAuthor>
+					<fileHeaderCopyright>Copyright 2004 - 2019. All rights reserved.</fileHeaderCopyright>
+					<fileHeaderVersion>JEAF Release 1.4.x</fileHeaderVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

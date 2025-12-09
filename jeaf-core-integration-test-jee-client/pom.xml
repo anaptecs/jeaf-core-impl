@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.anaptecs.jeaf.core</groupId>
+		<artifactId>jeaf-core-impl-project</artifactId>
+		<version>1.8.1-SNAPSHOT</version>
+	</parent>
+
+	<name>JEAF Core Integration Test JEE Client</name>
+	<artifactId>jeaf-core-integration-test-jee-client</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-integration-test-services-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-service-channel-ejb</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-integration-test-jee-ear</artifactId>
+			<version>${project.version}</version>
+			<type>ear</type>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- JEAF X-Fun Default Runtime is required during execution -->
+		<dependency>
+			<groupId>com.anaptecs.jeaf.x-fun</groupId>
+			<artifactId>jeaf-x-fun-default-runtime</artifactId>
+			<version>${jeaf.x-fun.impl.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.wildfly/wildfly-ejb-client-bom -->
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-ejb-client-bom</artifactId>
+			<version>${wildfly.ejb-client-bom.version}</version>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- MySQL JDBC Driver is not to be able to deploy it to Wildfly -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- JEAF Maven Plugin to generate JEAF configuration files -->
+			<plugin>
+				<groupId>com.anaptecs.jeaf.maven</groupId>
+				<artifactId>jeaf-maven-plugin</artifactId>
+				<version>${maven.jeaf-plugin.version}</version>
+				<executions>
+					<!-- Cleanup run -->
+					<execution>
+						<id>Clean</id>
+						<goals>
+							<goal>GenerateJEAFConfig</goal>
+						</goals>
+						<phase>clean</phase>
+						<configuration>
+							<testResourceGenDirectory>${basedir}/src-gen/test/resources</testResourceGenDirectory>
+							<cleanMetaInfDirectory>true</cleanMetaInfDirectory>
+							<cleanOnly>true</cleanOnly>
+						</configuration>
+					</execution>
+
+					<!-- Generate configuration files for tests -->
+					<execution>
+						<id>GenerateConfigs</id>
+						<goals>
+							<goal>GenerateJEAFConfig</goal>
+						</goals>
+						<configuration>
+							<testResourceGenDirectory>${basedir}/src-gen/test/resources</testResourceGenDirectory>
+							<testTargetDirectory>${basedir}/target/test-classes</testTargetDirectory>
+							<detectComponentFactories>false</detectComponentFactories>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven.failsafe.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<systemProperties>
+								<property>
+									<name>project.version</name>
+									<value>${project.version}</value>
+								</property>
+							</systemProperties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>${maven.wildfly.version}</version>
+
+				<configuration>
+					<hostname>127.0.0.1</hostname>
+					<port>10990</port>
+					<username>admin</username>
+					<password>admin</password>
+					<version>${wildfly.version}</version>
+					<java-opts>-Djboss.socket.binding.port-offset=1000</java-opts>					
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>run</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start</goal>
+						</goals>
+						<configuration>
+							<server-config>../../../../src/test/resources/standalone-wildfly19.xml</server-config>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>deploy-driver</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<name>mysql.jar</name>
+						</configuration>
+						<goals>
+							<goal>deploy-artifact</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>add-datasource</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<address>subsystem=datasources,data-source=myDatasource</address>
+							<resources>
+								<resource>
+									<properties>
+										<connection-url>jdbc:mysql://localhost:3306/WEEASY_DB?useSSL=false&amp;serverTimezone=CET</connection-url>
+										<jndi-name>java:jboss/datasources/myDatasource</jndi-name>
+										<enabled>true</enabled>
+										<enable>true</enable>
+										<user-name>root</user-name>
+										<driver-name>mysql.jar</driver-name>
+										<use-ccm>false</use-ccm>
+									</properties>
+								</resource>
+							</resources>
+						</configuration>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>deploy-ear</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<groupId>com.anaptecs.jeaf.core</groupId>
+							<artifactId>jeaf-core-integration-test-jee-ear</artifactId>
+						</configuration>
+						<goals>
+							<goal>deploy-artifact</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>shutdown</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>shutdown</goal>
+						</goals>
+					</execution>
+
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.anaptecs.jeaf.maven</groupId>
+										<artifactId>jeaf-maven-plugin</artifactId>
+										<versionRange>[1.5.1,)</versionRange>
+										<goals>
+											<goal>GenerateJEAFConfig</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

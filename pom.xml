@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Parent POM contains all general settings for building and releasing of all JEAF projects. -->
+	<parent>
+		<groupId>com.anaptecs.jeaf</groupId>
+		<artifactId>jeaf-module-project-parent</artifactId>
+		<version>1.9.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.anaptecs.jeaf.core</groupId>
+	<artifactId>jeaf-core-impl-project</artifactId>
+	<version>1.8.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>JEAF Core Impl Project</name>
+	<description>JEAF Core Impl provides implementation of JEAF Core API such as service channel implementation for different runtime environments as JSE, Servlet Containers or JEE Application Servers.</description>
+	<url>https://www.anaptecs.de/jeaf</url>
+
+	<scm>
+		<connection>scm:git:https://github.com/anaptecs/jeaf-core-impl.git</connection>
+		<developerConnection>scm:git:https://github.com/anaptecs/jeaf-core-impl.git</developerConnection>
+		<url>https://github.com/anaptecs/jeaf-core-impl</url>
+		<tag>HEAD</tag>
+	</scm>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/anaptecs/jeaf-core-impl</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<properties>
+		<jeaf.x-fun.impl.version>1.8.1-SNAPSHOT</jeaf.x-fun.impl.version>
+		<jeaf.x-fun.types.version>1.8.1-SNAPSHOT</jeaf.x-fun.types.version>
+		<jeaf.tools.api.version>1.8.1-SNAPSHOT</jeaf.tools.api.version>
+		<jeaf.core.api.version>1.8.1-SNAPSHOT</jeaf.core.api.version>
+		<jeaf.json.impl.version>1.8.1-SNAPSHOT</jeaf.json.impl.version>
+		<jeaf.workload.api.version>1.8.0</jeaf.workload.api.version>
+		<jeaf.workload.impl.version>1.8.0</jeaf.workload.impl.version>
+		<jeaf.test.model.version>1.0.41</jeaf.test.model.version>
+
+		<!-- JEAF Fast Lane is used during testing as runtime environment -->
+		<jeaf.fastlane.impl.version>1.8.0</jeaf.fastlane.impl.version>
+		
+		<maven.jeaf-generator-plugin.version>1.6.57</maven.jeaf-generator-plugin.version>
+	</properties>
+
+	<modules>
+		<module>jeaf-core-service-channel-base</module>
+		<module>jeaf-core-service-channel-jse</module>
+		<module>jeaf-core-web-container-init</module>
+		<module>jeaf-core-service-channel-web</module>
+		<module>jeaf-core-service-channel-jpa</module>
+		<module>jeaf-core-jee-commons</module>
+		<module>jeaf-core-service-channel-ejb</module>
+		<module>jeaf-core-ejb-container-init</module>
+		<module>jeaf-core-jse-application-base</module>
+		<module>jeaf-core-integration-test-services-api</module>
+		<module>jeaf-core-integration-test-services-impl</module>
+		<module>jeaf-core-integration-test-web-app</module>
+		<module>jeaf-core-integration-test-jee-app</module>
+		<module>jeaf-core-integration-test-jee-ear</module>
+		<module>jeaf-core-integration-test-jee-client</module>
+	</modules>
+
+</project>

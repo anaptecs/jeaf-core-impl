@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+<ejb-jar>
+    <description>This archive contains JEAF's Service Channel and Lifecycle Manager EJB</description>
+    <display-name>JEAF EJBs</display-name>
+
+    <enterprise-beans>
+        <!-- Session Beans -->
+        <session>
+            <description>ServiceChannelEJB></description>
+            <display-name>ServiceChannelEJB</display-name>
+            <ejb-name>ServiceChannelEJB</ejb-name>
+            
+            <home>com.anaptecs.jeaf.core.servicechannel.ejb.api.ServiceChannelEJBHome</home>
+            <remote>com.anaptecs.jeaf.core.servicechannel.ejb.api.ServiceChannelEJB</remote>
+            <local-home>com.anaptecs.jeaf.core.servicechannel.ejb.api.ServiceChannelEJBLocalHome</local-home>
+            <local>com.anaptecs.jeaf.core.servicechannel.ejb.api.ServiceChannelEJBLocal</local>
+            <ejb-class>com.anaptecs.jeaf.core.servicechannel.ejb.impl.ServiceChannelEJBBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+
+        <session>
+            <description>LifecycleManagerEJB</description>
+            <display-name>LifecycleManagerEJB</display-name>
+            <ejb-name>LifecycleManagerEJB</ejb-name>
+            
+            <home>com.anaptecs.jeaf.core.servicechannel.ejb.api.LifecycleManagerEJBHome</home>
+            <remote>com.anaptecs.jeaf.core.servicechannel.ejb.api.LifecycleManagerEJB</remote>
+            <local-home>com.anaptecs.jeaf.core.servicechannel.ejb.api.LifecycleManagerEJBLocalHome</local-home>
+            <local>com.anaptecs.jeaf.core.servicechannel.ejb.api.LifecycleManagerEJBLocal</local>
+            <ejb-class>com.anaptecs.jeaf.core.servicechannel.ejb.impl.LifecycleManagerEJBBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Bean</transaction-type>
+        </session>
+    </enterprise-beans>
+
+    <assembly-descriptor>
+        <!-- Security settings for all EJBs -->
+        <!-- 
+             In order to avoid problems with Wildfly 12 method permission "unchecked" must not be used. 
+             Instead method permission will not be defined. (https://developer.jboss.org/thread/277290)
+        -->
+        <!--  
+        <method-permission>
+            <description>All methods of the Service Channel EJB are unprotected
+                         from the application server view as security is provided by JEAF</description>
+            <unchecked />
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-name>*</method-name>
+            </method>
+        </method-permission>
+
+        <method-permission>
+            <description>All methods of the Service Channel EJB are unprotected
+                         from the application server view as security is provided by JEAF</description>
+            <unchecked />
+            <method>
+                <ejb-name>LifecycleManagerEJB</ejb-name>
+                <method-name>*</method-name>
+            </method>
+        </method-permission>
+        -->
+
+        <!-- Transaction settings for all EJBs. The following transactions settings only deal with the Service Channel EJB 
+            as the Lifecycle Manager EJB uses bean managed transactions. -->
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>executeCommandTxNotSupported</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>NotSupported</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>executeCommandTxNotSupported</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>NotSupported</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>executeCommandTxSupports</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Supports</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>executeCommandTxSupports</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Supports</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>executeCommandTxRequired</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>executeCommandTxRequired</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>executeCommandTxRequiresNew</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>RequiresNew</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>executeCommandTxRequiresNew</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>RequiresNew</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>executeCommandTxMandatory</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Mandatory</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>executeCommandTxMandatory</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Mandatory</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>executeCommandTxNever</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Never</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>executeCommandTxNever</method-name>
+                <method-params>
+                    <method-param>com.anaptecs.jeaf.core.servicechannel.api.Command</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>Never</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Local</method-intf>
+                <method-name>checkService</method-name>
+                <method-params>
+                    <method-param>java.lang.Class</method-param>
+                    <method-param>com.anaptecs.jeaf.core.spi.CheckLevel</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>RequiresNew</trans-attribute>
+        </container-transaction>
+
+        <container-transaction>
+            <method>
+                <ejb-name>ServiceChannelEJB</ejb-name>
+                <method-intf>Remote</method-intf>
+                <method-name>checkService</method-name>
+                <method-params>
+                    <method-param>java.lang.Class</method-param>
+                    <method-param>com.anaptecs.jeaf.core.spi.CheckLevel</method-param>
+                </method-params>
+            </method>
+            <trans-attribute>RequiresNew</trans-attribute>
+        </container-transaction>
+    </assembly-descriptor>
+</ejb-jar>

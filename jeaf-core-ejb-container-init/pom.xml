@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.anaptecs.jeaf.core</groupId>
+		<artifactId>jeaf-core-impl-project</artifactId>
+		<version>1.8.1-SNAPSHOT</version>
+	</parent>
+
+	<name>JEAF Core EJB Container Init</name>
+	<artifactId>jeaf-core-ejb-container-init</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.anaptecs.jeaf.core</groupId>
+			<artifactId>jeaf-core-service-channel-ejb</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${javaee-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.version}</version>
+				<configuration>
+					<packagingExcludes>**/*.jar</packagingExcludes>					
+					<archive>
+						<manifest>
+							<addClasspath>false</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
