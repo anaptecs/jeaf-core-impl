@@ -1,0 +1,8 @@
+com.anaptecs.jeaf.junit.impl.core.AuthorizationTestComponentFactory
+com.anaptecs.jeaf.junit.impl.core.GeneratorTestComponentFactory
+com.anaptecs.jeaf.junit.impl.core.InterceptorTestComponentFactory
+com.anaptecs.jeaf.junit.impl.core.MailTestComponentFactory
+com.anaptecs.jeaf.junit.impl.core.ProductComponentFactory
+com.anaptecs.jeaf.junit.impl.core.RequiredComponentComponentFactory
+com.anaptecs.jeaf.junit.impl.core.SecurityTestComponentFactory
+com.anaptecs.jeaf.junit.impl.core.TestComponentComponentFactory

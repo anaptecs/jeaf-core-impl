@@ -1,0 +1,8 @@
+<jboss-deployment-structure>
+  <!-- 
+       Make sub deployments isolated by default, so they cannot see each others classes without a Class-Path entry. 
+       With Wildfly this is the default behaviour. However to make it more explicit and visible to everybody it 
+       is here set. -->
+  <ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+
+</jboss-deployment-structure>
