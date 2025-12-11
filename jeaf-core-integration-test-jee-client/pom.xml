@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+	<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -58,152 +58,161 @@
 		</dependency>
 
 	</dependencies>
-
+	
+	<profiles>
+		<profile>
+			<activation>
+				<jdk>[1.8,22)</jdk>
+			</activation>
+			<build>
+				<plugins>
+					<!-- JEAF Maven Plugin to generate JEAF configuration files -->
+					<plugin>
+						<groupId>com.anaptecs.jeaf.maven</groupId>
+						<artifactId>jeaf-maven-plugin</artifactId>
+						<version>${maven.jeaf-plugin.version}</version>
+						<executions>
+							<!-- Cleanup run -->
+							<execution>
+								<id>Clean</id>
+								<goals>
+									<goal>GenerateJEAFConfig</goal>
+								</goals>
+								<phase>clean</phase>
+								<configuration>
+									<testResourceGenDirectory>${basedir}/src-gen/test/resources</testResourceGenDirectory>
+									<cleanMetaInfDirectory>true</cleanMetaInfDirectory>
+									<cleanOnly>true</cleanOnly>
+								</configuration>
+							</execution>
+		
+							<!-- Generate configuration files for tests -->
+							<execution>
+								<id>GenerateConfigs</id>
+								<goals>
+									<goal>GenerateJEAFConfig</goal>
+								</goals>
+								<configuration>
+									<testResourceGenDirectory>${basedir}/src-gen/test/resources</testResourceGenDirectory>
+									<testTargetDirectory>${basedir}/target/test-classes</testTargetDirectory>
+									<detectComponentFactories>false</detectComponentFactories>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+		
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>${maven.failsafe.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+								<configuration>
+									<systemProperties>
+										<property>
+											<name>project.version</name>
+											<value>${project.version}</value>
+										</property>
+									</systemProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+		
+					<plugin>
+						<groupId>org.wildfly.plugins</groupId>
+						<artifactId>wildfly-maven-plugin</artifactId>
+						<version>${maven.wildfly.version}</version>
+		
+						<configuration>
+							<hostname>127.0.0.1</hostname>
+							<port>10990</port>
+							<username>admin</username>
+							<password>admin</password>
+							<version>${wildfly.version}</version>
+							<java-opts>-Djboss.socket.binding.port-offset=1000</java-opts>					
+						</configuration>
+		
+						<executions>
+							<execution>
+								<id>run</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+								<configuration>
+									<server-config>../../../../src/test/resources/standalone-wildfly19.xml</server-config>
+								</configuration>
+							</execution>
+		
+							<execution>
+								<id>deploy-driver</id>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<groupId>mysql</groupId>
+									<artifactId>mysql-connector-java</artifactId>
+									<name>mysql.jar</name>
+								</configuration>
+								<goals>
+									<goal>deploy-artifact</goal>
+								</goals>
+							</execution>
+		
+							<execution>
+								<id>add-datasource</id>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<address>subsystem=datasources,data-source=myDatasource</address>
+									<resources>
+										<resource>
+											<properties>
+												<connection-url>jdbc:mysql://localhost:3306/WEEASY_DB?useSSL=false&amp;serverTimezone=CET</connection-url>
+												<jndi-name>java:jboss/datasources/myDatasource</jndi-name>
+												<enabled>true</enabled>
+												<enable>true</enable>
+												<user-name>root</user-name>
+												<driver-name>mysql.jar</driver-name>
+												<use-ccm>false</use-ccm>
+											</properties>
+										</resource>
+									</resources>
+								</configuration>
+								<goals>
+									<goal>add-resource</goal>
+								</goals>
+							</execution>
+		
+							<execution>
+								<id>deploy-ear</id>
+								<phase>pre-integration-test</phase>
+								<configuration>
+									<groupId>com.anaptecs.jeaf.core</groupId>
+									<artifactId>jeaf-core-integration-test-jee-ear</artifactId>
+								</configuration>
+								<goals>
+									<goal>deploy-artifact</goal>
+								</goals>
+							</execution>
+		
+							<execution>
+								<id>shutdown</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>shutdown</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
 	<build>
-		<plugins>
-			<!-- JEAF Maven Plugin to generate JEAF configuration files -->
-			<plugin>
-				<groupId>com.anaptecs.jeaf.maven</groupId>
-				<artifactId>jeaf-maven-plugin</artifactId>
-				<version>${maven.jeaf-plugin.version}</version>
-				<executions>
-					<!-- Cleanup run -->
-					<execution>
-						<id>Clean</id>
-						<goals>
-							<goal>GenerateJEAFConfig</goal>
-						</goals>
-						<phase>clean</phase>
-						<configuration>
-							<testResourceGenDirectory>${basedir}/src-gen/test/resources</testResourceGenDirectory>
-							<cleanMetaInfDirectory>true</cleanMetaInfDirectory>
-							<cleanOnly>true</cleanOnly>
-						</configuration>
-					</execution>
-
-					<!-- Generate configuration files for tests -->
-					<execution>
-						<id>GenerateConfigs</id>
-						<goals>
-							<goal>GenerateJEAFConfig</goal>
-						</goals>
-						<configuration>
-							<testResourceGenDirectory>${basedir}/src-gen/test/resources</testResourceGenDirectory>
-							<testTargetDirectory>${basedir}/target/test-classes</testTargetDirectory>
-							<detectComponentFactories>false</detectComponentFactories>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${maven.failsafe.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-						<configuration>
-							<systemProperties>
-								<property>
-									<name>project.version</name>
-									<value>${project.version}</value>
-								</property>
-							</systemProperties>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
-
-			<plugin>
-				<groupId>org.wildfly.plugins</groupId>
-				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>${maven.wildfly.version}</version>
-
-				<configuration>
-					<hostname>127.0.0.1</hostname>
-					<port>10990</port>
-					<username>admin</username>
-					<password>admin</password>
-					<version>${wildfly.version}</version>
-					<java-opts>-Djboss.socket.binding.port-offset=1000</java-opts>					
-				</configuration>
-
-				<executions>
-					<execution>
-						<id>run</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>start</goal>
-						</goals>
-						<configuration>
-							<server-config>../../../../src/test/resources/standalone-wildfly19.xml</server-config>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>deploy-driver</id>
-						<phase>pre-integration-test</phase>
-						<configuration>
-							<groupId>mysql</groupId>
-							<artifactId>mysql-connector-java</artifactId>
-							<name>mysql.jar</name>
-						</configuration>
-						<goals>
-							<goal>deploy-artifact</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>add-datasource</id>
-						<phase>pre-integration-test</phase>
-						<configuration>
-							<address>subsystem=datasources,data-source=myDatasource</address>
-							<resources>
-								<resource>
-									<properties>
-										<connection-url>jdbc:mysql://localhost:3306/WEEASY_DB?useSSL=false&amp;serverTimezone=CET</connection-url>
-										<jndi-name>java:jboss/datasources/myDatasource</jndi-name>
-										<enabled>true</enabled>
-										<enable>true</enable>
-										<user-name>root</user-name>
-										<driver-name>mysql.jar</driver-name>
-										<use-ccm>false</use-ccm>
-									</properties>
-								</resource>
-							</resources>
-						</configuration>
-						<goals>
-							<goal>add-resource</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>deploy-ear</id>
-						<phase>pre-integration-test</phase>
-						<configuration>
-							<groupId>com.anaptecs.jeaf.core</groupId>
-							<artifactId>jeaf-core-integration-test-jee-ear</artifactId>
-						</configuration>
-						<goals>
-							<goal>deploy-artifact</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>shutdown</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>shutdown</goal>
-						</goals>
-					</execution>
-
-				</executions>
-			</plugin>
-		</plugins>
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
