@@ -1,28 +1,23 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class CodeTypeUsageTest implements ServiceObject {
   /**
    * Default serial version uid.
@@ -50,36 +45,33 @@ public class CodeTypeUsageTest implements ServiceObject {
   public static final String STRINGCODE = "stringCode";
 
   /**
-   * 
+   * Constant for the name of attribute "shortCode".
    */
+  public static final String SHORTCODE = "shortCode";
+
   private BooleanCodeType booleanCode;
 
-  /**
-   * 
-   */
-  private Set<BooleanCodeType> booleanCodeAssociation = new HashSet<BooleanCodeType>();
+  private Set<BooleanCodeType> booleanCodeAssociation;
 
-  /**
-   * 
-   */
-  private Set<ShortCodeType> shortCodeTypeAssociation = new HashSet<ShortCodeType>();
+  @Valid
+  private Set<ShortCodeType> shortCodeTypeAssociation;
 
-  /**
-   * 
-   */
   private StringCodeType stringCode;
 
+  private ShortCode shortCode;
+
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected CodeTypeUsageTest( ) {
-    // Nothing to do.
+    booleanCodeAssociation = new HashSet<>();
+    shortCodeTypeAssociation = new HashSet<>();
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected CodeTypeUsageTest( Builder pBuilder ) {
@@ -88,82 +80,69 @@ public class CodeTypeUsageTest implements ServiceObject {
     // Read attribute values from builder.
     booleanCode = pBuilder.booleanCode;
     if (pBuilder.booleanCodeAssociation != null) {
-      booleanCodeAssociation.addAll(pBuilder.booleanCodeAssociation);
+      booleanCodeAssociation = pBuilder.booleanCodeAssociation;
+    }
+    else {
+      booleanCodeAssociation = new HashSet<>();
     }
     if (pBuilder.shortCodeTypeAssociation != null) {
-      shortCodeTypeAssociation.addAll(pBuilder.shortCodeTypeAssociation);
+      shortCodeTypeAssociation = pBuilder.shortCodeTypeAssociation;
+    }
+    else {
+      shortCodeTypeAssociation = new HashSet<>();
     }
     stringCode = pBuilder.stringCode;
+    shortCode = pBuilder.shortCode;
   }
 
   /**
-   * Class implements builder to create a new instance of class CodeTypeUsageTest. As the class has read only attributes
-   * or associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new CodeTypeUsageTest objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>CodeTypeUsageTest</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private BooleanCodeType booleanCode;
 
-    /**
-     * 
-     */
     private Set<BooleanCodeType> booleanCodeAssociation;
 
-    /**
-     * 
-     */
     private Set<ShortCodeType> shortCodeTypeAssociation;
 
-    /**
-     * 
-     */
     private StringCodeType stringCode;
 
+    private ShortCode shortCode;
+
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link CodeTypeUsageTest#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(CodeTypeUsageTest)} instead of private constructor to create new builder.
+     * Use {@link CodeTypeUsageTest#builder(CodeTypeUsageTest)} instead of private constructor to create new builder.
      */
     protected Builder( CodeTypeUsageTest pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        booleanCode = pObject.booleanCode;
-        booleanCodeAssociation = pObject.booleanCodeAssociation;
-        shortCodeTypeAssociation = pObject.shortCodeTypeAssociation;
-        stringCode = pObject.stringCode;
+        this.setBooleanCode(pObject.booleanCode);
+        this.setBooleanCodeAssociation(pObject.booleanCodeAssociation);
+        this.setShortCodeTypeAssociation(pObject.shortCodeTypeAssociation);
+        this.setStringCode(pObject.stringCode);
+        this.setShortCode(pObject.shortCode);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new CodeTypeUsageTest objects. The method never
-     * returns null.
-     */
-    public static Builder newBuilder( CodeTypeUsageTest pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "booleanCode".
-     * 
-     * @param pBooleanCode Value to which the attribute "booleanCode" should be set.
+     * Method sets attribute {@link #booleanCode}.<br/>
+     *
+     * @param pBooleanCode Value to which {@link #booleanCode} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBooleanCode( BooleanCodeType pBooleanCode ) {
       // Assign value to attribute
@@ -172,9 +151,10 @@ public class CodeTypeUsageTest implements ServiceObject {
     }
 
     /**
-     * Method sets the association "booleanCodeAssociation".
-     * 
-     * @param pBooleanCodeAssociation Collection with objects to which the association should be set.
+     * Method sets association {@link #booleanCodeAssociation}.<br/>
+     *
+     * @param pBooleanCodeAssociation Collection to which {@link #booleanCodeAssociation} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBooleanCodeAssociation( Set<BooleanCodeType> pBooleanCodeAssociation ) {
       // To ensure immutability we have to copy the content of the passed collection.
@@ -188,9 +168,27 @@ public class CodeTypeUsageTest implements ServiceObject {
     }
 
     /**
-     * Method sets the association "shortCodeTypeAssociation".
-     * 
-     * @param pShortCodeTypeAssociation Collection with objects to which the association should be set.
+     * Method adds the passed objects to association {@link #booleanCodeAssociation}.<br/>
+     *
+     * @param pBooleanCodeAssociation Array of objects that should be added to {@link #booleanCodeAssociation}. The
+     * parameter may be null.
+     * @return {@link Builder} Instance of this builder to support chaining. Method never returns null.
+     */
+    public Builder addToBooleanCodeAssociation( BooleanCodeType... pBooleanCodeAssociation ) {
+      if (pBooleanCodeAssociation != null) {
+        if (booleanCodeAssociation == null) {
+          booleanCodeAssociation = new HashSet<BooleanCodeType>();
+        }
+        booleanCodeAssociation.addAll(Arrays.asList(pBooleanCodeAssociation));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets association {@link #shortCodeTypeAssociation}.<br/>
+     *
+     * @param pShortCodeTypeAssociation Collection to which {@link #shortCodeTypeAssociation} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setShortCodeTypeAssociation( Set<ShortCodeType> pShortCodeTypeAssociation ) {
       // To ensure immutability we have to copy the content of the passed collection.
@@ -204,9 +202,27 @@ public class CodeTypeUsageTest implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "stringCode".
-     * 
-     * @param pStringCode Value to which the attribute "stringCode" should be set.
+     * Method adds the passed objects to association {@link #shortCodeTypeAssociation}.<br/>
+     *
+     * @param pShortCodeTypeAssociation Array of objects that should be added to {@link #shortCodeTypeAssociation}. The
+     * parameter may be null.
+     * @return {@link Builder} Instance of this builder to support chaining. Method never returns null.
+     */
+    public Builder addToShortCodeTypeAssociation( ShortCodeType... pShortCodeTypeAssociation ) {
+      if (pShortCodeTypeAssociation != null) {
+        if (shortCodeTypeAssociation == null) {
+          shortCodeTypeAssociation = new HashSet<ShortCodeType>();
+        }
+        shortCodeTypeAssociation.addAll(Arrays.asList(pShortCodeTypeAssociation));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets attribute {@link #stringCode}.<br/>
+     *
+     * @param pStringCode Value to which {@link #stringCode} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setStringCode( StringCodeType pStringCode ) {
       // Assign value to attribute
@@ -215,9 +231,20 @@ public class CodeTypeUsageTest implements ServiceObject {
     }
 
     /**
+     * Method sets association {@link #shortCode}.<br/>
+     *
+     * @param pShortCode Value to which {@link #shortCode} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public Builder setShortCode( ShortCode pShortCode ) {
+      shortCode = pShortCode;
+      return this;
+    }
+
+    /**
      * Method creates a new instance of class CodeTypeUsageTest. The object will be initialized with the values of the
      * builder.
-     * 
+     *
      * @return CodeTypeUsageTest Created object. The method never returns null.
      */
     public CodeTypeUsageTest build( ) {
@@ -227,32 +254,30 @@ public class CodeTypeUsageTest implements ServiceObject {
     /**
      * Method creates a new validated instance of class CodeTypeUsageTest. The object will be initialized with the
      * values of the builder and validated afterwards.
-     * 
+     *
      * @return CodeTypeUsageTest Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public CodeTypeUsageTest buildValidated( ) throws ConstraintViolationException {
-      CodeTypeUsageTest lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      CodeTypeUsageTest lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "booleanCode".
-   * 
-   * 
-   * @return BooleanCodeType Value to which the attribute "booleanCode" is set.
+   * Method returns attribute {@link #booleanCode}.<br/>
+   *
+   * @return {@link BooleanCodeType} Value to which {@link #booleanCode} is set.
    */
   public BooleanCodeType getBooleanCode( ) {
     return booleanCode;
   }
 
   /**
-   * Method sets the attribute "booleanCode".
-   * 
-   * 
-   * @param pBooleanCode Value to which the attribute "booleanCode" should be set.
+   * Method sets attribute {@link #booleanCode}.<br/>
+   *
+   * @param pBooleanCode Value to which {@link #booleanCode} should be set.
    */
   public void setBooleanCode( BooleanCodeType pBooleanCode ) {
     // Assign value to attribute
@@ -260,11 +285,10 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method returns the association "booleanCodeAssociation".
-   * 
+   * Method returns association {@link #booleanCodeAssociation}.<br/>
    *
-   * @return Collection All BooleanCodeType objects that belong to the association "booleanCodeAssociation". The method
-   * never returns null and the returned collection is unmodifiable.
+   * @return {@link Set<BooleanCodeType>} Value to which {@link #booleanCodeAssociation} is set. The method never
+   * returns null and the returned collection is unmodifiable.
    */
   public Set<BooleanCodeType> getBooleanCodeAssociation( ) {
     // Return all BooleanCodeType objects as unmodifiable collection.
@@ -272,29 +296,10 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method sets the association "booleanCodeAssociation" to the passed collection. All objects that formerly were part
-   * of the association will be removed from it.
-   * 
-   * 
-   * @param pBooleanCodeAssociation Collection with objects to which the association should be set. The parameter must
+   * Method adds the passed object to {@link #booleanCodeAssociation}.
+   *
+   * @param pBooleanCodeAssociation Object that should be added to {@link #booleanCodeAssociation}. The parameter must
    * not be null.
-   */
-  void setBooleanCodeAssociation( Set<BooleanCodeType> pBooleanCodeAssociation ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "booleanCodeAssociation".
-    this.clearBooleanCodeAssociation();
-    // If the association is null, removing all entries is sufficient.
-    if (pBooleanCodeAssociation != null) {
-      booleanCodeAssociation = new HashSet<BooleanCodeType>(pBooleanCodeAssociation);
-    }
-  }
-
-  /**
-   * Method adds the passed BooleanCodeType object to the association "booleanCodeAssociation".
-   * 
-   * 
-   * @param pBooleanCodeAssociation Object that should be added to the association "booleanCodeAssociation". The
-   * parameter must not be null.
    */
   public void addToBooleanCodeAssociation( BooleanCodeType pBooleanCodeAssociation ) {
     // Check parameter "pBooleanCodeAssociation" for invalid value null.
@@ -304,11 +309,10 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method adds all passed objects to the association "booleanCodeAssociation".
-   * 
-   * 
-   * @param pBooleanCodeAssociation Collection with all objects that should be added to the association
-   * "booleanCodeAssociation". The parameter must not be null.
+   * Method adds all passed objects to {@link #booleanCodeAssociation}.
+   *
+   * @param pBooleanCodeAssociation Collection with all objects that should be added to {@link #booleanCodeAssociation}.
+   * The parameter must not be null.
    */
   public void addToBooleanCodeAssociation( Collection<BooleanCodeType> pBooleanCodeAssociation ) {
     // Check parameter "pBooleanCodeAssociation" for invalid value null.
@@ -320,11 +324,10 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method removes the passed BooleanCodeType object from the association "booleanCodeAssociation".
-   * 
-   * 
-   * @param pBooleanCodeAssociation Object that should be removed from the association "booleanCodeAssociation". The
-   * parameter must not be null.
+   * Method removes the passed object from {@link #booleanCodeAssociation}.<br/>
+   *
+   * @param pBooleanCodeAssociation Object that should be removed from {@link #booleanCodeAssociation}. The parameter
+   * must not be null.
    */
   public void removeFromBooleanCodeAssociation( BooleanCodeType pBooleanCodeAssociation ) {
     // Check parameter for invalid value null.
@@ -334,24 +337,18 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method removes all objects from the association "booleanCodeAssociation".
-   * 
+   * Method removes all objects from {@link #booleanCodeAssociation}.
    */
   public void clearBooleanCodeAssociation( ) {
     // Remove all objects from association "booleanCodeAssociation".
-    Collection<BooleanCodeType> lBooleanCodeAssociation = new HashSet<BooleanCodeType>(booleanCodeAssociation);
-    Iterator<BooleanCodeType> lIterator = lBooleanCodeAssociation.iterator();
-    while (lIterator.hasNext()) {
-      this.removeFromBooleanCodeAssociation(lIterator.next());
-    }
+    booleanCodeAssociation.clear();
   }
 
   /**
-   * Method returns the association "shortCodeTypeAssociation".
-   * 
+   * Method returns association {@link #shortCodeTypeAssociation}.<br/>
    *
-   * @return Collection All ShortCodeType objects that belong to the association "shortCodeTypeAssociation". The method
-   * never returns null and the returned collection is unmodifiable.
+   * @return {@link Set<ShortCodeType>} Value to which {@link #shortCodeTypeAssociation} is set. The method never
+   * returns null and the returned collection is unmodifiable.
    */
   public Set<ShortCodeType> getShortCodeTypeAssociation( ) {
     // Return all ShortCodeType objects as unmodifiable collection.
@@ -359,29 +356,10 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method sets the association "shortCodeTypeAssociation" to the passed collection. All objects that formerly were
-   * part of the association will be removed from it.
-   * 
-   * 
-   * @param pShortCodeTypeAssociation Collection with objects to which the association should be set. The parameter must
-   * not be null.
-   */
-  void setShortCodeTypeAssociation( Set<ShortCodeType> pShortCodeTypeAssociation ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "shortCodeTypeAssociation".
-    this.clearShortCodeTypeAssociation();
-    // If the association is null, removing all entries is sufficient.
-    if (pShortCodeTypeAssociation != null) {
-      shortCodeTypeAssociation = new HashSet<ShortCodeType>(pShortCodeTypeAssociation);
-    }
-  }
-
-  /**
-   * Method adds the passed ShortCodeType object to the association "shortCodeTypeAssociation".
-   * 
-   * 
-   * @param pShortCodeTypeAssociation Object that should be added to the association "shortCodeTypeAssociation". The
-   * parameter must not be null.
+   * Method adds the passed object to {@link #shortCodeTypeAssociation}.
+   *
+   * @param pShortCodeTypeAssociation Object that should be added to {@link #shortCodeTypeAssociation}. The parameter
+   * must not be null.
    */
   public void addToShortCodeTypeAssociation( ShortCodeType pShortCodeTypeAssociation ) {
     // Check parameter "pShortCodeTypeAssociation" for invalid value null.
@@ -391,11 +369,10 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method adds all passed objects to the association "shortCodeTypeAssociation".
-   * 
-   * 
-   * @param pShortCodeTypeAssociation Collection with all objects that should be added to the association
-   * "shortCodeTypeAssociation". The parameter must not be null.
+   * Method adds all passed objects to {@link #shortCodeTypeAssociation}.
+   *
+   * @param pShortCodeTypeAssociation Collection with all objects that should be added to
+   * {@link #shortCodeTypeAssociation}. The parameter must not be null.
    */
   public void addToShortCodeTypeAssociation( Collection<ShortCodeType> pShortCodeTypeAssociation ) {
     // Check parameter "pShortCodeTypeAssociation" for invalid value null.
@@ -407,10 +384,9 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method removes the passed ShortCodeType object from the association "shortCodeTypeAssociation".
-   * 
-   * 
-   * @param pShortCodeTypeAssociation Object that should be removed from the association "shortCodeTypeAssociation". The
+   * Method removes the passed object from {@link #shortCodeTypeAssociation}.<br/>
+   *
+   * @param pShortCodeTypeAssociation Object that should be removed from {@link #shortCodeTypeAssociation}. The
    * parameter must not be null.
    */
   public void removeFromShortCodeTypeAssociation( ShortCodeType pShortCodeTypeAssociation ) {
@@ -421,33 +397,26 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method removes all objects from the association "shortCodeTypeAssociation".
-   * 
+   * Method removes all objects from {@link #shortCodeTypeAssociation}.
    */
   public void clearShortCodeTypeAssociation( ) {
     // Remove all objects from association "shortCodeTypeAssociation".
-    Collection<ShortCodeType> lShortCodeTypeAssociation = new HashSet<ShortCodeType>(shortCodeTypeAssociation);
-    Iterator<ShortCodeType> lIterator = lShortCodeTypeAssociation.iterator();
-    while (lIterator.hasNext()) {
-      this.removeFromShortCodeTypeAssociation(lIterator.next());
-    }
+    shortCodeTypeAssociation.clear();
   }
 
   /**
-   * Method returns the attribute "stringCode".
-   * 
-   * 
-   * @return StringCodeType Value to which the attribute "stringCode" is set.
+   * Method returns attribute {@link #stringCode}.<br/>
+   *
+   * @return {@link StringCodeType} Value to which {@link #stringCode} is set.
    */
   public StringCodeType getStringCode( ) {
     return stringCode;
   }
 
   /**
-   * Method sets the attribute "stringCode".
-   * 
-   * 
-   * @param pStringCode Value to which the attribute "stringCode" should be set.
+   * Method sets attribute {@link #stringCode}.<br/>
+   *
+   * @param pStringCode Value to which {@link #stringCode} should be set.
    */
   public void setStringCode( StringCodeType pStringCode ) {
     // Assign value to attribute
@@ -455,34 +424,70 @@ public class CodeTypeUsageTest implements ServiceObject {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns association {@link #shortCode}.<br/>
+   *
+   * @return {@link ShortCode} Value to which {@link #shortCode} is set.
+   */
+  public ShortCode getShortCode( ) {
+    return shortCode;
+  }
+
+  /**
+   * Method sets association {@link #shortCode}.<br/>
+   *
+   * @param pShortCode Value to which {@link #shortCode} should be set.
+   */
+  public void setShortCode( ShortCode pShortCode ) {
+    shortCode = pShortCode;
+  }
+
+  /**
+   * Method unsets {@link #shortCode}.
+   */
+  public final void unsetShortCode( ) {
+    shortCode = null;
+  }
+
+  /**
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder
-        .append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "booleanCode", "" + booleanCode));
-    lBuilder.append('\n');
-    lBuilder
-        .append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "stringCode", "" + stringCode));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("booleanCode: ");
+    lBuilder.append(booleanCode);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("stringCode: ");
+    lBuilder.append(stringCode);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new CodeTypeUsageTest objects. The method never
+   * returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
@@ -14,14 +14,8 @@ import javax.validation.constraints.Size;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   /**
    * Default serial version uid.
@@ -138,130 +132,63 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
    */
   public static final String BSTRINGARRAY = "bStringArray";
 
-  /**
-   * 
-   */
   private boolean[] aBooleanArray;
 
-  /**
-   * 
-   */
   private Boolean[] bBooleanArray;
 
-  /**
-   * 
-   */
   private boolean[] cBooleanArray;
 
-  /**
-   * 
-   */
   @Size(min = 0, max = 32768)
   private byte[] aByteArray;
 
-  /**
-   * 
-   */
   private Byte[] bByteArray;
 
-  /**
-   * 
-   */
   private short[] aShortArray;
 
-  /**
-   * 
-   */
   private Short[] bShortArray;
 
-  /**
-   * 
-   */
   private int[] aIntegerArray;
 
-  /**
-   * 
-   */
   private Integer[] bIntegerArray;
 
-  /**
-   * 
-   */
   private Integer[] cIntegerArray;
 
-  /**
-   * 
-   */
   @NotEmpty
   private long[] aLongArray;
 
-  /**
-   * 
-   */
   private Long[] bLongArray;
 
-  /**
-   * 
-   */
   private BigInteger[] aBigIntegerArray;
 
-  /**
-   * 
-   */
   private char[] aCharacterArray;
 
-  /**
-   * 
-   */
   private Character[] bCharacterArray;
 
-  /**
-   * 
-   */
   private float[] aFloatArray;
 
-  /**
-   * 
-   */
   private Float[] bFloatArray;
 
-  /**
-   * 
-   */
   @Size(min = 4, max = 12)
   private double[] aDoubleArray;
 
-  /**
-   * 
-   */
   private Double[] bDoubleArray;
 
-  /**
-   * 
-   */
   private BigDecimal[] aBigDecimalArray;
 
-  /**
-   * 
-   */
   private String[] aStringArray;
 
-  /**
-   * 
-   */
   private String[] bStringArray;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected PrimitiveArraysObjectWithRestrictions( ) {
-    // Nothing to do.
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected PrimitiveArraysObjectWithRestrictions( Builder pBuilder ) {
@@ -293,186 +220,108 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Class implements builder to create a new instance of class PrimitiveArraysObjectWithRestrictions. As the class has
-   * read only attributes or associations instances can not be created directly. Instead this builder class has to be
-   * used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new PrimitiveArraysObjectWithRestrictions objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>PrimitiveArraysObjectWithRestrictions</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private boolean[] aBooleanArray;
 
-    /**
-     * 
-     */
     private Boolean[] bBooleanArray;
 
-    /**
-     * 
-     */
     private boolean[] cBooleanArray;
 
-    /**
-     * 
-     */
     @Size(min = 0, max = 32768)
     private byte[] aByteArray;
 
-    /**
-     * 
-     */
     private Byte[] bByteArray;
 
-    /**
-     * 
-     */
     private short[] aShortArray;
 
-    /**
-     * 
-     */
     private Short[] bShortArray;
 
-    /**
-     * 
-     */
     private int[] aIntegerArray;
 
-    /**
-     * 
-     */
     private Integer[] bIntegerArray;
 
-    /**
-     * 
-     */
     private Integer[] cIntegerArray;
 
-    /**
-     * 
-     */
     @NotEmpty
     private long[] aLongArray;
 
-    /**
-     * 
-     */
     private Long[] bLongArray;
 
-    /**
-     * 
-     */
     private BigInteger[] aBigIntegerArray;
 
-    /**
-     * 
-     */
     private char[] aCharacterArray;
 
-    /**
-     * 
-     */
     private Character[] bCharacterArray;
 
-    /**
-     * 
-     */
     private float[] aFloatArray;
 
-    /**
-     * 
-     */
     private Float[] bFloatArray;
 
-    /**
-     * 
-     */
     @Size(min = 4, max = 12)
     private double[] aDoubleArray;
 
-    /**
-     * 
-     */
     private Double[] bDoubleArray;
 
-    /**
-     * 
-     */
     private BigDecimal[] aBigDecimalArray;
 
-    /**
-     * 
-     */
     private String[] aStringArray;
 
-    /**
-     * 
-     */
     private String[] bStringArray;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link PrimitiveArraysObjectWithRestrictions#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(PrimitiveArraysObjectWithRestrictions)} instead of private constructor to create new
-     * builder.
+     * Use {@link PrimitiveArraysObjectWithRestrictions#builder(PrimitiveArraysObjectWithRestrictions)} instead of
+     * private constructor to create new builder.
      */
     protected Builder( PrimitiveArraysObjectWithRestrictions pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        aBooleanArray = pObject.aBooleanArray;
-        bBooleanArray = pObject.bBooleanArray;
-        cBooleanArray = pObject.cBooleanArray;
-        aByteArray = pObject.aByteArray;
-        bByteArray = pObject.bByteArray;
-        aShortArray = pObject.aShortArray;
-        bShortArray = pObject.bShortArray;
-        aIntegerArray = pObject.aIntegerArray;
-        bIntegerArray = pObject.bIntegerArray;
-        cIntegerArray = pObject.cIntegerArray;
-        aLongArray = pObject.aLongArray;
-        bLongArray = pObject.bLongArray;
-        aBigIntegerArray = pObject.aBigIntegerArray;
-        aCharacterArray = pObject.aCharacterArray;
-        bCharacterArray = pObject.bCharacterArray;
-        aFloatArray = pObject.aFloatArray;
-        bFloatArray = pObject.bFloatArray;
-        aDoubleArray = pObject.aDoubleArray;
-        bDoubleArray = pObject.bDoubleArray;
-        aBigDecimalArray = pObject.aBigDecimalArray;
-        aStringArray = pObject.aStringArray;
-        bStringArray = pObject.bStringArray;
+        this.setABooleanArray(pObject.aBooleanArray);
+        this.setBBooleanArray(pObject.bBooleanArray);
+        this.setCBooleanArray(pObject.cBooleanArray);
+        this.setAByteArray(pObject.aByteArray);
+        this.setBByteArray(pObject.bByteArray);
+        this.setAShortArray(pObject.aShortArray);
+        this.setBShortArray(pObject.bShortArray);
+        this.setAIntegerArray(pObject.aIntegerArray);
+        this.setBIntegerArray(pObject.bIntegerArray);
+        this.setCIntegerArray(pObject.cIntegerArray);
+        this.setALongArray(pObject.aLongArray);
+        this.setBLongArray(pObject.bLongArray);
+        this.setABigIntegerArray(pObject.aBigIntegerArray);
+        this.setACharacterArray(pObject.aCharacterArray);
+        this.setBCharacterArray(pObject.bCharacterArray);
+        this.setAFloatArray(pObject.aFloatArray);
+        this.setBFloatArray(pObject.bFloatArray);
+        this.setADoubleArray(pObject.aDoubleArray);
+        this.setBDoubleArray(pObject.bDoubleArray);
+        this.setABigDecimalArray(pObject.aBigDecimalArray);
+        this.setAStringArray(pObject.aStringArray);
+        this.setBStringArray(pObject.bStringArray);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new PrimitiveArraysObjectWithRestrictions objects.
-     * The method never returns null.
-     */
-    public static Builder newBuilder( PrimitiveArraysObjectWithRestrictions pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "aBooleanArray".
-     * 
-     * @param pABooleanArray Value to which the attribute "aBooleanArray" should be set.
+     * Method sets attribute {@link #aBooleanArray}.<br/>
+     *
+     * @param pABooleanArray Value to which {@link #aBooleanArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setABooleanArray( boolean[] pABooleanArray ) {
       // Assign value to attribute
@@ -487,9 +336,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bBooleanArray".
-     * 
-     * @param pBBooleanArray Value to which the attribute "bBooleanArray" should be set.
+     * Method sets attribute {@link #bBooleanArray}.<br/>
+     *
+     * @param pBBooleanArray Collection to which {@link #bBooleanArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBBooleanArray( Boolean[] pBBooleanArray ) {
       // Assign value to attribute
@@ -504,9 +354,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "cBooleanArray".
-     * 
-     * @param pCBooleanArray Value to which the attribute "cBooleanArray" should be set.
+     * Method sets attribute {@link #cBooleanArray}.<br/>
+     *
+     * @param pCBooleanArray Value to which {@link #cBooleanArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setCBooleanArray( boolean[] pCBooleanArray ) {
       // Assign value to attribute
@@ -521,9 +372,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aByteArray".
-     * 
-     * @param pAByteArray Value to which the attribute "aByteArray" should be set.
+     * Method sets attribute {@link #aByteArray}.<br/>
+     *
+     * @param pAByteArray Value to which {@link #aByteArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAByteArray( byte[] pAByteArray ) {
       // Assign value to attribute
@@ -538,9 +390,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bByteArray".
-     * 
-     * @param pBByteArray Value to which the attribute "bByteArray" should be set.
+     * Method sets attribute {@link #bByteArray}.<br/>
+     *
+     * @param pBByteArray Collection to which {@link #bByteArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBByteArray( Byte[] pBByteArray ) {
       // Assign value to attribute
@@ -555,9 +408,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aShortArray".
-     * 
-     * @param pAShortArray Value to which the attribute "aShortArray" should be set.
+     * Method sets attribute {@link #aShortArray}.<br/>
+     *
+     * @param pAShortArray Value to which {@link #aShortArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAShortArray( short[] pAShortArray ) {
       // Assign value to attribute
@@ -572,9 +426,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bShortArray".
-     * 
-     * @param pBShortArray Value to which the attribute "bShortArray" should be set.
+     * Method sets attribute {@link #bShortArray}.<br/>
+     *
+     * @param pBShortArray Collection to which {@link #bShortArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBShortArray( Short[] pBShortArray ) {
       // Assign value to attribute
@@ -589,9 +444,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aIntegerArray".
-     * 
-     * @param pAIntegerArray Value to which the attribute "aIntegerArray" should be set.
+     * Method sets attribute {@link #aIntegerArray}.<br/>
+     *
+     * @param pAIntegerArray Value to which {@link #aIntegerArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAIntegerArray( int[] pAIntegerArray ) {
       // Assign value to attribute
@@ -606,9 +462,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bIntegerArray".
-     * 
-     * @param pBIntegerArray Value to which the attribute "bIntegerArray" should be set.
+     * Method sets attribute {@link #bIntegerArray}.<br/>
+     *
+     * @param pBIntegerArray Collection to which {@link #bIntegerArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBIntegerArray( Integer[] pBIntegerArray ) {
       // Assign value to attribute
@@ -623,9 +480,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "cIntegerArray".
-     * 
-     * @param pCIntegerArray Value to which the attribute "cIntegerArray" should be set.
+     * Method sets attribute {@link #cIntegerArray}.<br/>
+     *
+     * @param pCIntegerArray Collection to which {@link #cIntegerArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setCIntegerArray( Integer[] pCIntegerArray ) {
       // Assign value to attribute
@@ -640,9 +498,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aLongArray".
-     * 
-     * @param pALongArray Value to which the attribute "aLongArray" should be set.
+     * Method sets attribute {@link #aLongArray}.<br/>
+     *
+     * @param pALongArray Value to which {@link #aLongArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setALongArray( long[] pALongArray ) {
       // Assign value to attribute
@@ -657,9 +516,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bLongArray".
-     * 
-     * @param pBLongArray Value to which the attribute "bLongArray" should be set.
+     * Method sets attribute {@link #bLongArray}.<br/>
+     *
+     * @param pBLongArray Collection to which {@link #bLongArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBLongArray( Long[] pBLongArray ) {
       // Assign value to attribute
@@ -674,9 +534,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aBigIntegerArray".
-     * 
-     * @param pABigIntegerArray Value to which the attribute "aBigIntegerArray" should be set.
+     * Method sets attribute {@link #aBigIntegerArray}.<br/>
+     *
+     * @param pABigIntegerArray Collection to which {@link #aBigIntegerArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setABigIntegerArray( BigInteger[] pABigIntegerArray ) {
       // Assign value to attribute
@@ -691,9 +552,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aCharacterArray".
-     * 
-     * @param pACharacterArray Value to which the attribute "aCharacterArray" should be set.
+     * Method sets attribute {@link #aCharacterArray}.<br/>
+     *
+     * @param pACharacterArray Value to which {@link #aCharacterArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setACharacterArray( char[] pACharacterArray ) {
       // Assign value to attribute
@@ -708,9 +570,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bCharacterArray".
-     * 
-     * @param pBCharacterArray Value to which the attribute "bCharacterArray" should be set.
+     * Method sets attribute {@link #bCharacterArray}.<br/>
+     *
+     * @param pBCharacterArray Collection to which {@link #bCharacterArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBCharacterArray( Character[] pBCharacterArray ) {
       // Assign value to attribute
@@ -725,9 +588,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aFloatArray".
-     * 
-     * @param pAFloatArray Value to which the attribute "aFloatArray" should be set.
+     * Method sets attribute {@link #aFloatArray}.<br/>
+     *
+     * @param pAFloatArray Value to which {@link #aFloatArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAFloatArray( float[] pAFloatArray ) {
       // Assign value to attribute
@@ -742,9 +606,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bFloatArray".
-     * 
-     * @param pBFloatArray Value to which the attribute "bFloatArray" should be set.
+     * Method sets attribute {@link #bFloatArray}.<br/>
+     *
+     * @param pBFloatArray Collection to which {@link #bFloatArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBFloatArray( Float[] pBFloatArray ) {
       // Assign value to attribute
@@ -759,9 +624,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aDoubleArray".
-     * 
-     * @param pADoubleArray Value to which the attribute "aDoubleArray" should be set.
+     * Method sets attribute {@link #aDoubleArray}.<br/>
+     *
+     * @param pADoubleArray Value to which {@link #aDoubleArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setADoubleArray( double[] pADoubleArray ) {
       // Assign value to attribute
@@ -776,9 +642,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bDoubleArray".
-     * 
-     * @param pBDoubleArray Value to which the attribute "bDoubleArray" should be set.
+     * Method sets attribute {@link #bDoubleArray}.<br/>
+     *
+     * @param pBDoubleArray Collection to which {@link #bDoubleArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBDoubleArray( Double[] pBDoubleArray ) {
       // Assign value to attribute
@@ -793,9 +660,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aBigDecimalArray".
-     * 
-     * @param pABigDecimalArray Value to which the attribute "aBigDecimalArray" should be set.
+     * Method sets attribute {@link #aBigDecimalArray}.<br/>
+     *
+     * @param pABigDecimalArray Collection to which {@link #aBigDecimalArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setABigDecimalArray( BigDecimal[] pABigDecimalArray ) {
       // Assign value to attribute
@@ -810,9 +678,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aStringArray".
-     * 
-     * @param pAStringArray Value to which the attribute "aStringArray" should be set.
+     * Method sets attribute {@link #aStringArray}.<br/>
+     *
+     * @param pAStringArray Collection to which {@link #aStringArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAStringArray( String[] pAStringArray ) {
       // Assign value to attribute
@@ -827,9 +696,10 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "bStringArray".
-     * 
-     * @param pBStringArray Value to which the attribute "bStringArray" should be set.
+     * Method sets attribute {@link #bStringArray}.<br/>
+     *
+     * @param pBStringArray Collection to which {@link #bStringArray} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setBStringArray( String[] pBStringArray ) {
       // Assign value to attribute
@@ -846,7 +716,7 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     /**
      * Method creates a new instance of class PrimitiveArraysObjectWithRestrictions. The object will be initialized with
      * the values of the builder.
-     * 
+     *
      * @return PrimitiveArraysObjectWithRestrictions Created object. The method never returns null.
      */
     public PrimitiveArraysObjectWithRestrictions build( ) {
@@ -856,22 +726,21 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
     /**
      * Method creates a new validated instance of class PrimitiveArraysObjectWithRestrictions. The object will be
      * initialized with the values of the builder and validated afterwards.
-     * 
+     *
      * @return PrimitiveArraysObjectWithRestrictions Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public PrimitiveArraysObjectWithRestrictions buildValidated( ) throws ConstraintViolationException {
-      PrimitiveArraysObjectWithRestrictions lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      PrimitiveArraysObjectWithRestrictions lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "aBooleanArray".
-   * 
-   * 
-   * @return Boolean Value to which the attribute "aBooleanArray" is set.
+   * Method returns attribute {@link #aBooleanArray}.<br/>
+   *
+   * @return boolean[] Value to which {@link #aBooleanArray} is set.
    */
   public boolean[] getABooleanArray( ) {
     boolean[] lReturnValue;
@@ -886,10 +755,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aBooleanArray".
-   * 
-   * 
-   * @param pABooleanArray Value to which the attribute "aBooleanArray" should be set.
+   * Method sets attribute {@link #aBooleanArray}.<br/>
+   *
+   * @param pABooleanArray Value to which {@link #aBooleanArray} should be set.
    */
   public void setABooleanArray( boolean[] pABooleanArray ) {
     // Assign value to attribute
@@ -903,10 +771,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bBooleanArray".
-   * 
-   * 
-   * @return Boolean Value to which the attribute "bBooleanArray" is set.
+   * Method returns attribute {@link #bBooleanArray}.<br/>
+   *
+   * @return {@link Boolean[]} Value to which {@link #bBooleanArray} is set.
    */
   public Boolean[] getBBooleanArray( ) {
     Boolean[] lReturnValue;
@@ -921,10 +788,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bBooleanArray".
-   * 
-   * 
-   * @param pBBooleanArray Value to which the attribute "bBooleanArray" should be set.
+   * Method sets attribute {@link #bBooleanArray}.<br/>
+   *
+   * @param pBBooleanArray Value to which {@link #bBooleanArray} should be set.
    */
   public void setBBooleanArray( Boolean[] pBBooleanArray ) {
     // Assign value to attribute
@@ -938,10 +804,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "cBooleanArray".
-   * 
-   * 
-   * @return Boolean Value to which the attribute "cBooleanArray" is set.
+   * Method returns attribute {@link #cBooleanArray}.<br/>
+   *
+   * @return boolean[] Value to which {@link #cBooleanArray} is set.
    */
   public boolean[] getCBooleanArray( ) {
     boolean[] lReturnValue;
@@ -956,10 +821,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "cBooleanArray".
-   * 
-   * 
-   * @param pCBooleanArray Value to which the attribute "cBooleanArray" should be set.
+   * Method sets attribute {@link #cBooleanArray}.<br/>
+   *
+   * @param pCBooleanArray Value to which {@link #cBooleanArray} should be set.
    */
   public void setCBooleanArray( boolean[] pCBooleanArray ) {
     // Assign value to attribute
@@ -973,10 +837,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aByteArray".
-   * 
-   * 
-   * @return byte Value to which the attribute "aByteArray" is set.
+   * Method returns attribute {@link #aByteArray}.<br/>
+   *
+   * @return byte[] Value to which {@link #aByteArray} is set.
    */
   public byte[] getAByteArray( ) {
     byte[] lReturnValue;
@@ -991,10 +854,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aByteArray".
-   * 
-   * 
-   * @param pAByteArray Value to which the attribute "aByteArray" should be set.
+   * Method sets attribute {@link #aByteArray}.<br/>
+   *
+   * @param pAByteArray Value to which {@link #aByteArray} should be set.
    */
   public void setAByteArray( byte[] pAByteArray ) {
     // Assign value to attribute
@@ -1008,10 +870,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bByteArray".
-   * 
-   * 
-   * @return Byte Value to which the attribute "bByteArray" is set.
+   * Method returns attribute {@link #bByteArray}.<br/>
+   *
+   * @return {@link Byte[]} Value to which {@link #bByteArray} is set.
    */
   public Byte[] getBByteArray( ) {
     Byte[] lReturnValue;
@@ -1026,10 +887,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bByteArray".
-   * 
-   * 
-   * @param pBByteArray Value to which the attribute "bByteArray" should be set.
+   * Method sets attribute {@link #bByteArray}.<br/>
+   *
+   * @param pBByteArray Value to which {@link #bByteArray} should be set.
    */
   public void setBByteArray( Byte[] pBByteArray ) {
     // Assign value to attribute
@@ -1043,10 +903,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aShortArray".
-   * 
-   * 
-   * @return short Value to which the attribute "aShortArray" is set.
+   * Method returns attribute {@link #aShortArray}.<br/>
+   *
+   * @return short[] Value to which {@link #aShortArray} is set.
    */
   public short[] getAShortArray( ) {
     short[] lReturnValue;
@@ -1061,10 +920,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aShortArray".
-   * 
-   * 
-   * @param pAShortArray Value to which the attribute "aShortArray" should be set.
+   * Method sets attribute {@link #aShortArray}.<br/>
+   *
+   * @param pAShortArray Value to which {@link #aShortArray} should be set.
    */
   public void setAShortArray( short[] pAShortArray ) {
     // Assign value to attribute
@@ -1078,10 +936,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bShortArray".
-   * 
-   * 
-   * @return Short Value to which the attribute "bShortArray" is set.
+   * Method returns attribute {@link #bShortArray}.<br/>
+   *
+   * @return {@link Short[]} Value to which {@link #bShortArray} is set.
    */
   public Short[] getBShortArray( ) {
     Short[] lReturnValue;
@@ -1096,10 +953,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bShortArray".
-   * 
-   * 
-   * @param pBShortArray Value to which the attribute "bShortArray" should be set.
+   * Method sets attribute {@link #bShortArray}.<br/>
+   *
+   * @param pBShortArray Value to which {@link #bShortArray} should be set.
    */
   public void setBShortArray( Short[] pBShortArray ) {
     // Assign value to attribute
@@ -1113,10 +969,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aIntegerArray".
-   * 
-   * 
-   * @return int Value to which the attribute "aIntegerArray" is set.
+   * Method returns attribute {@link #aIntegerArray}.<br/>
+   *
+   * @return int[] Value to which {@link #aIntegerArray} is set.
    */
   public int[] getAIntegerArray( ) {
     int[] lReturnValue;
@@ -1131,10 +986,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aIntegerArray".
-   * 
-   * 
-   * @param pAIntegerArray Value to which the attribute "aIntegerArray" should be set.
+   * Method sets attribute {@link #aIntegerArray}.<br/>
+   *
+   * @param pAIntegerArray Value to which {@link #aIntegerArray} should be set.
    */
   public void setAIntegerArray( int[] pAIntegerArray ) {
     // Assign value to attribute
@@ -1148,10 +1002,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bIntegerArray".
-   * 
-   * 
-   * @return Integer Value to which the attribute "bIntegerArray" is set.
+   * Method returns attribute {@link #bIntegerArray}.<br/>
+   *
+   * @return {@link Integer[]} Value to which {@link #bIntegerArray} is set.
    */
   public Integer[] getBIntegerArray( ) {
     Integer[] lReturnValue;
@@ -1166,10 +1019,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bIntegerArray".
-   * 
-   * 
-   * @param pBIntegerArray Value to which the attribute "bIntegerArray" should be set.
+   * Method sets attribute {@link #bIntegerArray}.<br/>
+   *
+   * @param pBIntegerArray Value to which {@link #bIntegerArray} should be set.
    */
   public void setBIntegerArray( Integer[] pBIntegerArray ) {
     // Assign value to attribute
@@ -1183,10 +1035,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "cIntegerArray".
-   * 
-   * 
-   * @return Integer Value to which the attribute "cIntegerArray" is set.
+   * Method returns attribute {@link #cIntegerArray}.<br/>
+   *
+   * @return {@link Integer[]} Value to which {@link #cIntegerArray} is set.
    */
   public Integer[] getCIntegerArray( ) {
     Integer[] lReturnValue;
@@ -1201,10 +1052,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "cIntegerArray".
-   * 
-   * 
-   * @param pCIntegerArray Value to which the attribute "cIntegerArray" should be set.
+   * Method sets attribute {@link #cIntegerArray}.<br/>
+   *
+   * @param pCIntegerArray Value to which {@link #cIntegerArray} should be set.
    */
   public void setCIntegerArray( Integer[] pCIntegerArray ) {
     // Assign value to attribute
@@ -1218,10 +1068,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aLongArray".
-   * 
-   * 
-   * @return long Value to which the attribute "aLongArray" is set.
+   * Method returns attribute {@link #aLongArray}.<br/>
+   *
+   * @return long[] Value to which {@link #aLongArray} is set.
    */
   public long[] getALongArray( ) {
     long[] lReturnValue;
@@ -1236,10 +1085,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aLongArray".
-   * 
-   * 
-   * @param pALongArray Value to which the attribute "aLongArray" should be set.
+   * Method sets attribute {@link #aLongArray}.<br/>
+   *
+   * @param pALongArray Value to which {@link #aLongArray} should be set.
    */
   public void setALongArray( long[] pALongArray ) {
     // Assign value to attribute
@@ -1253,10 +1101,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bLongArray".
-   * 
-   * 
-   * @return Long Value to which the attribute "bLongArray" is set.
+   * Method returns attribute {@link #bLongArray}.<br/>
+   *
+   * @return {@link Long[]} Value to which {@link #bLongArray} is set.
    */
   public Long[] getBLongArray( ) {
     Long[] lReturnValue;
@@ -1271,10 +1118,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bLongArray".
-   * 
-   * 
-   * @param pBLongArray Value to which the attribute "bLongArray" should be set.
+   * Method sets attribute {@link #bLongArray}.<br/>
+   *
+   * @param pBLongArray Value to which {@link #bLongArray} should be set.
    */
   public void setBLongArray( Long[] pBLongArray ) {
     // Assign value to attribute
@@ -1288,10 +1134,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aBigIntegerArray".
-   * 
-   * 
-   * @return BigInteger Value to which the attribute "aBigIntegerArray" is set.
+   * Method returns attribute {@link #aBigIntegerArray}.<br/>
+   *
+   * @return {@link BigInteger[]} Value to which {@link #aBigIntegerArray} is set.
    */
   public BigInteger[] getABigIntegerArray( ) {
     BigInteger[] lReturnValue;
@@ -1306,10 +1151,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aBigIntegerArray".
-   * 
-   * 
-   * @param pABigIntegerArray Value to which the attribute "aBigIntegerArray" should be set.
+   * Method sets attribute {@link #aBigIntegerArray}.<br/>
+   *
+   * @param pABigIntegerArray Value to which {@link #aBigIntegerArray} should be set.
    */
   public void setABigIntegerArray( BigInteger[] pABigIntegerArray ) {
     // Assign value to attribute
@@ -1323,10 +1167,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aCharacterArray".
-   * 
-   * 
-   * @return char Value to which the attribute "aCharacterArray" is set.
+   * Method returns attribute {@link #aCharacterArray}.<br/>
+   *
+   * @return char[] Value to which {@link #aCharacterArray} is set.
    */
   public char[] getACharacterArray( ) {
     char[] lReturnValue;
@@ -1341,10 +1184,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aCharacterArray".
-   * 
-   * 
-   * @param pACharacterArray Value to which the attribute "aCharacterArray" should be set.
+   * Method sets attribute {@link #aCharacterArray}.<br/>
+   *
+   * @param pACharacterArray Value to which {@link #aCharacterArray} should be set.
    */
   public void setACharacterArray( char[] pACharacterArray ) {
     // Assign value to attribute
@@ -1358,10 +1200,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bCharacterArray".
-   * 
-   * 
-   * @return Character Value to which the attribute "bCharacterArray" is set.
+   * Method returns attribute {@link #bCharacterArray}.<br/>
+   *
+   * @return {@link Character[]} Value to which {@link #bCharacterArray} is set.
    */
   public Character[] getBCharacterArray( ) {
     Character[] lReturnValue;
@@ -1376,10 +1217,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bCharacterArray".
-   * 
-   * 
-   * @param pBCharacterArray Value to which the attribute "bCharacterArray" should be set.
+   * Method sets attribute {@link #bCharacterArray}.<br/>
+   *
+   * @param pBCharacterArray Value to which {@link #bCharacterArray} should be set.
    */
   public void setBCharacterArray( Character[] pBCharacterArray ) {
     // Assign value to attribute
@@ -1393,10 +1233,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aFloatArray".
-   * 
-   * 
-   * @return float Value to which the attribute "aFloatArray" is set.
+   * Method returns attribute {@link #aFloatArray}.<br/>
+   *
+   * @return float[] Value to which {@link #aFloatArray} is set.
    */
   public float[] getAFloatArray( ) {
     float[] lReturnValue;
@@ -1411,10 +1250,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aFloatArray".
-   * 
-   * 
-   * @param pAFloatArray Value to which the attribute "aFloatArray" should be set.
+   * Method sets attribute {@link #aFloatArray}.<br/>
+   *
+   * @param pAFloatArray Value to which {@link #aFloatArray} should be set.
    */
   public void setAFloatArray( float[] pAFloatArray ) {
     // Assign value to attribute
@@ -1428,10 +1266,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bFloatArray".
-   * 
-   * 
-   * @return Float Value to which the attribute "bFloatArray" is set.
+   * Method returns attribute {@link #bFloatArray}.<br/>
+   *
+   * @return {@link Float[]} Value to which {@link #bFloatArray} is set.
    */
   public Float[] getBFloatArray( ) {
     Float[] lReturnValue;
@@ -1446,10 +1283,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bFloatArray".
-   * 
-   * 
-   * @param pBFloatArray Value to which the attribute "bFloatArray" should be set.
+   * Method sets attribute {@link #bFloatArray}.<br/>
+   *
+   * @param pBFloatArray Value to which {@link #bFloatArray} should be set.
    */
   public void setBFloatArray( Float[] pBFloatArray ) {
     // Assign value to attribute
@@ -1463,10 +1299,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aDoubleArray".
-   * 
-   * 
-   * @return double Value to which the attribute "aDoubleArray" is set.
+   * Method returns attribute {@link #aDoubleArray}.<br/>
+   *
+   * @return double[] Value to which {@link #aDoubleArray} is set.
    */
   public double[] getADoubleArray( ) {
     double[] lReturnValue;
@@ -1481,10 +1316,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aDoubleArray".
-   * 
-   * 
-   * @param pADoubleArray Value to which the attribute "aDoubleArray" should be set.
+   * Method sets attribute {@link #aDoubleArray}.<br/>
+   *
+   * @param pADoubleArray Value to which {@link #aDoubleArray} should be set.
    */
   public void setADoubleArray( double[] pADoubleArray ) {
     // Assign value to attribute
@@ -1498,10 +1332,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bDoubleArray".
-   * 
-   * 
-   * @return Double Value to which the attribute "bDoubleArray" is set.
+   * Method returns attribute {@link #bDoubleArray}.<br/>
+   *
+   * @return {@link Double[]} Value to which {@link #bDoubleArray} is set.
    */
   public Double[] getBDoubleArray( ) {
     Double[] lReturnValue;
@@ -1516,10 +1349,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bDoubleArray".
-   * 
-   * 
-   * @param pBDoubleArray Value to which the attribute "bDoubleArray" should be set.
+   * Method sets attribute {@link #bDoubleArray}.<br/>
+   *
+   * @param pBDoubleArray Value to which {@link #bDoubleArray} should be set.
    */
   public void setBDoubleArray( Double[] pBDoubleArray ) {
     // Assign value to attribute
@@ -1533,10 +1365,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aBigDecimalArray".
-   * 
-   * 
-   * @return BigDecimal Value to which the attribute "aBigDecimalArray" is set.
+   * Method returns attribute {@link #aBigDecimalArray}.<br/>
+   *
+   * @return {@link BigDecimal[]} Value to which {@link #aBigDecimalArray} is set.
    */
   public BigDecimal[] getABigDecimalArray( ) {
     BigDecimal[] lReturnValue;
@@ -1551,10 +1382,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aBigDecimalArray".
-   * 
-   * 
-   * @param pABigDecimalArray Value to which the attribute "aBigDecimalArray" should be set.
+   * Method sets attribute {@link #aBigDecimalArray}.<br/>
+   *
+   * @param pABigDecimalArray Value to which {@link #aBigDecimalArray} should be set.
    */
   public void setABigDecimalArray( BigDecimal[] pABigDecimalArray ) {
     // Assign value to attribute
@@ -1568,10 +1398,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aStringArray".
-   * 
-   * 
-   * @return String Value to which the attribute "aStringArray" is set.
+   * Method returns attribute {@link #aStringArray}.<br/>
+   *
+   * @return {@link String[]} Value to which {@link #aStringArray} is set.
    */
   public String[] getAStringArray( ) {
     String[] lReturnValue;
@@ -1586,10 +1415,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "aStringArray".
-   * 
-   * 
-   * @param pAStringArray Value to which the attribute "aStringArray" should be set.
+   * Method sets attribute {@link #aStringArray}.<br/>
+   *
+   * @param pAStringArray Value to which {@link #aStringArray} should be set.
    */
   public void setAStringArray( String[] pAStringArray ) {
     // Assign value to attribute
@@ -1603,10 +1431,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "bStringArray".
-   * 
-   * 
-   * @return String Value to which the attribute "bStringArray" is set.
+   * Method returns attribute {@link #bStringArray}.<br/>
+   *
+   * @return {@link String[]} Value to which {@link #bStringArray} is set.
    */
   public String[] getBStringArray( ) {
     String[] lReturnValue;
@@ -1621,10 +1448,9 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method sets the attribute "bStringArray".
-   * 
-   * 
-   * @param pBStringArray Value to which the attribute "bStringArray" should be set.
+   * Method sets attribute {@link #bStringArray}.<br/>
+   *
+   * @param pBStringArray Value to which {@link #bStringArray} should be set.
    */
   public void setBStringArray( String[] pBStringArray ) {
     // Assign value to attribute
@@ -1638,28 +1464,37 @@ public class PrimitiveArraysObjectWithRestrictions implements ServiceObject {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new PrimitiveArraysObjectWithRestrictions objects.
+   * The method never returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

@@ -64,6 +64,7 @@
 						<package>com.anaptecs.jeaf.junit.openapi</package>
 						<package>com.anaptecs.jeaf.junit.otherpackage</package>
 						<package>com.anaptecs.jeaf.junit.tx</package>
+						<package>com.anaptecs.jeaf.junit.rest</package>
 						<package>TestProfile</package>
 					</packages>
 
@@ -73,6 +74,7 @@
 					<generateServiceProxies>true</generateServiceProxies>
 					<generateExceptionClasses>true</generateExceptionClasses>
 					<generateCustomConstraints>true</generateCustomConstraints>
+					<javaGenericSoftLinkType>java.lang.String</javaGenericSoftLinkType>
 
 					<!-- Define information that are written to file headers -->
 					<fileHeaderCompany>anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany</fileHeaderCompany>

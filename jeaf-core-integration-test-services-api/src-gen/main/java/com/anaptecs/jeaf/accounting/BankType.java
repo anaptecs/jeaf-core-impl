@@ -1,15 +1,23 @@
+/*
+ * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
+ *
+ * Copyright 2004 - 2019. All rights reserved.
+ */
 package com.anaptecs.jeaf.accounting;
 
-/**
- * 
- */
 public enum BankType {
   /**
-   * Enumeration literal for bank of type "Mutual Savings".
+   * Enumeration literal for bank of type &quot;Mutual Savings&quot;. <br/>
+   * <br/>
+   * <b>Attribute values:</b><br/>
+   * - <code>typeCode = "MS"</code><br/>
    */
   MUTUAL_SAVINGS("MS"),
   /**
-   * Enumeration literal for bank of type "Private Bank".
+   * Enumeration literal for bank of type &quot;Private Bank&quot;. <br/>
+   * <br/>
+   * <b>Attribute values:</b><br/>
+   * - <code>typeCode = "PB"</code><br/>
    */
   PRIVATE_BANK("PB");
 
@@ -20,16 +28,12 @@ public enum BankType {
     typeCode = pTypeCode;
   }
 
-  /**
-   * 
-   */
   private String typeCode;
 
   /**
-   * Method returns the attribute "typeCode".
-   * 
-   * 
-   * @return String Value to which the attribute "typeCode" is set.
+   * Method returns attribute {@link #typeCode}.<br/>
+   *
+   * @return {@link String} Value to which {@link #typeCode} is set.
    */
   public String getTypeCode( ) {
     return typeCode;

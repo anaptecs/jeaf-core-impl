@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -9,14 +9,8 @@ import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class SessionContextValues implements ServiceObject {
   /**
    * Default serial version uid.
@@ -33,27 +27,20 @@ public class SessionContextValues implements ServiceObject {
    */
   public static final String COUNTER = "counter";
 
-  /**
-   * 
-   */
   private String timestamp;
 
-  /**
-   * 
-   */
   private Integer counter;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected SessionContextValues( ) {
-    // Nothing to do.
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected SessionContextValues( Builder pBuilder ) {
@@ -65,61 +52,45 @@ public class SessionContextValues implements ServiceObject {
   }
 
   /**
-   * Class implements builder to create a new instance of class SessionContextValues. As the class has read only
-   * attributes or associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new SessionContextValues objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>SessionContextValues</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private String timestamp;
 
-    /**
-     * 
-     */
     private Integer counter;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link SessionContextValues#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(SessionContextValues)} instead of private constructor to create new builder.
+     * Use {@link SessionContextValues#builder(SessionContextValues)} instead of private constructor to create new
+     * builder.
      */
     protected Builder( SessionContextValues pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        timestamp = pObject.timestamp;
-        counter = pObject.counter;
+        this.setTimestamp(pObject.timestamp);
+        this.setCounter(pObject.counter);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new SessionContextValues objects. The method never
-     * returns null.
-     */
-    public static Builder newBuilder( SessionContextValues pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "timestamp".
-     * 
-     * @param pTimestamp Value to which the attribute "timestamp" should be set.
+     * Method sets attribute {@link #timestamp}.<br/>
+     *
+     * @param pTimestamp Value to which {@link #timestamp} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setTimestamp( String pTimestamp ) {
       // Assign value to attribute
@@ -128,9 +99,10 @@ public class SessionContextValues implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "counter".
-     * 
-     * @param pCounter Value to which the attribute "counter" should be set.
+     * Method sets attribute {@link #counter}.<br/>
+     *
+     * @param pCounter Value to which {@link #counter} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setCounter( Integer pCounter ) {
       // Assign value to attribute
@@ -141,7 +113,7 @@ public class SessionContextValues implements ServiceObject {
     /**
      * Method creates a new instance of class SessionContextValues. The object will be initialized with the values of
      * the builder.
-     * 
+     *
      * @return SessionContextValues Created object. The method never returns null.
      */
     public SessionContextValues build( ) {
@@ -151,32 +123,30 @@ public class SessionContextValues implements ServiceObject {
     /**
      * Method creates a new validated instance of class SessionContextValues. The object will be initialized with the
      * values of the builder and validated afterwards.
-     * 
+     *
      * @return SessionContextValues Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public SessionContextValues buildValidated( ) throws ConstraintViolationException {
-      SessionContextValues lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      SessionContextValues lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "timestamp".
-   * 
-   * 
-   * @return String Value to which the attribute "timestamp" is set.
+   * Method returns attribute {@link #timestamp}.<br/>
+   *
+   * @return {@link String} Value to which {@link #timestamp} is set.
    */
   public String getTimestamp( ) {
     return timestamp;
   }
 
   /**
-   * Method sets the attribute "timestamp".
-   * 
-   * 
-   * @param pTimestamp Value to which the attribute "timestamp" should be set.
+   * Method sets attribute {@link #timestamp}.<br/>
+   *
+   * @param pTimestamp Value to which {@link #timestamp} should be set.
    */
   public void setTimestamp( String pTimestamp ) {
     // Assign value to attribute
@@ -184,20 +154,18 @@ public class SessionContextValues implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "counter".
-   * 
-   * 
-   * @return Integer Value to which the attribute "counter" is set.
+   * Method returns attribute {@link #counter}.<br/>
+   *
+   * @return {@link Integer} Value to which {@link #counter} is set.
    */
   public Integer getCounter( ) {
     return counter;
   }
 
   /**
-   * Method sets the attribute "counter".
-   * 
-   * 
-   * @param pCounter Value to which the attribute "counter" should be set.
+   * Method sets attribute {@link #counter}.<br/>
+   *
+   * @param pCounter Value to which {@link #counter} should be set.
    */
   public void setCounter( Integer pCounter ) {
     // Assign value to attribute
@@ -205,32 +173,45 @@ public class SessionContextValues implements ServiceObject {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "timestamp", "" + timestamp));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "counter", "" + counter));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("timestamp: ");
+    lBuilder.append(timestamp);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("counter: ");
+    lBuilder.append(counter);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new SessionContextValues objects. The method never
+   * returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

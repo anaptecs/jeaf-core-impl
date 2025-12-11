@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.accounting;
@@ -21,16 +21,10 @@ import javax.validation.constraints.PositiveOrZero;
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.core.api.ServiceObjectID;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 import com.anaptecs.jeaf.xfun.api.common.Identifiable;
 import com.anaptecs.jeaf.xfun.api.common.ObjectIdentity;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   /**
    * Default serial version uid.
@@ -77,58 +71,38 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
    */
   private final ServiceObjectID objectID;
 
-  /**
-   * 
-   */
   @NotBlank
   private String name;
 
-  /**
-   * 
-   */
   @NotBlank
   private String firstName;
 
-  /**
-   * 
-   */
   @PastOrPresent
   private Calendar dateOfBirth;
 
-  /**
-   * 
-   */
-  private transient Set<Account> accounts = new HashSet<Account>();
+  private transient Set<Account> accounts;
 
-  /**
-   * 
-   */
   @Valid
   private Individual customer;
 
-  /**
-   * 
-   */
   @PositiveOrZero
   private Integer age;
 
-  /**
-   * 
-   */
   @NotBlank
   private String displayName;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected Person( ) {
     objectID = null;
+    accounts = new HashSet<>();
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected Person( Builder pBuilder ) {
@@ -146,17 +120,27 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     name = pBuilder.name;
     firstName = pBuilder.firstName;
     dateOfBirth = pBuilder.dateOfBirth;
-    if (pBuilder.accounts != null) {
-      accounts.addAll(pBuilder.accounts);
-    }
+    accounts = new HashSet<>();
     customer = pBuilder.customer;
+    if (customer != null) {
+      // As association is bidirectional we also have to set it in the other direction.
+      customer.setPerson((Person) this);
+    }
     age = pBuilder.age;
     displayName = pBuilder.displayName;
   }
 
   /**
-   * Class implements builder to create a new instance of class Person. As the class has read only attributes or
-   * associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new Person objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>Person</code>.
    */
   public static class Builder {
     /**
@@ -164,86 +148,43 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
      */
     private ObjectIdentity<?> objectID;
 
-    /**
-     * 
-     */
     @NotBlank
     private String name;
 
-    /**
-     * 
-     */
     @NotBlank
     private String firstName;
 
-    /**
-     * 
-     */
     @PastOrPresent
     private Calendar dateOfBirth;
 
-    /**
-     * 
-     */
-    private Set<Account> accounts;
-
-    /**
-     * 
-     */
     private Individual customer;
 
-    /**
-     * 
-     */
     @PositiveOrZero
     private Integer age;
 
-    /**
-     * 
-     */
     @NotBlank
     private String displayName;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link Person#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(Person)} instead of private constructor to create new builder.
+     * Use {@link Person#builder(Person)} instead of private constructor to create new builder.
      */
     protected Builder( Person pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
         objectID = pObject.objectID;
-        name = pObject.name;
-        firstName = pObject.firstName;
-        dateOfBirth = pObject.dateOfBirth;
-        accounts = pObject.accounts;
-        customer = pObject.customer;
-        age = pObject.age;
-        displayName = pObject.displayName;
+        this.setName(pObject.name);
+        this.setFirstName(pObject.firstName);
+        this.setDateOfBirth(pObject.dateOfBirth);
+        this.setCustomer(pObject.customer);
+        this.setAge(pObject.age);
+        this.setDisplayName(pObject.displayName);
       }
-    }
-
-    /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new Person objects. The method never returns null.
-     */
-    public static Builder newBuilder( Person pObject ) {
-      return new Builder(pObject);
     }
 
     /**
@@ -256,9 +197,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "name".
-     * 
-     * @param pName Value to which the attribute "name" should be set.
+     * Method sets attribute {@link #name}.<br/>
+     *
+     * @param pName Value to which {@link #name} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setName( String pName ) {
       // Assign value to attribute
@@ -267,9 +209,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "firstName".
-     * 
-     * @param pFirstName Value to which the attribute "firstName" should be set.
+     * Method sets attribute {@link #firstName}.<br/>
+     *
+     * @param pFirstName Value to which {@link #firstName} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setFirstName( String pFirstName ) {
       // Assign value to attribute
@@ -278,9 +221,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "dateOfBirth".
-     * 
-     * @param pDateOfBirth Value to which the attribute "dateOfBirth" should be set.
+     * Method sets attribute {@link #dateOfBirth}.<br/>
+     *
+     * @param pDateOfBirth Value to which {@link #dateOfBirth} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setDateOfBirth( Calendar pDateOfBirth ) {
       // Assign value to attribute
@@ -289,25 +233,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the association "accounts".
-     * 
-     * @param pAccounts Collection with objects to which the association should be set.
-     */
-    public Builder setAccounts( Set<Account> pAccounts ) {
-      // To ensure immutability we have to copy the content of the passed collection.
-      if (pAccounts != null) {
-        accounts = new HashSet<Account>(pAccounts);
-      }
-      else {
-        accounts = null;
-      }
-      return this;
-    }
-
-    /**
-     * Method sets the association "customer".
-     * 
-     * @param pCustomer Individual to which the association "customer" should be set.
+     * Method sets association {@link #customer}.<br/>
+     *
+     * @param pCustomer Value to which {@link #customer} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setCustomer( Individual pCustomer ) {
       customer = pCustomer;
@@ -315,9 +244,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "age".
-     * 
-     * @param pAge Value to which the attribute "age" should be set.
+     * Method sets attribute {@link #age}.<br/>
+     *
+     * @param pAge Value to which {@link #age} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAge( Integer pAge ) {
       // Assign value to attribute
@@ -326,9 +256,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "displayName".
-     * 
-     * @param pDisplayName Value to which the attribute "displayName" should be set.
+     * Method sets attribute {@link #displayName}.<br/>
+     *
+     * @param pDisplayName Value to which {@link #displayName} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setDisplayName( String pDisplayName ) {
       // Assign value to attribute
@@ -338,7 +269,7 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
 
     /**
      * Method creates a new instance of class Person. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return Person Created object. The method never returns null.
      */
     public Person build( ) {
@@ -348,20 +279,20 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
     /**
      * Method creates a new validated instance of class Person. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return Person Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public Person buildValidated( ) throws ConstraintViolationException {
-      Person lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      Person lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
    * Method returns the id of this object.
-   * 
+   *
    * @return {@link ServiceObjectID} ID of this object. Since an object must not have an id the method may also return
    * null.
    */
@@ -372,7 +303,7 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
 
   /**
    * Method returns the unversioned object id of this object.
-   * 
+   *
    * @return {@link ServiceObjectID} ID of this object. Since an object must not have an id the method may also return
    * null.
    */
@@ -389,20 +320,18 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "name".
-   * 
-   * 
-   * @return String Value to which the attribute "name" is set.
+   * Method returns attribute {@link #name}.<br/>
+   *
+   * @return {@link String} Value to which {@link #name} is set.
    */
   public String getName( ) {
     return name;
   }
 
   /**
-   * Method sets the attribute "name".
-   * 
-   * 
-   * @param pName Value to which the attribute "name" should be set.
+   * Method sets attribute {@link #name}.<br/>
+   *
+   * @param pName Value to which {@link #name} should be set.
    */
   public void setName( String pName ) {
     // Assign value to attribute
@@ -410,20 +339,18 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "firstName".
-   * 
-   * 
-   * @return String Value to which the attribute "firstName" is set.
+   * Method returns attribute {@link #firstName}.<br/>
+   *
+   * @return {@link String} Value to which {@link #firstName} is set.
    */
   public String getFirstName( ) {
     return firstName;
   }
 
   /**
-   * Method sets the attribute "firstName".
-   * 
-   * 
-   * @param pFirstName Value to which the attribute "firstName" should be set.
+   * Method sets attribute {@link #firstName}.<br/>
+   *
+   * @param pFirstName Value to which {@link #firstName} should be set.
    */
   public void setFirstName( String pFirstName ) {
     // Assign value to attribute
@@ -431,20 +358,18 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "dateOfBirth".
-   * 
-   * 
-   * @return Calendar Value to which the attribute "dateOfBirth" is set.
+   * Method returns attribute {@link #dateOfBirth}.<br/>
+   *
+   * @return {@link Calendar} Value to which {@link #dateOfBirth} is set.
    */
   public Calendar getDateOfBirth( ) {
     return dateOfBirth;
   }
 
   /**
-   * Method sets the attribute "dateOfBirth".
-   * 
-   * 
-   * @param pDateOfBirth Value to which the attribute "dateOfBirth" should be set.
+   * Method sets attribute {@link #dateOfBirth}.<br/>
+   *
+   * @param pDateOfBirth Value to which {@link #dateOfBirth} should be set.
    */
   public void setDateOfBirth( Calendar pDateOfBirth ) {
     // Assign value to attribute
@@ -452,11 +377,10 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the association "accounts".
-   * 
+   * Method returns association {@link #accounts}.<br/>
    *
-   * @return Collection All Account objects that belong to the association "accounts". The method never returns null and
-   * the returned collection is unmodifiable.
+   * @return {@link Set<Account>} Value to which {@link #accounts} is set. The method never returns null and the
+   * returned collection is unmodifiable.
    */
   public Set<Account> getAccounts( ) {
     // Return all Account objects as unmodifiable collection.
@@ -464,48 +388,24 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the association "accounts" to the passed collection. All objects that formerly were part of the
-   * association will be removed from it.
-   * 
-   * 
-   * @param pAccounts Collection with objects to which the association should be set. The parameter must not be null.
+   * Method adds the passed object to {@link #accounts}.
+   *
+   * @param pAccounts Object that should be added to {@link #accounts}. The parameter must not be null.
    */
-  void setAccounts( Set<Account> pAccounts ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "accounts".
-    this.clearAccounts();
-    // If the association is null, removing all entries is sufficient.
-    if (pAccounts != null) {
-      accounts = new HashSet<Account>(pAccounts);
-    }
-  }
-
-  /**
-   * Method adds the passed Account object to the association "accounts".
-   * 
-   * 
-   * @param pAccounts Object that should be added to the association "accounts". The parameter must not be null.
-   */
-  public void addToAccounts( Account pAccounts ) {
+  void addToAccounts( Account pAccounts ) {
     // Check parameter "pAccounts" for invalid value null.
     Check.checkInvalidParameterNull(pAccounts, "pAccounts");
     // Add passed object to collection of associated Account objects.
     accounts.add(pAccounts);
-    // The association is set in both directions because within the UML model it is defined to be bidirectional.
-    // In case that one side will be removed from the association the other side will also be removed.
-    if (pAccounts != null && pAccounts.getAuthorizedPersons().contains(this) == false) {
-      pAccounts.addToAuthorizedPersons((Person) this);
-    }
   }
 
   /**
-   * Method adds all passed objects to the association "accounts".
-   * 
-   * 
-   * @param pAccounts Collection with all objects that should be added to the association "accounts". The parameter must
-   * not be null.
+   * Method adds all passed objects to {@link #accounts}.
+   *
+   * @param pAccounts Collection with all objects that should be added to {@link #accounts}. The parameter must not be
+   * null.
    */
-  public void addToAccounts( Collection<Account> pAccounts ) {
+  void addToAccounts( Collection<Account> pAccounts ) {
     // Check parameter "pAccounts" for invalid value null.
     Check.checkInvalidParameterNull(pAccounts, "pAccounts");
     // Add all passed objects.
@@ -515,51 +415,43 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes the passed Account object from the association "accounts".
-   * 
-   * 
-   * @param pAccounts Object that should be removed from the association "accounts". The parameter must not be null.
+   * Method removes the passed object from {@link #accounts}.<br/>
+   *
+   * @param pAccounts Object that should be removed from {@link #accounts}. The parameter must not be null.
    */
-  public void removeFromAccounts( Account pAccounts ) {
+  void removeFromAccounts( Account pAccounts ) {
     // Check parameter for invalid value null.
     Check.checkInvalidParameterNull(pAccounts, "pAccounts");
     // Remove passed object from collection of associated Account objects.
     accounts.remove(pAccounts);
-    // The association is set in both directions because within the UML model it is defined to be bidirectional.
-    // In case that one side will be removed from the association the other side will also be removed.
-    if (pAccounts.getAuthorizedPersons().contains(this) == true) {
-      pAccounts.removeFromAuthorizedPersons((Person) this);
-    }
   }
 
   /**
-   * Method removes all objects from the association "accounts".
-   * 
+   * Method removes all objects from {@link #accounts}.
    */
-  public void clearAccounts( ) {
+  void clearAccounts( ) {
     // Remove all objects from association "accounts".
     Collection<Account> lAccounts = new HashSet<Account>(accounts);
     Iterator<Account> lIterator = lAccounts.iterator();
     while (lIterator.hasNext()) {
+      // As association is bidirectional we have to clear it in both directions.
       this.removeFromAccounts(lIterator.next());
     }
   }
 
   /**
-   * Method returns the association "customer".
-   * 
+   * Method returns association {@link #customer}.<br/>
    *
-   * @return Individual Individual to which the association "customer" is set.
+   * @return {@link Individual} Value to which {@link #customer} is set.
    */
   public Individual getCustomer( ) {
     return customer;
   }
 
   /**
-   * Method sets the association "customer".
-   * 
-   * 
-   * @param pCustomer Individual to which the association "customer" should be set.
+   * Method sets association {@link #customer}.<br/>
+   *
+   * @param pCustomer Value to which {@link #customer} should be set.
    */
   public void setCustomer( Individual pCustomer ) {
     // Release already referenced object before setting a new association.
@@ -575,8 +467,7 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method unsets the association "customer".
-   * 
+   * Method unsets {@link #customer}.
    */
   public final void unsetCustomer( ) {
     // The association is set in both directions because within the UML model it is defined to be bidirectional.
@@ -589,20 +480,18 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "age".
-   * 
-   * 
-   * @return Integer Value to which the attribute "age" is set.
+   * Method returns attribute {@link #age}.<br/>
+   *
+   * @return {@link Integer} Value to which {@link #age} is set.
    */
   public Integer getAge( ) {
     return age;
   }
 
   /**
-   * Method sets the attribute "age".
-   * 
-   * 
-   * @param pAge Value to which the attribute "age" should be set.
+   * Method sets attribute {@link #age}.<br/>
+   *
+   * @param pAge Value to which {@link #age} should be set.
    */
   public void setAge( Integer pAge ) {
     // Assign value to attribute
@@ -610,20 +499,18 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "displayName".
-   * 
-   * 
-   * @return String Value to which the attribute "displayName" is set.
+   * Method returns attribute {@link #displayName}.<br/>
+   *
+   * @return {@link String} Value to which {@link #displayName} is set.
    */
   public String getDisplayName( ) {
     return displayName;
   }
 
   /**
-   * Method sets the attribute "displayName".
-   * 
-   * 
-   * @param pDisplayName Value to which the attribute "displayName" should be set.
+   * Method sets attribute {@link #displayName}.<br/>
+   *
+   * @param pDisplayName Value to which {@link #displayName} should be set.
    */
   public void setDisplayName( String pDisplayName ) {
     // Assign value to attribute
@@ -631,40 +518,56 @@ public class Person implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "name", "" + name));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "firstName", "" + firstName));
-    lBuilder.append('\n');
-    lBuilder
-        .append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "dateOfBirth", "" + dateOfBirth));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "age", "" + age));
-    lBuilder.append('\n');
-    lBuilder
-        .append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "displayName", "" + displayName));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("name: ");
+    lBuilder.append(name);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("firstName: ");
+    lBuilder.append(firstName);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("dateOfBirth: ");
+    lBuilder.append(dateOfBirth);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("age: ");
+    lBuilder.append(age);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("displayName: ");
+    lBuilder.append(displayName);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new Person objects. The method never returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

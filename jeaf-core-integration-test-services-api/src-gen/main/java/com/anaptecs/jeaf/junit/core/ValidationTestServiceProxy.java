@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -42,9 +42,8 @@ public final class ValidationTestServiceProxy extends ServiceProxy implements Va
   }
 
   /**
-   * Generated proxy implementation for method "validateInNOutput".
-   * 
-   * 
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.ValidationTestService#validateInNOutput}
    */
   public String validateInNOutput( @NotNull String pString1, @NotEmpty String pString2 ) {
     try {
@@ -57,9 +56,7 @@ public final class ValidationTestServiceProxy extends ServiceProxy implements Va
   }
 
   /**
-   * Generated proxy implementation for method "notValidOutput".
-   * 
-   * 
+   * Generated proxy implementation for method {@link com.anaptecs.jeaf.junit.core.ValidationTestService#notValidOutput}
    */
   public String notValidOutput( String pString1, @NotEmpty String pString2 ) {
     try {
@@ -72,9 +69,8 @@ public final class ValidationTestServiceProxy extends ServiceProxy implements Va
   }
 
   /**
-   * Generated proxy implementation for method "validateOutputOnly".
-   * 
-   * 
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.ValidationTestService#validateOutputOnly}
    */
   public String validateOutputOnly( String pString1, String pString2 ) {
     try {
@@ -87,9 +83,8 @@ public final class ValidationTestServiceProxy extends ServiceProxy implements Va
   }
 
   /**
-   * Generated proxy implementation for method "validateInputOnly".
-   * 
-   * 
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.ValidationTestService#validateInputOnly}
    */
   public String validateInputOnly( String pString1, @Min(value = 4711) int pInteger ) {
     try {
@@ -102,9 +97,8 @@ public final class ValidationTestServiceProxy extends ServiceProxy implements Va
   }
 
   /**
-   * Generated proxy implementation for method "noMethodValidation".
-   * 
-   * 
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.ValidationTestService#noMethodValidation}
    */
   public String noMethodValidation( String pString1, boolean pBool ) {
     try {
@@ -117,9 +111,8 @@ public final class ValidationTestServiceProxy extends ServiceProxy implements Va
   }
 
   /**
-   * Generated proxy implementation for method "createValidationTestObject".
-   * 
-   * 
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.ValidationTestService#createValidationTestObject}
    */
   public void createValidationTestObject( @Valid ValidationTestObject pTestObject ) {
     try {
@@ -181,11 +174,11 @@ final class ValidateInNOutput_String_String_ValidationTestService_Command extend
   /**
    * Initialize object. All parameters from method "validateInNOutput" have to be passed as parameters to this command
    * object.
-   * 
+   *
    * @param pString1 String
    * @param pString2 String
    */
-  ValidateInNOutput_String_String_ValidationTestService_Command( @NotNull String pString1, @NotEmpty String pString2 ) {
+  ValidateInNOutput_String_String_ValidationTestService_Command( String pString1, String pString2 ) {
     super(ValidationTestService.class);
     string1 = pString1;
     string2 = pString2;
@@ -194,7 +187,7 @@ final class ValidateInNOutput_String_String_ValidationTestService_Command extend
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -220,7 +213,7 @@ final class ValidateInNOutput_String_String_ValidationTestService_Command extend
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -230,7 +223,7 @@ final class ValidateInNOutput_String_String_ValidationTestService_Command extend
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -289,11 +282,11 @@ final class NotValidOutput_String_String_ValidationTestService_Command extends C
   /**
    * Initialize object. All parameters from method "notValidOutput" have to be passed as parameters to this command
    * object.
-   * 
+   *
    * @param pString1 String
    * @param pString2 String
    */
-  NotValidOutput_String_String_ValidationTestService_Command( String pString1, @NotEmpty String pString2 ) {
+  NotValidOutput_String_String_ValidationTestService_Command( String pString1, String pString2 ) {
     super(ValidationTestService.class);
     string1 = pString1;
     string2 = pString2;
@@ -302,7 +295,7 @@ final class NotValidOutput_String_String_ValidationTestService_Command extends C
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -328,7 +321,7 @@ final class NotValidOutput_String_String_ValidationTestService_Command extends C
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -338,7 +331,7 @@ final class NotValidOutput_String_String_ValidationTestService_Command extends C
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -397,7 +390,7 @@ final class ValidateOutputOnly_String_String_ValidationTestService_Command exten
   /**
    * Initialize object. All parameters from method "validateOutputOnly" have to be passed as parameters to this command
    * object.
-   * 
+   *
    * @param pString1 String
    * @param pString2 String
    */
@@ -410,7 +403,7 @@ final class ValidateOutputOnly_String_String_ValidationTestService_Command exten
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -436,7 +429,7 @@ final class ValidateOutputOnly_String_String_ValidationTestService_Command exten
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -446,7 +439,7 @@ final class ValidateOutputOnly_String_String_ValidationTestService_Command exten
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -505,11 +498,11 @@ final class ValidateInputOnly_String_int_ValidationTestService_Command extends C
   /**
    * Initialize object. All parameters from method "validateInputOnly" have to be passed as parameters to this command
    * object.
-   * 
+   *
    * @param pString1 String
    * @param pInteger int
    */
-  ValidateInputOnly_String_int_ValidationTestService_Command( String pString1, @Min(value = 4711) int pInteger ) {
+  ValidateInputOnly_String_int_ValidationTestService_Command( String pString1, int pInteger ) {
     super(ValidationTestService.class);
     string1 = pString1;
     integer = pInteger;
@@ -518,7 +511,7 @@ final class ValidateInputOnly_String_int_ValidationTestService_Command extends C
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -544,7 +537,7 @@ final class ValidateInputOnly_String_int_ValidationTestService_Command extends C
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -554,7 +547,7 @@ final class ValidateInputOnly_String_int_ValidationTestService_Command extends C
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -613,7 +606,7 @@ final class NoMethodValidation_String_Boolean_ValidationTestService_Command exte
   /**
    * Initialize object. All parameters from method "noMethodValidation" have to be passed as parameters to this command
    * object.
-   * 
+   *
    * @param pString1 String
    * @param pBool boolean
    */
@@ -626,7 +619,7 @@ final class NoMethodValidation_String_Boolean_ValidationTestService_Command exte
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -652,7 +645,7 @@ final class NoMethodValidation_String_Boolean_ValidationTestService_Command exte
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -662,7 +655,7 @@ final class NoMethodValidation_String_Boolean_ValidationTestService_Command exte
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -716,11 +709,10 @@ final class CreateValidationTestObject_ValidationTestObject_ValidationTestServic
   /**
    * Initialize object. All parameters from method "createValidationTestObject" have to be passed as parameters to this
    * command object.
-   * 
+   *
    * @param pTestObject ValidationTestObject
    */
-  CreateValidationTestObject_ValidationTestObject_ValidationTestService_Command(
-      @Valid ValidationTestObject pTestObject ) {
+  CreateValidationTestObject_ValidationTestObject_ValidationTestService_Command( ValidationTestObject pTestObject ) {
     super(ValidationTestService.class);
     testObject = pTestObject;
     parameters = new Object[] { testObject };
@@ -728,7 +720,7 @@ final class CreateValidationTestObject_ValidationTestObject_ValidationTestServic
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -755,7 +747,7 @@ final class CreateValidationTestObject_ValidationTestObject_ValidationTestServic
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -765,7 +757,7 @@ final class CreateValidationTestObject_ValidationTestObject_ValidationTestServic
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */

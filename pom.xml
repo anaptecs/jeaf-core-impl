@@ -39,12 +39,10 @@
 		<jeaf.json.impl.version>1.8.1-SNAPSHOT</jeaf.json.impl.version>
 		<jeaf.workload.api.version>1.8.0</jeaf.workload.api.version>
 		<jeaf.workload.impl.version>1.8.0</jeaf.workload.impl.version>
-		<jeaf.test.model.version>1.0.41</jeaf.test.model.version>
+		<jeaf.test.model.version>2.7.1-SNAPSHOT</jeaf.test.model.version>
 
 		<!-- JEAF Fast Lane is used during testing as runtime environment -->
 		<jeaf.fastlane.impl.version>1.8.0</jeaf.fastlane.impl.version>
-		
-		<maven.jeaf-generator-plugin.version>1.6.57</maven.jeaf-generator-plugin.version>
 	</properties>
 
 	<modules>

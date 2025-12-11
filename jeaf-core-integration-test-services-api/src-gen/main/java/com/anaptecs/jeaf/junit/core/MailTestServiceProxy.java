@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -37,9 +37,8 @@ public final class MailTestServiceProxy extends ServiceProxy implements MailTest
   }
 
   /**
-   * Generated proxy implementation for method "testCreateEmptyMessage".
-   * 
-   * Test of method createMessage(). Creates an empty MimeMessage.
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.MailTestService#testCreateEmptyMessage}
    */
   public void testCreateEmptyMessage( ) {
     try {
@@ -52,10 +51,8 @@ public final class MailTestServiceProxy extends ServiceProxy implements MailTest
   }
 
   /**
-   * Generated proxy implementation for method "testCreateFilledMessage".
-   * 
-   * Test of method createMessage( String pContent, String pSubject, Set<Address> pRecipients ). Creates a MimeMessage
-   * filled with the content, subject and recipients specified within the parameters.
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.MailTestService#testCreateFilledMessage}
    */
   public void testCreateFilledMessage( String pAddress, String pPersonal, String pCharSet, String pContent,
       String pSubject ) {
@@ -70,10 +67,7 @@ public final class MailTestServiceProxy extends ServiceProxy implements MailTest
   }
 
   /**
-   * Generated proxy implementation for method "testSendMail".
-   * 
-   * Test of method sendMail( Message pMessage ). Starts a local SMTPServer, creates a MimeMessage and tries to send it
-   * to the SMTPServer.
+   * Generated proxy implementation for method {@link com.anaptecs.jeaf.junit.core.MailTestService#testSendMail}
    */
   public void testSendMail( String pAddress, String pPersonal, String pCharSet, String pContent, String pSubject ) {
     try {
@@ -87,10 +81,7 @@ public final class MailTestServiceProxy extends ServiceProxy implements MailTest
   }
 
   /**
-   * Generated proxy implementation for method "testExtendedSendMail".
-   * 
-   * Test of method sendMail( String pContent, String pSubject, Set<Address> pRecipients ). Starts a local SMTPServer
-   * and tries to send a Message to the SMTPServer using the given parameters.
+   * Generated proxy implementation for method {@link com.anaptecs.jeaf.junit.core.MailTestService#testExtendedSendMail}
    */
   public void testExtendedSendMail( String pAddress, String pPersonal, String pCharSet, String pContent,
       String pSubject ) {
@@ -144,8 +135,8 @@ final class TestCreateEmptyMessage_MailTestService_Command extends Command {
   /**
    * Initialize object. All parameters from method "testCreateEmptyMessage" have to be passed as parameters to this
    * command object.
-   * 
-   * 
+   *
+   *
    */
   TestCreateEmptyMessage_MailTestService_Command( ) {
     super(MailTestService.class);
@@ -154,7 +145,7 @@ final class TestCreateEmptyMessage_MailTestService_Command extends Command {
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -181,7 +172,7 @@ final class TestCreateEmptyMessage_MailTestService_Command extends Command {
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -191,7 +182,7 @@ final class TestCreateEmptyMessage_MailTestService_Command extends Command {
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -266,7 +257,7 @@ final class TestCreateFilledMessage_String_String_String_String_String_MailTestS
   /**
    * Initialize object. All parameters from method "testCreateFilledMessage" have to be passed as parameters to this
    * command object.
-   * 
+   *
    * @param pAddress String
    * @param pPersonal String
    * @param pCharSet String
@@ -286,7 +277,7 @@ final class TestCreateFilledMessage_String_String_String_String_String_MailTestS
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -313,7 +304,7 @@ final class TestCreateFilledMessage_String_String_String_String_String_MailTestS
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -323,7 +314,7 @@ final class TestCreateFilledMessage_String_String_String_String_String_MailTestS
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -398,7 +389,7 @@ final class TestSendMail_String_String_String_String_String_MailTestService_Comm
   /**
    * Initialize object. All parameters from method "testSendMail" have to be passed as parameters to this command
    * object.
-   * 
+   *
    * @param pAddress String
    * @param pPersonal String
    * @param pCharSet String
@@ -418,7 +409,7 @@ final class TestSendMail_String_String_String_String_String_MailTestService_Comm
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -445,7 +436,7 @@ final class TestSendMail_String_String_String_String_String_MailTestService_Comm
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -455,7 +446,7 @@ final class TestSendMail_String_String_String_String_String_MailTestService_Comm
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -530,7 +521,7 @@ final class TestExtendedSendMail_String_String_String_String_String_MailTestServ
   /**
    * Initialize object. All parameters from method "testExtendedSendMail" have to be passed as parameters to this
    * command object.
-   * 
+   *
    * @param pAddress String
    * @param pPersonal String
    * @param pCharSet String
@@ -550,7 +541,7 @@ final class TestExtendedSendMail_String_String_String_String_String_MailTestServ
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -577,7 +568,7 @@ final class TestExtendedSendMail_String_String_String_String_String_MailTestServ
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -587,7 +578,7 @@ final class TestExtendedSendMail_String_String_String_String_String_MailTestServ
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */

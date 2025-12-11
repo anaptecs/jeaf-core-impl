@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
@@ -11,14 +11,8 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.common.ObjectIdentity;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 @Valid
 public abstract class PersonBase extends Partner {
   /**
@@ -37,26 +31,23 @@ public abstract class PersonBase extends Partner {
   public static final String FIRSTNAME = "firstName";
 
   /**
-   * 
+   * <p/>
+   * <b>Alternate Name:</b> <code>Vorname</code>
    */
   private String surname;
 
-  /**
-   * 
-   */
   private String firstName;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected PersonBase( ) {
-    // Nothing to do.
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected PersonBase( BuilderBase pBuilder ) {
@@ -73,31 +64,29 @@ public abstract class PersonBase extends Partner {
    */
   public static abstract class BuilderBase extends Partner.Builder {
     /**
-     * 
+     * <p/>
+     * <b>Alternate Name:</b> <code>Vorname</code>
      */
     private String surname;
 
-    /**
-     * 
-     */
     private String firstName;
 
     /**
-     * Use {@link Person.Builder#newBuilder()} instead of protected constructor to create new builder.
+     * Use {@link Person.builder()} instead of protected constructor to create new builder.
      */
     protected BuilderBase( ) {
       super();
     }
 
     /**
-     * Use {@link Person.Builder#newBuilder(Person)} instead of protected constructor to create new builder.
+     * Use {@link Person.builder(Person)} instead of protected constructor to create new builder.
      */
     protected BuilderBase( PersonBase pObject ) {
       super(pObject);
       if (pObject != null) {
         // Read attribute values from passed object.
-        surname = pObject.surname;
-        firstName = pObject.firstName;
+        this.setSurname(pObject.surname);
+        this.setFirstName(pObject.firstName);
       }
     }
 
@@ -112,9 +101,10 @@ public abstract class PersonBase extends Partner {
     }
 
     /**
-     * Method sets the association "postalAddresses".
-     * 
-     * @param pPostalAddresses Collection with objects to which the association should be set.
+     * Method sets association {@link #postalAddresses}.<br/>
+     *
+     * @param pPostalAddresses Collection to which {@link #postalAddresses} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
     @Override
     public BuilderBase setPostalAddresses( List<PostalAddress> pPostalAddresses ) {
@@ -124,9 +114,23 @@ public abstract class PersonBase extends Partner {
     }
 
     /**
-     * Method sets the attribute "surname".
-     * 
-     * @param pSurname Value to which the attribute "surname" should be set.
+     * Method adds the passed objects to association {@link #postalAddresses}.<br/>
+     *
+     * @param pPostalAddresses Array of objects that should be added to {@link #postalAddresses}. The parameter may be
+     * null.
+     * @return {@link BuilderBase} Instance of this builder to support chaining. Method never returns null.
+     */
+    public BuilderBase addToPostalAddresses( PostalAddress... pPostalAddresses ) {
+      // Call super class implementation.
+      super.addToPostalAddresses(pPostalAddresses);
+      return this;
+    }
+
+    /**
+     * Method sets attribute {@link #surname}.<br/>
+     *
+     * @param pSurname Value to which {@link #surname} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
     public BuilderBase setSurname( String pSurname ) {
       // Assign value to attribute
@@ -135,9 +139,10 @@ public abstract class PersonBase extends Partner {
     }
 
     /**
-     * Method sets the attribute "firstName".
-     * 
-     * @param pFirstName Value to which the attribute "firstName" should be set.
+     * Method sets attribute {@link #firstName}.<br/>
+     *
+     * @param pFirstName Value to which {@link #firstName} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
     public BuilderBase setFirstName( String pFirstName ) {
       // Assign value to attribute
@@ -147,7 +152,7 @@ public abstract class PersonBase extends Partner {
 
     /**
      * Method creates a new instance of class Person. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return Person Created object. The method never returns null.
      */
     public Person build( ) {
@@ -157,7 +162,7 @@ public abstract class PersonBase extends Partner {
     /**
      * Method creates a new validated instance of class Person. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return Person Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
@@ -169,20 +174,18 @@ public abstract class PersonBase extends Partner {
   }
 
   /**
-   * Method returns the attribute "surname".
-   * 
-   * 
-   * @return String Value to which the attribute "surname" is set.
+   * Method returns attribute {@link #surname}.<br/>
+   *
+   * @return {@link String} Value to which {@link #surname} is set.
    */
   public String getSurname( ) {
     return surname;
   }
 
   /**
-   * Method sets the attribute "surname".
-   * 
-   * 
-   * @param pSurname Value to which the attribute "surname" should be set.
+   * Method sets attribute {@link #surname}.<br/>
+   *
+   * @param pSurname Value to which {@link #surname} should be set.
    */
   public void setSurname( String pSurname ) {
     // Assign value to attribute
@@ -190,20 +193,18 @@ public abstract class PersonBase extends Partner {
   }
 
   /**
-   * Method returns the attribute "firstName".
-   * 
-   * 
-   * @return String Value to which the attribute "firstName" is set.
+   * Method returns attribute {@link #firstName}.<br/>
+   *
+   * @return {@link String} Value to which {@link #firstName} is set.
    */
   public String getFirstName( ) {
     return firstName;
   }
 
   /**
-   * Method sets the attribute "firstName".
-   * 
-   * 
-   * @param pFirstName Value to which the attribute "firstName" should be set.
+   * Method sets attribute {@link #firstName}.<br/>
+   *
+   * @param pFirstName Value to which {@link #firstName} should be set.
    */
   public void setFirstName( String pFirstName ) {
     // Assign value to attribute
@@ -211,34 +212,47 @@ public abstract class PersonBase extends Partner {
   }
 
   /**
-   * 
    * @return {@link String}
    */
   public abstract String getDisplayName( );
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
-    StringBuilder lBuilder = super.toStringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "surname", "" + surname));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "firstName", "" + firstName));
-    lBuilder.append('\n');
+  @Override
+  public StringBuilder toStringBuilder( String pIndent ) {
+    StringBuilder lBuilder = super.toStringBuilder(pIndent);
+    lBuilder.append(pIndent);
+    lBuilder.append("surname: ");
+    lBuilder.append(surname);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("firstName: ");
+    lBuilder.append(firstName);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new Person objects. The method never returns null.
+   */
+  public Person.Builder toBuilder( ) {
+    return new Person.Builder((Person) this);
   }
 }

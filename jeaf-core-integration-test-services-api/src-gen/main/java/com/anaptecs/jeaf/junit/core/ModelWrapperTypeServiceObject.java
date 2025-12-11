@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -9,14 +9,8 @@ import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class ModelWrapperTypeServiceObject implements ServiceObject {
   /**
    * Default serial version uid.
@@ -33,27 +27,20 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
    */
   public static final String AINT = "aInt";
 
-  /**
-   * 
-   */
   private boolean aBoolean;
 
-  /**
-   * 
-   */
   private Integer aInt;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected ModelWrapperTypeServiceObject( ) {
-    // Nothing to do.
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected ModelWrapperTypeServiceObject( Builder pBuilder ) {
@@ -65,61 +52,45 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
   }
 
   /**
-   * Class implements builder to create a new instance of class ModelWrapperTypeServiceObject. As the class has read
-   * only attributes or associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new ModelWrapperTypeServiceObject objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>ModelWrapperTypeServiceObject</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private boolean aBoolean;
 
-    /**
-     * 
-     */
     private Integer aInt;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link ModelWrapperTypeServiceObject#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(ModelWrapperTypeServiceObject)} instead of private constructor to create new builder.
+     * Use {@link ModelWrapperTypeServiceObject#builder(ModelWrapperTypeServiceObject)} instead of private constructor
+     * to create new builder.
      */
     protected Builder( ModelWrapperTypeServiceObject pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        aBoolean = pObject.aBoolean;
-        aInt = pObject.aInt;
+        this.setABoolean(pObject.aBoolean);
+        this.setAInt(pObject.aInt);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new ModelWrapperTypeServiceObject objects. The
-     * method never returns null.
-     */
-    public static Builder newBuilder( ModelWrapperTypeServiceObject pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "aBoolean".
-     * 
-     * @param pABoolean Value to which the attribute "aBoolean" should be set.
+     * Method sets attribute {@link #aBoolean}.<br/>
+     *
+     * @param pABoolean Value to which {@link #aBoolean} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setABoolean( boolean pABoolean ) {
       // Assign value to attribute
@@ -128,9 +99,10 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aInt".
-     * 
-     * @param pAInt Value to which the attribute "aInt" should be set.
+     * Method sets attribute {@link #aInt}.<br/>
+     *
+     * @param pAInt Value to which {@link #aInt} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAInt( Integer pAInt ) {
       // Assign value to attribute
@@ -141,7 +113,7 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
     /**
      * Method creates a new instance of class ModelWrapperTypeServiceObject. The object will be initialized with the
      * values of the builder.
-     * 
+     *
      * @return ModelWrapperTypeServiceObject Created object. The method never returns null.
      */
     public ModelWrapperTypeServiceObject build( ) {
@@ -151,32 +123,40 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
     /**
      * Method creates a new validated instance of class ModelWrapperTypeServiceObject. The object will be initialized
      * with the values of the builder and validated afterwards.
-     * 
+     *
      * @return ModelWrapperTypeServiceObject Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public ModelWrapperTypeServiceObject buildValidated( ) throws ConstraintViolationException {
-      ModelWrapperTypeServiceObject lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      ModelWrapperTypeServiceObject lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "aBoolean".
-   * 
-   * 
-   * @return Boolean Value to which the attribute "aBoolean" is set.
+   * Method returns attribute {@link #aBoolean}.<br/>
+   *
+   * @return boolean Value to which {@link #aBoolean} is set.
    */
+  @Deprecated
   public boolean getABoolean( ) {
     return aBoolean;
   }
 
   /**
-   * Method sets the attribute "aBoolean".
-   * 
-   * 
-   * @param pABoolean Value to which the attribute "aBoolean" should be set.
+   * Method returns attribute {@link #aBoolean}.<br/>
+   *
+   * @return boolean Value to which {@link #aBoolean} is set.
+   */
+  public boolean isABoolean( ) {
+    return aBoolean;
+  }
+
+  /**
+   * Method sets attribute {@link #aBoolean}.<br/>
+   *
+   * @param pABoolean Value to which {@link #aBoolean} should be set.
    */
   public void setABoolean( boolean pABoolean ) {
     // Assign value to attribute
@@ -184,20 +164,18 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aInt".
-   * 
-   * 
-   * @return Integer Value to which the attribute "aInt" is set.
+   * Method returns attribute {@link #aInt}.<br/>
+   *
+   * @return {@link Integer} Value to which {@link #aInt} is set.
    */
   public Integer getAInt( ) {
     return aInt;
   }
 
   /**
-   * Method sets the attribute "aInt".
-   * 
-   * 
-   * @param pAInt Value to which the attribute "aInt" should be set.
+   * Method sets attribute {@link #aInt}.<br/>
+   *
+   * @param pAInt Value to which {@link #aInt} should be set.
    */
   public void setAInt( Integer pAInt ) {
     // Assign value to attribute
@@ -205,32 +183,45 @@ public class ModelWrapperTypeServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aBoolean", "" + aBoolean));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aInt", "" + aInt));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aBoolean: ");
+    lBuilder.append(aBoolean);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aInt: ");
+    lBuilder.append(aInt);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new ModelWrapperTypeServiceObject objects. The
+   * method never returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

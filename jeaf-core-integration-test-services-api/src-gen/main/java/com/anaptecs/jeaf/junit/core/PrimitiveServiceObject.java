@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -9,14 +9,8 @@ import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class PrimitiveServiceObject implements ServiceObject {
   /**
    * Default serial version uid.
@@ -63,57 +57,32 @@ public class PrimitiveServiceObject implements ServiceObject {
    */
   public static final String ACHAR = "aChar";
 
-  /**
-   * 
-   */
   private boolean aBoolean;
 
-  /**
-   * 
-   */
   private byte aByte;
 
-  /**
-   * 
-   */
   private short aShort;
 
-  /**
-   * 
-   */
   private int aInt;
 
-  /**
-   * 
-   */
   private long aLong;
 
-  /**
-   * 
-   */
   private float aFloat;
 
-  /**
-   * 
-   */
   private double aDouble;
 
-  /**
-   * 
-   */
   private char aChar;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected PrimitiveServiceObject( ) {
-    // Nothing to do.
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected PrimitiveServiceObject( Builder pBuilder ) {
@@ -131,97 +100,63 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Class implements builder to create a new instance of class PrimitiveServiceObject. As the class has read only
-   * attributes or associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new PrimitiveServiceObject objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>PrimitiveServiceObject</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private boolean aBoolean;
 
-    /**
-     * 
-     */
     private byte aByte;
 
-    /**
-     * 
-     */
     private short aShort;
 
-    /**
-     * 
-     */
     private int aInt;
 
-    /**
-     * 
-     */
     private long aLong;
 
-    /**
-     * 
-     */
     private float aFloat;
 
-    /**
-     * 
-     */
     private double aDouble;
 
-    /**
-     * 
-     */
     private char aChar;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link PrimitiveServiceObject#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(PrimitiveServiceObject)} instead of private constructor to create new builder.
+     * Use {@link PrimitiveServiceObject#builder(PrimitiveServiceObject)} instead of private constructor to create new
+     * builder.
      */
     protected Builder( PrimitiveServiceObject pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        aBoolean = pObject.aBoolean;
-        aByte = pObject.aByte;
-        aShort = pObject.aShort;
-        aInt = pObject.aInt;
-        aLong = pObject.aLong;
-        aFloat = pObject.aFloat;
-        aDouble = pObject.aDouble;
-        aChar = pObject.aChar;
+        this.setABoolean(pObject.aBoolean);
+        this.setAByte(pObject.aByte);
+        this.setAShort(pObject.aShort);
+        this.setAInt(pObject.aInt);
+        this.setALong(pObject.aLong);
+        this.setAFloat(pObject.aFloat);
+        this.setADouble(pObject.aDouble);
+        this.setAChar(pObject.aChar);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new PrimitiveServiceObject objects. The method
-     * never returns null.
-     */
-    public static Builder newBuilder( PrimitiveServiceObject pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "aBoolean".
-     * 
-     * @param pABoolean Value to which the attribute "aBoolean" should be set.
+     * Method sets attribute {@link #aBoolean}.<br/>
+     *
+     * @param pABoolean Value to which {@link #aBoolean} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setABoolean( boolean pABoolean ) {
       // Assign value to attribute
@@ -230,9 +165,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aByte".
-     * 
-     * @param pAByte Value to which the attribute "aByte" should be set.
+     * Method sets attribute {@link #aByte}.<br/>
+     *
+     * @param pAByte Value to which {@link #aByte} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAByte( byte pAByte ) {
       // Assign value to attribute
@@ -241,9 +177,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aShort".
-     * 
-     * @param pAShort Value to which the attribute "aShort" should be set.
+     * Method sets attribute {@link #aShort}.<br/>
+     *
+     * @param pAShort Value to which {@link #aShort} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAShort( short pAShort ) {
       // Assign value to attribute
@@ -252,9 +189,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aInt".
-     * 
-     * @param pAInt Value to which the attribute "aInt" should be set.
+     * Method sets attribute {@link #aInt}.<br/>
+     *
+     * @param pAInt Value to which {@link #aInt} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAInt( int pAInt ) {
       // Assign value to attribute
@@ -263,9 +201,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aLong".
-     * 
-     * @param pALong Value to which the attribute "aLong" should be set.
+     * Method sets attribute {@link #aLong}.<br/>
+     *
+     * @param pALong Value to which {@link #aLong} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setALong( long pALong ) {
       // Assign value to attribute
@@ -274,9 +213,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aFloat".
-     * 
-     * @param pAFloat Value to which the attribute "aFloat" should be set.
+     * Method sets attribute {@link #aFloat}.<br/>
+     *
+     * @param pAFloat Value to which {@link #aFloat} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAFloat( float pAFloat ) {
       // Assign value to attribute
@@ -285,9 +225,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aDouble".
-     * 
-     * @param pADouble Value to which the attribute "aDouble" should be set.
+     * Method sets attribute {@link #aDouble}.<br/>
+     *
+     * @param pADouble Value to which {@link #aDouble} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setADouble( double pADouble ) {
       // Assign value to attribute
@@ -296,9 +237,10 @@ public class PrimitiveServiceObject implements ServiceObject {
     }
 
     /**
-     * Method sets the attribute "aChar".
-     * 
-     * @param pAChar Value to which the attribute "aChar" should be set.
+     * Method sets attribute {@link #aChar}.<br/>
+     *
+     * @param pAChar Value to which {@link #aChar} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setAChar( char pAChar ) {
       // Assign value to attribute
@@ -309,7 +251,7 @@ public class PrimitiveServiceObject implements ServiceObject {
     /**
      * Method creates a new instance of class PrimitiveServiceObject. The object will be initialized with the values of
      * the builder.
-     * 
+     *
      * @return PrimitiveServiceObject Created object. The method never returns null.
      */
     public PrimitiveServiceObject build( ) {
@@ -319,32 +261,40 @@ public class PrimitiveServiceObject implements ServiceObject {
     /**
      * Method creates a new validated instance of class PrimitiveServiceObject. The object will be initialized with the
      * values of the builder and validated afterwards.
-     * 
+     *
      * @return PrimitiveServiceObject Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public PrimitiveServiceObject buildValidated( ) throws ConstraintViolationException {
-      PrimitiveServiceObject lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      PrimitiveServiceObject lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "aBoolean".
-   * 
-   * 
-   * @return Boolean Value to which the attribute "aBoolean" is set.
+   * Method returns attribute {@link #aBoolean}.<br/>
+   *
+   * @return boolean Value to which {@link #aBoolean} is set.
    */
+  @Deprecated
   public boolean getABoolean( ) {
     return aBoolean;
   }
 
   /**
-   * Method sets the attribute "aBoolean".
-   * 
-   * 
-   * @param pABoolean Value to which the attribute "aBoolean" should be set.
+   * Method returns attribute {@link #aBoolean}.<br/>
+   *
+   * @return boolean Value to which {@link #aBoolean} is set.
+   */
+  public boolean isABoolean( ) {
+    return aBoolean;
+  }
+
+  /**
+   * Method sets attribute {@link #aBoolean}.<br/>
+   *
+   * @param pABoolean Value to which {@link #aBoolean} should be set.
    */
   public void setABoolean( boolean pABoolean ) {
     // Assign value to attribute
@@ -352,20 +302,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aByte".
-   * 
-   * 
-   * @return byte Value to which the attribute "aByte" is set.
+   * Method returns attribute {@link #aByte}.<br/>
+   *
+   * @return byte Value to which {@link #aByte} is set.
    */
   public byte getAByte( ) {
     return aByte;
   }
 
   /**
-   * Method sets the attribute "aByte".
-   * 
-   * 
-   * @param pAByte Value to which the attribute "aByte" should be set.
+   * Method sets attribute {@link #aByte}.<br/>
+   *
+   * @param pAByte Value to which {@link #aByte} should be set.
    */
   public void setAByte( byte pAByte ) {
     // Assign value to attribute
@@ -373,20 +321,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aShort".
-   * 
-   * 
-   * @return short Value to which the attribute "aShort" is set.
+   * Method returns attribute {@link #aShort}.<br/>
+   *
+   * @return short Value to which {@link #aShort} is set.
    */
   public short getAShort( ) {
     return aShort;
   }
 
   /**
-   * Method sets the attribute "aShort".
-   * 
-   * 
-   * @param pAShort Value to which the attribute "aShort" should be set.
+   * Method sets attribute {@link #aShort}.<br/>
+   *
+   * @param pAShort Value to which {@link #aShort} should be set.
    */
   public void setAShort( short pAShort ) {
     // Assign value to attribute
@@ -394,20 +340,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aInt".
-   * 
-   * 
-   * @return int Value to which the attribute "aInt" is set.
+   * Method returns attribute {@link #aInt}.<br/>
+   *
+   * @return int Value to which {@link #aInt} is set.
    */
   public int getAInt( ) {
     return aInt;
   }
 
   /**
-   * Method sets the attribute "aInt".
-   * 
-   * 
-   * @param pAInt Value to which the attribute "aInt" should be set.
+   * Method sets attribute {@link #aInt}.<br/>
+   *
+   * @param pAInt Value to which {@link #aInt} should be set.
    */
   public void setAInt( int pAInt ) {
     // Assign value to attribute
@@ -415,20 +359,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aLong".
-   * 
-   * 
-   * @return long Value to which the attribute "aLong" is set.
+   * Method returns attribute {@link #aLong}.<br/>
+   *
+   * @return long Value to which {@link #aLong} is set.
    */
   public long getALong( ) {
     return aLong;
   }
 
   /**
-   * Method sets the attribute "aLong".
-   * 
-   * 
-   * @param pALong Value to which the attribute "aLong" should be set.
+   * Method sets attribute {@link #aLong}.<br/>
+   *
+   * @param pALong Value to which {@link #aLong} should be set.
    */
   public void setALong( long pALong ) {
     // Assign value to attribute
@@ -436,20 +378,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aFloat".
-   * 
-   * 
-   * @return float Value to which the attribute "aFloat" is set.
+   * Method returns attribute {@link #aFloat}.<br/>
+   *
+   * @return float Value to which {@link #aFloat} is set.
    */
   public float getAFloat( ) {
     return aFloat;
   }
 
   /**
-   * Method sets the attribute "aFloat".
-   * 
-   * 
-   * @param pAFloat Value to which the attribute "aFloat" should be set.
+   * Method sets attribute {@link #aFloat}.<br/>
+   *
+   * @param pAFloat Value to which {@link #aFloat} should be set.
    */
   public void setAFloat( float pAFloat ) {
     // Assign value to attribute
@@ -457,20 +397,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aDouble".
-   * 
-   * 
-   * @return double Value to which the attribute "aDouble" is set.
+   * Method returns attribute {@link #aDouble}.<br/>
+   *
+   * @return double Value to which {@link #aDouble} is set.
    */
   public double getADouble( ) {
     return aDouble;
   }
 
   /**
-   * Method sets the attribute "aDouble".
-   * 
-   * 
-   * @param pADouble Value to which the attribute "aDouble" should be set.
+   * Method sets attribute {@link #aDouble}.<br/>
+   *
+   * @param pADouble Value to which {@link #aDouble} should be set.
    */
   public void setADouble( double pADouble ) {
     // Assign value to attribute
@@ -478,20 +416,18 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns the attribute "aChar".
-   * 
-   * 
-   * @return char Value to which the attribute "aChar" is set.
+   * Method returns attribute {@link #aChar}.<br/>
+   *
+   * @return char Value to which {@link #aChar} is set.
    */
   public char getAChar( ) {
     return aChar;
   }
 
   /**
-   * Method sets the attribute "aChar".
-   * 
-   * 
-   * @param pAChar Value to which the attribute "aChar" should be set.
+   * Method sets attribute {@link #aChar}.<br/>
+   *
+   * @param pAChar Value to which {@link #aChar} should be set.
    */
   public void setAChar( char pAChar ) {
     // Assign value to attribute
@@ -499,44 +435,69 @@ public class PrimitiveServiceObject implements ServiceObject {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aBoolean", "" + aBoolean));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aByte", "" + aByte));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aShort", "" + aShort));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aInt", "" + aInt));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aLong", "" + aLong));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aFloat", "" + aFloat));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aDouble", "" + aDouble));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "aChar", "" + aChar));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aBoolean: ");
+    lBuilder.append(aBoolean);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aByte: ");
+    lBuilder.append(aByte);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aShort: ");
+    lBuilder.append(aShort);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aInt: ");
+    lBuilder.append(aInt);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aLong: ");
+    lBuilder.append(aLong);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aFloat: ");
+    lBuilder.append(aFloat);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aDouble: ");
+    lBuilder.append(aDouble);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("aChar: ");
+    lBuilder.append(aChar);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new PrimitiveServiceObject objects. The method never
+   * returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

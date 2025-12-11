@@ -1,29 +1,24 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.PositiveOrZero;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class Stop implements ServiceObject {
   /**
    * Default serial version uid.
@@ -41,26 +36,41 @@ public class Stop implements ServiceObject {
   public static final String LINKS = "links";
 
   /**
-   * 
+   * Constant for the name of attribute "index".
    */
+  public static final String INDEX = "index";
+
+  /**
+   * Constant for the name of attribute "theSoftLink".
+   */
+  public static final String THESOFTLINK = "theSoftLink";
+
   private String name;
 
-  /**
-   * 
-   */
-  private List<LinkObject> links = new ArrayList<LinkObject>();
+  private List<LinkObject> links;
+
+  @Max(value = 32)
+  @PositiveOrZero
+  private byte index;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * <p/>
+   * This class uses so called soft links for decoupling. The actual type that is hidden by {@link #theSoftLink} is
+   * <code>LinkObject</code><br/>
+   */
+  private String theSoftLink;
+
+  /**
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected Stop( ) {
-    // Nothing to do.
+    links = new ArrayList<>();
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected Stop( Builder pBuilder ) {
@@ -69,65 +79,67 @@ public class Stop implements ServiceObject {
     // Read attribute values from builder.
     name = pBuilder.name;
     if (pBuilder.links != null) {
-      links.addAll(pBuilder.links);
+      links = pBuilder.links;
     }
+    else {
+      links = new ArrayList<>();
+    }
+    index = pBuilder.index;
+    theSoftLink = pBuilder.theSoftLink;
   }
 
   /**
-   * Class implements builder to create a new instance of class Stop. As the class has read only attributes or
-   * associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new Stop objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>Stop</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private String name;
 
-    /**
-     * 
-     */
     private List<LinkObject> links;
 
+    @Max(value = 32)
+    @PositiveOrZero
+    private byte index;
+
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * <p/>
+     * This class uses so called soft links for decoupling. The actual type that is hidden by {@link #theSoftLink} is
+     * <code>LinkObject</code><br/>
+     */
+    private String theSoftLink;
+
+    /**
+     * Use {@link Stop#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(Stop)} instead of private constructor to create new builder.
+     * Use {@link Stop#builder(Stop)} instead of private constructor to create new builder.
      */
     protected Builder( Stop pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        name = pObject.name;
-        links = pObject.links;
+        this.setName(pObject.name);
+        this.setLinks(pObject.links);
+        this.setIndex(pObject.index);
+        this.setTheSoftLink(pObject.theSoftLink);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new Stop objects. The method never returns null.
-     */
-    public static Builder newBuilder( Stop pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "name".
-     * 
-     * @param pName Value to which the attribute "name" should be set.
+     * Method sets attribute {@link #name}.<br/>
+     *
+     * @param pName Value to which {@link #name} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setName( String pName ) {
       // Assign value to attribute
@@ -136,9 +148,10 @@ public class Stop implements ServiceObject {
     }
 
     /**
-     * Method sets the association "links".
-     * 
-     * @param pLinks Collection with objects to which the association should be set.
+     * Method sets association {@link #links}.<br/>
+     *
+     * @param pLinks Collection to which {@link #links} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setLinks( List<LinkObject> pLinks ) {
       // To ensure immutability we have to copy the content of the passed collection.
@@ -152,8 +165,47 @@ public class Stop implements ServiceObject {
     }
 
     /**
+     * Method adds the passed objects to association {@link #links}.<br/>
+     *
+     * @param pLinks Array of objects that should be added to {@link #links}. The parameter may be null.
+     * @return {@link Builder} Instance of this builder to support chaining. Method never returns null.
+     */
+    public Builder addToLinks( LinkObject... pLinks ) {
+      if (pLinks != null) {
+        if (links == null) {
+          links = new ArrayList<LinkObject>();
+        }
+        links.addAll(Arrays.asList(pLinks));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets attribute {@link #index}.<br/>
+     *
+     * @param pIndex Value to which {@link #index} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public Builder setIndex( byte pIndex ) {
+      // Assign value to attribute
+      index = pIndex;
+      return this;
+    }
+
+    /**
+     * Method sets association {@link #theSoftLink}.<br/>
+     *
+     * @param pTheSoftLink Value to which {@link #theSoftLink} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public Builder setTheSoftLink( String pTheSoftLink ) {
+      theSoftLink = pTheSoftLink;
+      return this;
+    }
+
+    /**
      * Method creates a new instance of class Stop. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return Stop Created object. The method never returns null.
      */
     public Stop build( ) {
@@ -163,32 +215,30 @@ public class Stop implements ServiceObject {
     /**
      * Method creates a new validated instance of class Stop. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return Stop Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public Stop buildValidated( ) throws ConstraintViolationException {
-      Stop lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      Stop lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "name".
-   * 
-   * 
-   * @return String Value to which the attribute "name" is set.
+   * Method returns attribute {@link #name}.<br/>
+   *
+   * @return {@link String} Value to which {@link #name} is set.
    */
   public String getName( ) {
     return name;
   }
 
   /**
-   * Method sets the attribute "name".
-   * 
-   * 
-   * @param pName Value to which the attribute "name" should be set.
+   * Method sets attribute {@link #name}.<br/>
+   *
+   * @param pName Value to which {@link #name} should be set.
    */
   public void setName( String pName ) {
     // Assign value to attribute
@@ -196,11 +246,10 @@ public class Stop implements ServiceObject {
   }
 
   /**
-   * Method returns the association "links".
-   * 
+   * Method returns association {@link #links}.<br/>
    *
-   * @return Collection All LinkObject objects that belong to the association "links". The method never returns null and
-   * the returned collection is unmodifiable.
+   * @return {@link List<LinkObject>} Value to which {@link #links} is set. The method never returns null and the
+   * returned collection is unmodifiable.
    */
   public List<LinkObject> getLinks( ) {
     // Return all LinkObject objects as unmodifiable collection.
@@ -208,27 +257,9 @@ public class Stop implements ServiceObject {
   }
 
   /**
-   * Method sets the association "links" to the passed collection. All objects that formerly were part of the
-   * association will be removed from it.
-   * 
-   * 
-   * @param pLinks Collection with objects to which the association should be set. The parameter must not be null.
-   */
-  void setLinks( List<LinkObject> pLinks ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "links".
-    this.clearLinks();
-    // If the association is null, removing all entries is sufficient.
-    if (pLinks != null) {
-      links = new ArrayList<LinkObject>(pLinks);
-    }
-  }
-
-  /**
-   * Method adds the passed LinkObject object to the association "links".
-   * 
-   * 
-   * @param pLinks Object that should be added to the association "links". The parameter must not be null.
+   * Method adds the passed object to {@link #links}.
+   *
+   * @param pLinks Object that should be added to {@link #links}. The parameter must not be null.
    */
   public void addToLinks( LinkObject pLinks ) {
     // Check parameter "pLinks" for invalid value null.
@@ -238,11 +269,9 @@ public class Stop implements ServiceObject {
   }
 
   /**
-   * Method adds all passed objects to the association "links".
-   * 
-   * 
-   * @param pLinks Collection with all objects that should be added to the association "links". The parameter must not
-   * be null.
+   * Method adds all passed objects to {@link #links}.
+   *
+   * @param pLinks Collection with all objects that should be added to {@link #links}. The parameter must not be null.
    */
   public void addToLinks( Collection<LinkObject> pLinks ) {
     // Check parameter "pLinks" for invalid value null.
@@ -254,10 +283,9 @@ public class Stop implements ServiceObject {
   }
 
   /**
-   * Method removes the passed LinkObject object from the association "links".
-   * 
-   * 
-   * @param pLinks Object that should be removed from the association "links". The parameter must not be null.
+   * Method removes the passed object from {@link #links}.<br/>
+   *
+   * @param pLinks Object that should be removed from {@link #links}. The parameter must not be null.
    */
   public void removeFromLinks( LinkObject pLinks ) {
     // Check parameter for invalid value null.
@@ -267,43 +295,99 @@ public class Stop implements ServiceObject {
   }
 
   /**
-   * Method removes all objects from the association "links".
-   * 
+   * Method removes all objects from {@link #links}.
    */
   public void clearLinks( ) {
     // Remove all objects from association "links".
-    Collection<LinkObject> lLinks = new HashSet<LinkObject>(links);
-    Iterator<LinkObject> lIterator = lLinks.iterator();
-    while (lIterator.hasNext()) {
-      this.removeFromLinks(lIterator.next());
-    }
+    links.clear();
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns attribute {@link #index}.<br/>
+   *
+   * @return byte Value to which {@link #index} is set.
+   */
+  public byte getIndex( ) {
+    return index;
+  }
+
+  /**
+   * Method sets attribute {@link #index}.<br/>
+   *
+   * @param pIndex Value to which {@link #index} should be set.
+   */
+  public void setIndex( byte pIndex ) {
+    // Assign value to attribute
+    index = pIndex;
+  }
+
+  /**
+   * Method returns association {@link #theSoftLink}.<br/>
+   * <p/>
+   * This class uses so called soft links for decoupling. The actual type that is hidden by {@link #theSoftLink} is
+   * <code>LinkObject</code><br/>
+   *
+   * @return {@link String} Value to which {@link #theSoftLink} is set.
+   */
+  public String getTheSoftLink( ) {
+    return theSoftLink;
+  }
+
+  /**
+   * Method sets association {@link #theSoftLink}.<br/>
+   *
+   * @param pTheSoftLink Value to which {@link #theSoftLink} should be set.
+   */
+  public void setTheSoftLink( String pTheSoftLink ) {
+    theSoftLink = pTheSoftLink;
+  }
+
+  /**
+   * Method unsets {@link #theSoftLink}.
+   */
+  public final void unsetTheSoftLink( ) {
+    theSoftLink = null;
+  }
+
+  /**
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "name", "" + name));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("name: ");
+    lBuilder.append(name);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("index: ");
+    lBuilder.append(index);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new Stop objects. The method never returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

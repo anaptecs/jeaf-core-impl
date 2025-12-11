@@ -1,7 +1,7 @@
 
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.impl.core;
@@ -30,66 +30,55 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   /**
    * Method checks the current state of the service. Therefore JEAF defines three different check levels: internal
    * Checks, infrastructure checks and external checks. For further details about the check levels {@see CheckLevel}.
-   * 
+   *
    * @param pLevel Check level on which the check should be performed. The parameter is never null.
    * @return {@link HealthCheckResult} Object describing the result of the check. The method may return null. This means
    * that the service does not implement any checks. In order to use as less memory as possible the method should use
    * the constant {@link HealthCheckResult#CHECK_OK} if no errors or warnings occurred during the check.
    */
-  public HealthCheckResult check( CheckLevel pLevel ) {
+  @Override
+  public HealthCheckResult check(CheckLevel pLevel) {
     return null;
   }
 
   /**
-   * 
+   *
    * @param pDatatypes
    */
   @Override
-  public void processSimpleDatatypes( SimpleDatatypeServiceObject pDatatypes ) {
+  public void processSimpleDatatypes(SimpleDatatypeServiceObject pDatatypes) {
   }
 
   /**
-   * 
+   *
    * @param pSimpleTypes
    * @return {@link WrapperDatatypeServiceObject}
    */
   @Override
-  public WrapperDatatypeServiceObject convertToWrapperDatatypes( SimpleDatatypeServiceObject pSimpleTypes ) {
+  public WrapperDatatypeServiceObject convertToWrapperDatatypes(SimpleDatatypeServiceObject pSimpleTypes) {
     return null;
   }
 
   /**
-   * 
+   *
    * @param pWrapperTypes
    * @return {@link SimpleDatatypeServiceObject}
    */
   @Override
-  public SimpleDatatypeServiceObject convertToSimpleDatatypes( WrapperDatatypeServiceObject pWrapperTypes ) {
+  public SimpleDatatypeServiceObject convertToSimpleDatatypes(WrapperDatatypeServiceObject pWrapperTypes) {
     return null;
   }
 
   /**
-   * 
-   * @param pInteger
-   * @param pByteArray
-   * @param pDoubleValue
-   * @return {@link Boolean}
-   */
-  @Override
-  public boolean testPrimitivesAsParameter( int pInteger, byte pByteArray, double pDoubleValue ) {
-    return false;
-  }
-
-  /**
-   * 
+   *
    * @param pSimpleObjects
    */
   @Override
-  public void testGenericsAsParameter( Set<SimpleDatatypeServiceObject> pSimpleObjects ) {
+  public void testGenericsAsParameter(Set<SimpleDatatypeServiceObject> pSimpleObjects) {
   }
 
   /**
-   * 
+   *
    * @return {@link SimpleDatatypeServiceObject}
    */
   @Override
@@ -98,11 +87,11 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @param pParam1
    */
   @Override
-  public void doWhatIMean( int pParam1 ) {
+  public void doWhatIMean(int pParam1) {
     if (pParam1 == 1) {
       throw new NullPointerException("NPE requested by client ;-)");
     }
@@ -115,32 +104,32 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-  * 
+  *
   */
   @Override
   public void doWhatIMean( ) {
   }
 
   /**
-   * 
+   *
    * @param pParam1
    */
   @Override
-  public void doWhatIMean( Double pParam1 ) {
+  public void doWhatIMean(Double pParam1) {
   }
 
   /**
-   * 
+   *
    * @param pInput
    * @return {@link Output}
    */
   @Override
-  public Set<Output> doWithObjectsFromOtherPAckages( Input pInput ) {
+  public Set<Output> doWithObjectsFromOtherPAckages(Input pInput) {
     return null;
   }
 
   /**
-   * 
+   *
    * @return {@link int}
    */
   @Override
@@ -149,7 +138,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link Boolean}
    */
   @Override
@@ -158,7 +147,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link short}
    */
   @Override
@@ -167,7 +156,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link byte}
    */
   @Override
@@ -176,7 +165,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link char}
    */
   @Override
@@ -185,7 +174,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link long}
    */
   @Override
@@ -194,7 +183,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link float}
    */
   @Override
@@ -203,7 +192,7 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-   * 
+   *
    * @return {@link double}
    */
   @Override
@@ -212,9 +201,14 @@ final class GeneratorTestServiceImpl extends GeneratorTestServiceImplBase {
   }
 
   /**
-  * 
+  *
   */
   @Override
   public void parentServiceMethod( ) {
+  }
+
+  @Override
+  public boolean testPrimitivesAsParameter(int pInteger, byte[] pByteArray, double pDoubleValue) {
+    return false;
   }
 }

@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
@@ -9,14 +9,8 @@ import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class EnumTest implements ServiceObject {
   /**
    * Default serial version uid.
@@ -40,12 +34,13 @@ public class EnumTest implements ServiceObject {
   private ExtensibleEnum property;
 
   /**
-   * 
+   * <br/>
+   * <b>Default Value:</b> <code>RED</code>
    */
   private ExtensibleEnum enumRef;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected EnumTest( ) {
@@ -55,7 +50,7 @@ public class EnumTest implements ServiceObject {
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected EnumTest( Builder pBuilder ) {
@@ -67,61 +62,52 @@ public class EnumTest implements ServiceObject {
   }
 
   /**
-   * Class implements builder to create a new instance of class EnumTest. As the class has read only attributes or
-   * associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new EnumTest objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>EnumTest</code>.
    */
   public static class Builder {
     /**
-     * 
+     * <br/>
+     * <b>Default Value:</b> <code>GREEN</code>
      */
     private ExtensibleEnum property = ExtensibleEnum.GREEN;
 
     /**
-     * 
+     * <br/>
+     * <b>Default Value:</b> <code>RED</code>
      */
     private ExtensibleEnum enumRef = ExtensibleEnum.RED;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link EnumTest#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(EnumTest)} instead of private constructor to create new builder.
+     * Use {@link EnumTest#builder(EnumTest)} instead of private constructor to create new builder.
      */
     protected Builder( EnumTest pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        property = pObject.property;
-        enumRef = pObject.enumRef;
+        this.setProperty(pObject.property);
+        this.setEnumRef(pObject.enumRef);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new EnumTest objects. The method never returns
-     * null.
-     */
-    public static Builder newBuilder( EnumTest pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the attribute "property".
-     * 
-     * @param pProperty Value to which the attribute "property" should be set.
+     * Method sets attribute {@link #property}.<br/>
+     *
+     * @param pProperty Value to which {@link #property} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setProperty( ExtensibleEnum pProperty ) {
       // Assign value to attribute
@@ -130,9 +116,10 @@ public class EnumTest implements ServiceObject {
     }
 
     /**
-     * Method sets the association "enumRef".
-     * 
-     * @param pEnumRef ExtensibleEnum to which the association "enumRef" should be set.
+     * Method sets association {@link #enumRef}.<br/>
+     *
+     * @param pEnumRef Value to which {@link #enumRef} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setEnumRef( ExtensibleEnum pEnumRef ) {
       enumRef = pEnumRef;
@@ -141,7 +128,7 @@ public class EnumTest implements ServiceObject {
 
     /**
      * Method creates a new instance of class EnumTest. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return EnumTest Created object. The method never returns null.
      */
     public EnumTest build( ) {
@@ -151,32 +138,30 @@ public class EnumTest implements ServiceObject {
     /**
      * Method creates a new validated instance of class EnumTest. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return EnumTest Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public EnumTest buildValidated( ) throws ConstraintViolationException {
-      EnumTest lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      EnumTest lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the attribute "property".
-   * 
-   * 
-   * @return ExtensibleEnum Value to which the attribute "property" is set.
+   * Method returns attribute {@link #property}.<br/>
+   *
+   * @return {@link ExtensibleEnum} Value to which {@link #property} is set.
    */
   public ExtensibleEnum getProperty( ) {
     return property;
   }
 
   /**
-   * Method sets the attribute "property".
-   * 
-   * 
-   * @param pProperty Value to which the attribute "property" should be set.
+   * Method sets attribute {@link #property}.<br/>
+   *
+   * @param pProperty Value to which {@link #property} should be set.
    */
   public void setProperty( ExtensibleEnum pProperty ) {
     // Assign value to attribute
@@ -184,58 +169,65 @@ public class EnumTest implements ServiceObject {
   }
 
   /**
-   * Method returns the association "enumRef".
-   * 
+   * Method returns association {@link #enumRef}.<br/>
    *
-   * @return ExtensibleEnum ExtensibleEnum to which the association "enumRef" is set.
+   * @return {@link ExtensibleEnum} Value to which {@link #enumRef} is set.
    */
   public ExtensibleEnum getEnumRef( ) {
     return enumRef;
   }
 
   /**
-   * Method sets the association "enumRef".
-   * 
-   * 
-   * @param pEnumRef ExtensibleEnum to which the association "enumRef" should be set.
+   * Method sets association {@link #enumRef}.<br/>
+   *
+   * @param pEnumRef Value to which {@link #enumRef} should be set.
    */
   public void setEnumRef( ExtensibleEnum pEnumRef ) {
     enumRef = pEnumRef;
   }
 
   /**
-   * Method unsets the association "enumRef".
-   * 
+   * Method unsets {@link #enumRef}.
    */
   public final void unsetEnumRef( ) {
     enumRef = null;
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "property", "" + property));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("property: ");
+    lBuilder.append(property);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new EnumTest objects. The method never returns null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

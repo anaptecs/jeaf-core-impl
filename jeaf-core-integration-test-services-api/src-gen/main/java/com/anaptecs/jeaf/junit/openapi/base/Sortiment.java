@@ -1,28 +1,25 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class Sortiment implements ServiceObject {
   /**
    * Default serial version uid.
@@ -35,9 +32,22 @@ public class Sortiment implements ServiceObject {
   public static final String PRODUCTS = "products";
 
   /**
-   * 
+   * Constant for the name of attribute "value".
    */
-  private Set<Product> products = new HashSet<Product>();
+  public static final String VALUE = "value";
+
+  /**
+   * Constant for the name of attribute "inlineSortimentType".
+   */
+  public static final String INLINESORTIMENTTYPE = "inlineSortimentType";
+
+  /**
+   * Constant for the name of attribute "types".
+   */
+  @Deprecated
+  public static final String TYPES = "types";
+
+  private Set<Product> products;
 
   /**
    * Attribute is required for correct handling of bidirectional associations in case of deserialization.
@@ -45,18 +55,31 @@ public class Sortiment implements ServiceObject {
   private transient boolean productsBackReferenceInitialized;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * <br/>
+   * <b>Default Value:</b> <code>4711</code>
+   */
+  private final Integer value;
+
+  private InlineSortimentType inlineSortimentType;
+
+  @Deprecated
+  private List<InlineSortimentType> types;
+
+  /**
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected Sortiment( ) {
-    // Nothing to do.
+    products = new HashSet<>();
     // Bidirectional back reference is not yet set up correctly
     productsBackReferenceInitialized = false;
+    value = 4711;
+    types = new ArrayList<>();
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected Sortiment( Builder pBuilder ) {
@@ -64,62 +87,77 @@ public class Sortiment implements ServiceObject {
     Check.checkInvalidParameterNull(pBuilder, "pBuilder");
     // Read attribute values from builder.
     if (pBuilder.products != null) {
-      products.addAll(pBuilder.products);
+      products = pBuilder.products;
+      // As association is bidirectional we also have to set it in the other direction.
+      for (Product lNext : products) {
+        lNext.addToSortiments((Sortiment) this);
+      }
+    }
+    else {
+      products = new HashSet<>();
     }
     // Bidirectional back reference is set up correctly as a builder is used.
     productsBackReferenceInitialized = true;
+    value = pBuilder.value;
+    inlineSortimentType = pBuilder.inlineSortimentType;
+    if (pBuilder.types != null) {
+      types = pBuilder.types;
+    }
+    else {
+      types = new ArrayList<>();
+    }
   }
 
   /**
-   * Class implements builder to create a new instance of class Sortiment. As the class has read only attributes or
-   * associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new Sortiment objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>Sortiment</code>.
    */
   public static class Builder {
-    /**
-     * 
-     */
     private Set<Product> products;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * <br/>
+     * <b>Default Value:</b> <code>4711</code>
+     */
+    private Integer value = 4711;
+
+    private InlineSortimentType inlineSortimentType;
+
+    @Deprecated
+    private List<InlineSortimentType> types;
+
+    /**
+     * Use {@link Sortiment#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(Sortiment)} instead of private constructor to create new builder.
+     * Use {@link Sortiment#builder(Sortiment)} instead of private constructor to create new builder.
      */
     protected Builder( Sortiment pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        products = pObject.products;
+        this.setProducts(pObject.products);
+        this.setValue(pObject.value);
+        this.setInlineSortimentType(pObject.inlineSortimentType);
+        this.setTypes(pObject.types);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new Sortiment objects. The method never returns
-     * null.
-     */
-    public static Builder newBuilder( Sortiment pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the association "products".
-     * 
-     * @param pProducts Collection with objects to which the association should be set.
+     * Method sets association {@link #products}.<br/>
+     *
+     * @param pProducts Collection to which {@link #products} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setProducts( Set<Product> pProducts ) {
       // To ensure immutability we have to copy the content of the passed collection.
@@ -133,8 +171,100 @@ public class Sortiment implements ServiceObject {
     }
 
     /**
+     * Method adds the passed objects to association {@link #products}.<br/>
+     *
+     * @param pProducts Array of objects that should be added to {@link #products}. The parameter may be null.
+     * @return {@link Builder} Instance of this builder to support chaining. Method never returns null.
+     */
+    public Builder addToProducts( Product... pProducts ) {
+      if (pProducts != null) {
+        if (products == null) {
+          products = new HashSet<Product>();
+        }
+        products.addAll(Arrays.asList(pProducts));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets attribute {@link #value}.<br/>
+     *
+     * @param pValue Value to which {@link #value} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public Builder setValue( Integer pValue ) {
+      // Assign value to attribute
+      value = pValue;
+      return this;
+    }
+
+    /**
+     * Method sets association {@link #inlineSortimentType}.<br/>
+     *
+     * @param pInlineSortimentType Value to which {@link #inlineSortimentType} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public Builder setInlineSortimentType( InlineSortimentType pInlineSortimentType ) {
+      inlineSortimentType = pInlineSortimentType;
+      return this;
+    }
+
+    /**
+     * Method sets association {@link #types}.<br/>
+     *
+     * @param pTypes Collection to which {@link #types} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    @Deprecated
+    public Builder setTypes( List<InlineSortimentType> pTypes ) {
+      // To ensure immutability we have to copy the content of the passed collection.
+      if (pTypes != null) {
+        types = new ArrayList<InlineSortimentType>(pTypes);
+      }
+      else {
+        types = null;
+      }
+      return this;
+    }
+
+    /**
+     * Method adds the passed objects to association {@link #types}.<br/>
+     *
+     * @param pTypes Array of objects that should be added to {@link #types}. The parameter may be null.
+     * @return {@link Builder} Instance of this builder to support chaining. Method never returns null.
+     */
+    @Deprecated
+    public Builder addToTypes( InlineSortimentType... pTypes ) {
+      if (pTypes != null) {
+        if (types == null) {
+          types = new ArrayList<InlineSortimentType>();
+        }
+        types.addAll(Arrays.asList(pTypes));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets association {@link #types}.<br/>
+     *
+     * @param pTypes Array with objects to which {@link #types} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    @Deprecated
+    public Builder setTypes( InlineSortimentType... pTypes ) {
+      // Copy the content of the passed array.
+      if (pTypes != null) {
+        types = new ArrayList<InlineSortimentType>(Arrays.asList(pTypes));
+      }
+      else {
+        types = null;
+      }
+      return this;
+    }
+
+    /**
      * Method creates a new instance of class Sortiment. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return Sortiment Created object. The method never returns null.
      */
     public Sortiment build( ) {
@@ -144,23 +274,22 @@ public class Sortiment implements ServiceObject {
     /**
      * Method creates a new validated instance of class Sortiment. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return Sortiment Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public Sortiment buildValidated( ) throws ConstraintViolationException {
-      Sortiment lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      Sortiment lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the association "products".
-   * 
+   * Method returns association {@link #products}.<br/>
    *
-   * @return Collection All Product objects that belong to the association "products". The method never returns null and
-   * the returned collection is unmodifiable.
+   * @return {@link Set<Product>} Value to which {@link #products} is set. The method never returns null and the
+   * returned collection is unmodifiable.
    */
   public Set<Product> getProducts( ) {
     // Due to restrictions in JSON serialization / deserialization bi-directional associations need a special handling
@@ -176,27 +305,9 @@ public class Sortiment implements ServiceObject {
   }
 
   /**
-   * Method sets the association "products" to the passed collection. All objects that formerly were part of the
-   * association will be removed from it.
-   * 
-   * 
-   * @param pProducts Collection with objects to which the association should be set. The parameter must not be null.
-   */
-  void setProducts( Set<Product> pProducts ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "products".
-    this.clearProducts();
-    // If the association is null, removing all entries is sufficient.
-    if (pProducts != null) {
-      products = new HashSet<Product>(pProducts);
-    }
-  }
-
-  /**
-   * Method adds the passed Product object to the association "products".
-   * 
-   * 
-   * @param pProducts Object that should be added to the association "products". The parameter must not be null.
+   * Method adds the passed object to {@link #products}.
+   *
+   * @param pProducts Object that should be added to {@link #products}. The parameter must not be null.
    */
   public void addToProducts( Product pProducts ) {
     // Check parameter "pProducts" for invalid value null.
@@ -211,11 +322,10 @@ public class Sortiment implements ServiceObject {
   }
 
   /**
-   * Method adds all passed objects to the association "products".
-   * 
-   * 
-   * @param pProducts Collection with all objects that should be added to the association "products". The parameter must
-   * not be null.
+   * Method adds all passed objects to {@link #products}.
+   *
+   * @param pProducts Collection with all objects that should be added to {@link #products}. The parameter must not be
+   * null.
    */
   public void addToProducts( Collection<Product> pProducts ) {
     // Check parameter "pProducts" for invalid value null.
@@ -227,10 +337,9 @@ public class Sortiment implements ServiceObject {
   }
 
   /**
-   * Method removes the passed Product object from the association "products".
-   * 
-   * 
-   * @param pProducts Object that should be removed from the association "products". The parameter must not be null.
+   * Method removes the passed object from {@link #products}.<br/>
+   *
+   * @param pProducts Object that should be removed from {@link #products}. The parameter must not be null.
    */
   public void removeFromProducts( Product pProducts ) {
     // Check parameter for invalid value null.
@@ -245,41 +354,150 @@ public class Sortiment implements ServiceObject {
   }
 
   /**
-   * Method removes all objects from the association "products".
-   * 
+   * Method removes all objects from {@link #products}.
    */
   public void clearProducts( ) {
     // Remove all objects from association "products".
     Collection<Product> lProducts = new HashSet<Product>(products);
     Iterator<Product> lIterator = lProducts.iterator();
     while (lIterator.hasNext()) {
+      // As association is bidirectional we have to clear it in both directions.
       this.removeFromProducts(lIterator.next());
     }
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns attribute {@link #value}.<br/>
+   *
+   * @return {@link Integer} Value to which {@link #value} is set.
+   */
+  public Integer getValue( ) {
+    return value;
+  }
+
+  /**
+   * Method returns association {@link #inlineSortimentType}.<br/>
+   *
+   * @return {@link InlineSortimentType} Value to which {@link #inlineSortimentType} is set.
+   */
+  public InlineSortimentType getInlineSortimentType( ) {
+    return inlineSortimentType;
+  }
+
+  /**
+   * Method sets association {@link #inlineSortimentType}.<br/>
+   *
+   * @param pInlineSortimentType Value to which {@link #inlineSortimentType} should be set.
+   */
+  public void setInlineSortimentType( InlineSortimentType pInlineSortimentType ) {
+    inlineSortimentType = pInlineSortimentType;
+  }
+
+  /**
+   * Method unsets {@link #inlineSortimentType}.
+   */
+  public final void unsetInlineSortimentType( ) {
+    inlineSortimentType = null;
+  }
+
+  /**
+   * Method returns association {@link #types}.<br/>
+   *
+   * @return {@link List<InlineSortimentType>} Value to which {@link #types} is set. The method never returns null and
+   * the returned collection is unmodifiable.
+   */
+  @Deprecated
+  public List<InlineSortimentType> getTypes( ) {
+    // Return all InlineSortimentType objects as unmodifiable collection.
+    return Collections.unmodifiableList(types);
+  }
+
+  /**
+   * Method adds the passed object to {@link #types}.
+   *
+   * @param pTypes Object that should be added to {@link #types}. The parameter must not be null.
+   */
+  @Deprecated
+  public void addToTypes( InlineSortimentType pTypes ) {
+    // Check parameter "pTypes" for invalid value null.
+    Check.checkInvalidParameterNull(pTypes, "pTypes");
+    // Add passed object to collection of associated InlineSortimentType objects.
+    types.add(pTypes);
+  }
+
+  /**
+   * Method adds all passed objects to {@link #types}.
+   *
+   * @param pTypes Collection with all objects that should be added to {@link #types}. The parameter must not be null.
+   */
+  @Deprecated
+  public void addToTypes( Collection<InlineSortimentType> pTypes ) {
+    // Check parameter "pTypes" for invalid value null.
+    Check.checkInvalidParameterNull(pTypes, "pTypes");
+    // Add all passed objects.
+    for (InlineSortimentType lNextObject : pTypes) {
+      this.addToTypes(lNextObject);
+    }
+  }
+
+  /**
+   * Method removes the passed object from {@link #types}.<br/>
+   *
+   * @param pTypes Object that should be removed from {@link #types}. The parameter must not be null.
+   */
+  @Deprecated
+  public void removeFromTypes( InlineSortimentType pTypes ) {
+    // Check parameter for invalid value null.
+    Check.checkInvalidParameterNull(pTypes, "pTypes");
+    // Remove passed object from collection of associated InlineSortimentType objects.
+    types.remove(pTypes);
+  }
+
+  /**
+   * Method removes all objects from {@link #types}.
+   */
+  @Deprecated
+  public void clearTypes( ) {
+    // Remove all objects from association "types".
+    types.clear();
+  }
+
+  /**
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("value: ");
+    lBuilder.append(value);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new Sortiment objects. The method never returns
+   * null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

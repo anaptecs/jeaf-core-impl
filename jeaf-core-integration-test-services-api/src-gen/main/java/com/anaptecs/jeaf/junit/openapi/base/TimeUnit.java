@@ -1,33 +1,32 @@
+/*
+ * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
+ *
+ * Copyright 2004 - 2019. All rights reserved.
+ */
 package com.anaptecs.jeaf.junit.openapi.base;
 
 /**
- * Enumeration represents time units.
- * 
- * NOVA 14 Mapping nova-base.xsd.ZeitEinheit
+ * Enumeration represents time units.<br/>
+ * <br/>
+ * NOVA 14 Mapping
+ * </p>
+ * <ul>
+ * <li>nova-base.xsd.ZeitEinheit</li>
+ * </ul>
+ * <p/>
+ * <b>Alternate Name:</b> <code>Zeiteinheit</code>
+ *
+ * @author JEAF Generator
+ * @version JEAF Release 1.4.x
  */
 public enum TimeUnit {
   /**
-   * Literal represents time unit "minutes".
+   * Literal represents time unit &quot;minutes&quot;.
    */
-  MINUTE,
+  MINUTE, HOUR, DAY,
   /**
-   * 
+   * Literal represents time unit &quot;weeks&quot;.<br/>
+   * This is the comments second line ;-)
    */
-  HOUR,
-  /**
-   * 
-   */
-  DAY,
-  /**
-   * Literal represents time unit "weeks". This is the comments second line ;-)
-   */
-  WEEK,
-  /**
-   * 
-   */
-  MONTH,
-  /**
-   * 
-   */
-  YEAR;
+  WEEK, MONTH, YEAR;
 }

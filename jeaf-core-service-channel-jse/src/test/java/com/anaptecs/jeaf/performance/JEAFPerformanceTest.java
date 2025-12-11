@@ -1,14 +1,11 @@
 /*
  * anaptecs GmbH, Burgstr. 96, 72764 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2013 All rights reserved.
  */
 package com.anaptecs.jeaf.performance;
 
 import java.lang.reflect.Method;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
 import com.anaptecs.jeaf.core.annotations.JEAFService;
 import com.anaptecs.jeaf.core.api.JEAF;
@@ -18,10 +15,12 @@ import com.anaptecs.jeaf.junit.core.ValidationTestService;
 import com.anaptecs.jeaf.tools.api.Tools;
 import com.anaptecs.jeaf.tools.api.performance.Stopwatch;
 import com.anaptecs.jeaf.tools.api.performance.TimePrecision;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class integrates all test suites of this JUnit project to one suite that can be used to run all tests.
- * 
+ *
  * @author JEAF Development Team
  * @version 1.0
  */
@@ -37,7 +36,7 @@ public class JEAFPerformanceTest {
 
   /**
    * Initialize test case. Therefore the name of the test that should be executed must be provided.
-   * 
+   *
    * @param pName Name of the test method that should be executed by this test. The Parameter must not be null.
    */
   public JEAFPerformanceTest( ) {
@@ -72,7 +71,7 @@ public class JEAFPerformanceTest {
   @Test
   public void testServiceChannelWithValidationPerformance( ) {
     // Create object that will be passed to all requests
-    ValidationTestObject lValidationTestObject = ValidationTestObject.Builder.newBuilder().build();
+    ValidationTestObject lValidationTestObject = ValidationTestObject.builder().build();
     lValidationTestObject.setMyEMail("weeasy@anaptecs.de");
     lValidationTestObject.setDateOfBirth(null);
 

@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.impl.core;
@@ -10,9 +10,7 @@ import com.anaptecs.jeaf.xfun.api.common.ComponentID;
 import com.anaptecs.jeaf.xfun.api.config.Configuration;
 
 /**
- * Class represents the GeneratorTest component.
- *
- * 
+ * Class represents the configuration for component {@link com.anaptecs.jeaf.junit.impl.core.GeneratorTestComponent}.
  */
 public final class GeneratorTestComponentConfiguration {
   /**
@@ -30,7 +28,7 @@ public final class GeneratorTestComponentConfiguration {
 
   /**
    * Method returns the value of the property "testProperty".
-   * 
+   *
    * @return {@link Integer} Value of the property "testProperty". The method returns null if no value for the property
    * is defined.
    */
@@ -40,7 +38,7 @@ public final class GeneratorTestComponentConfiguration {
 
   /**
    * Method returns the value of the property "deprecatedAttribute".
-   * 
+   *
    * @return {@link Double} Value of the property "deprecatedAttribute". The method returns null if no value for the
    * property is defined.
    */

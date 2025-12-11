@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -8,14 +8,8 @@ package com.anaptecs.jeaf.junit.core;
 import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.common.ObjectIdentity;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceObjectWithMethod {
   /**
    * Default serial version uid.
@@ -27,22 +21,18 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
    */
   public static final String ATTR = "attr";
 
-  /**
-   * 
-   */
   private Boolean attr;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected SubclassWithoutIDnMethodBase( ) {
-    // Nothing to do.
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected SubclassWithoutIDnMethodBase( BuilderBase pBuilder ) {
@@ -57,27 +47,24 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
    * attributes or associations instances can not be created directly. Instead this builder class has to be used.
    */
   public static abstract class BuilderBase extends IdentifiableServiceObjectWithMethod.Builder {
-    /**
-     * 
-     */
     private Boolean attr;
 
     /**
-     * Use {@link SubclassWithoutIDnMethod.Builder#newBuilder()} instead of protected constructor to create new builder.
+     * Use {@link SubclassWithoutIDnMethod.builder()} instead of protected constructor to create new builder.
      */
     protected BuilderBase( ) {
       super();
     }
 
     /**
-     * Use {@link SubclassWithoutIDnMethod.Builder#newBuilder(SubclassWithoutIDnMethod)} instead of protected
-     * constructor to create new builder.
+     * Use {@link SubclassWithoutIDnMethod.builder(SubclassWithoutIDnMethod)} instead of protected constructor to create
+     * new builder.
      */
     protected BuilderBase( SubclassWithoutIDnMethodBase pObject ) {
       super(pObject);
       if (pObject != null) {
         // Read attribute values from passed object.
-        attr = pObject.attr;
+        this.setAttr(pObject.attr);
       }
     }
 
@@ -92,9 +79,10 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
     }
 
     /**
-     * Method sets the attribute "hello".
-     * 
-     * @param pHello Value to which the attribute "hello" should be set.
+     * Method sets attribute {@link #hello}.<br/>
+     *
+     * @param pHello Value to which {@link #hello} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
     @Override
     public BuilderBase setHello( Integer pHello ) {
@@ -104,9 +92,10 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
     }
 
     /**
-     * Method sets the attribute "attr".
-     * 
-     * @param pAttr Value to which the attribute "attr" should be set.
+     * Method sets attribute {@link #attr}.<br/>
+     *
+     * @param pAttr Value to which {@link #attr} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
     public BuilderBase setAttr( Boolean pAttr ) {
       // Assign value to attribute
@@ -117,7 +106,7 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
     /**
      * Method creates a new instance of class SubclassWithoutIDnMethod. The object will be initialized with the values
      * of the builder.
-     * 
+     *
      * @return SubclassWithoutIDnMethod Created object. The method never returns null.
      */
     public SubclassWithoutIDnMethod build( ) {
@@ -127,7 +116,7 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
     /**
      * Method creates a new validated instance of class SubclassWithoutIDnMethod. The object will be initialized with
      * the values of the builder and validated afterwards.
-     * 
+     *
      * @return SubclassWithoutIDnMethod Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
@@ -139,20 +128,18 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
   }
 
   /**
-   * Method returns the attribute "attr".
-   * 
-   * 
-   * @return Boolean Value to which the attribute "attr" is set.
+   * Method returns attribute {@link #attr}.<br/>
+   *
+   * @return {@link Boolean} Value to which {@link #attr} is set.
    */
   public Boolean getAttr( ) {
     return attr;
   }
 
   /**
-   * Method sets the attribute "attr".
-   * 
-   * 
-   * @param pAttr Value to which the attribute "attr" should be set.
+   * Method sets attribute {@link #attr}.<br/>
+   *
+   * @param pAttr Value to which {@link #attr} should be set.
    */
   public void setAttr( Boolean pAttr ) {
     // Assign value to attribute
@@ -160,31 +147,43 @@ public abstract class SubclassWithoutIDnMethodBase extends IdentifiableServiceOb
   }
 
   /**
-  * 
-  */
+   */
   public abstract void doLess( );
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
-    StringBuilder lBuilder = super.toStringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "attr", "" + attr));
-    lBuilder.append('\n');
+  @Override
+  public StringBuilder toStringBuilder( String pIndent ) {
+    StringBuilder lBuilder = super.toStringBuilder(pIndent);
+    lBuilder.append(pIndent);
+    lBuilder.append("attr: ");
+    lBuilder.append(attr);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new SubclassWithoutIDnMethod objects. The method
+   * never returns null.
+   */
+  public SubclassWithoutIDnMethod.Builder toBuilder( ) {
+    return new SubclassWithoutIDnMethod.Builder((SubclassWithoutIDnMethod) this);
   }
 }

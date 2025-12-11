@@ -1,11 +1,12 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,19 +20,19 @@ import javax.validation.constraints.Size;
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.core.api.ServiceObjectID;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 import com.anaptecs.jeaf.xfun.api.common.Identifiable;
 import com.anaptecs.jeaf.xfun.api.common.ObjectIdentity;
 
 /**
  * Data type represents a product definition
- * 
+ * <p/>
+ * <b>Alternate Name:</b> <code>Produkt</code>
+ *
  * @author JEAF Generator
  * @version JEAF Release 1.4.x
  */
-public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
+public abstract class ProductBase implements ServiceObject, Identifiable<ServiceObjectID> {
   /**
    * Default serial version uid.
    */
@@ -93,19 +94,13 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
    */
   private final ServiceObjectID objectID;
 
-  /**
-   * 
-   */
-  private Set<Reseller> resellers = new HashSet<Reseller>();
+  private Set<Reseller> resellers;
 
   /**
    * Attribute is required for correct handling of bidirectional associations in case of deserialization.
    */
   private transient boolean resellersBackReferenceInitialized;
 
-  /**
-   * 
-   */
   @Size(min = 12, max = Integer.MAX_VALUE)
   private String name;
 
@@ -116,36 +111,24 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
 
   /**
    * <br/>
-   * <b>Example:</b> <code>https://www.company.com/products/1345-345</code>
+   * <b>Example(s):</b> <br/>
+   * <ul>
+   * <li><code>https://www.company.com/products/1345-345</code></li>
+   * </ul>
    */
   private URL link;
 
-  /**
-   * 
-   */
   private final UUID productID;
 
-  /**
-   * 
-   */
   @Size(min = 7, max = 42)
-  private Set<CurrencyCode> supportedCurrencies = new HashSet<CurrencyCode>();
+  private Set<CurrencyCode> supportedCurrencies;
 
-  /**
-   * 
-   */
-  private Set<ProductCode> productCodes = new HashSet<ProductCode>();
+  private Set<ProductCode> productCodes;
 
-  /**
-   * 
-   */
   @Deprecated
   private String description;
 
-  /**
-   * 
-   */
-  private transient Set<Sortiment> sortiments = new HashSet<Sortiment>();
+  private transient Set<Sortiment> sortiments;
 
   /**
    * <br/>
@@ -154,23 +137,27 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   private String uri;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
-  protected Product( ) {
+  protected ProductBase( ) {
     objectID = null;
+    resellers = new HashSet<>();
     // Bidirectional back reference is not yet set up correctly
     resellersBackReferenceInitialized = false;
     productID = null;
+    supportedCurrencies = new HashSet<>();
+    productCodes = new HashSet<>();
+    sortiments = new HashSet<>();
     uri = "https://products.anaptecs.de/123456789";
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
-  protected Product( Builder pBuilder ) {
+  protected ProductBase( BuilderBase pBuilder ) {
     // Ensure that builder is not null.
     Check.checkInvalidParameterNull(pBuilder, "pBuilder");
     // Read object ID.
@@ -183,7 +170,14 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     }
     // Read attribute values from builder.
     if (pBuilder.resellers != null) {
-      resellers.addAll(pBuilder.resellers);
+      resellers = pBuilder.resellers;
+      // As association is bidirectional we also have to set it in the other direction.
+      for (Reseller lNext : resellers) {
+        lNext.addToProducts((Product) this);
+      }
+    }
+    else {
+      resellers = new HashSet<>();
     }
     // Bidirectional back reference is set up correctly as a builder is used.
     resellersBackReferenceInitialized = true;
@@ -192,15 +186,19 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     link = pBuilder.link;
     productID = pBuilder.productID;
     if (pBuilder.supportedCurrencies != null) {
-      supportedCurrencies.addAll(pBuilder.supportedCurrencies);
+      supportedCurrencies = pBuilder.supportedCurrencies;
+    }
+    else {
+      supportedCurrencies = new HashSet<>();
     }
     if (pBuilder.productCodes != null) {
-      productCodes.addAll(pBuilder.productCodes);
+      productCodes = pBuilder.productCodes;
+    }
+    else {
+      productCodes = new HashSet<>();
     }
     description = pBuilder.description;
-    if (pBuilder.sortiments != null) {
-      sortiments.addAll(pBuilder.sortiments);
-    }
+    sortiments = new HashSet<>();
     uri = pBuilder.uri;
   }
 
@@ -208,20 +206,14 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
    * Class implements builder to create a new instance of class Product. As the class has read only attributes or
    * associations instances can not be created directly. Instead this builder class has to be used.
    */
-  public static class Builder {
+  public static abstract class BuilderBase {
     /**
      * Reference to the identifier of this object. The reference may be null since an id is not mandatory.
      */
     private ObjectIdentity<?> objectID;
 
-    /**
-     * 
-     */
     private Set<Reseller> resellers;
 
-    /**
-     * 
-     */
     @Size(min = 12, max = Integer.MAX_VALUE)
     private String name;
 
@@ -231,102 +223,70 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     private byte[] image;
 
     /**
-     * 
+     * <br/>
+     * <b>Example(s):</b> <br/>
+     * <ul>
+     * <li><code>https://www.company.com/products/1345-345</code></li>
+     * </ul>
      */
     private URL link;
 
-    /**
-     * 
-     */
     private UUID productID;
 
-    /**
-     * 
-     */
     private Set<CurrencyCode> supportedCurrencies;
 
-    /**
-     * 
-     */
     private Set<ProductCode> productCodes;
 
-    /**
-     * 
-     */
     @Deprecated
     private String description;
 
     /**
-     * 
-     */
-    private Set<Sortiment> sortiments;
-
-    /**
-     * 
+     * <br/>
+     * <b>Default Value:</b> <code>"https://products.anaptecs.de/123456789"</code>
      */
     private String uri = "https://products.anaptecs.de/123456789";
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link Product.builder()} instead of protected constructor to create new builder.
      */
-    protected Builder( ) {
+    protected BuilderBase( ) {
     }
 
     /**
-     * Use {@link #newBuilder(Product)} instead of private constructor to create new builder.
+     * Use {@link Product.builder(Product)} instead of protected constructor to create new builder.
      */
-    protected Builder( Product pObject ) {
+    protected BuilderBase( ProductBase pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
         objectID = pObject.objectID;
-        resellers = pObject.resellers;
-        name = pObject.name;
-        image = pObject.image;
-        link = pObject.link;
-        productID = pObject.productID;
-        supportedCurrencies = pObject.supportedCurrencies;
-        productCodes = pObject.productCodes;
-        description = pObject.description;
-        sortiments = pObject.sortiments;
-        uri = pObject.uri;
+        this.setResellers(pObject.resellers);
+        this.setName(pObject.name);
+        this.setImage(pObject.image);
+        this.setLink(pObject.link);
+        this.setProductID(pObject.productID);
+        this.setSupportedCurrencies(pObject.supportedCurrencies);
+        this.setProductCodes(pObject.productCodes);
+        this.setDescription(pObject.description);
+        this.setUri(pObject.uri);
       }
-    }
-
-    /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new Product objects. The method never returns
-     * null.
-     */
-    public static Builder newBuilder( Product pObject ) {
-      return new Builder(pObject);
     }
 
     /**
      * Method sets the identifier for the object created using the builder. The reference may be null since an id is not
      * mandatory.
      */
-    public Builder setID( ObjectIdentity<?> pObjectID ) {
+    public BuilderBase setID( ObjectIdentity<?> pObjectID ) {
       objectID = pObjectID;
       return this;
     }
 
     /**
-     * Method sets the association "resellers".
-     * 
-     * @param pResellers Collection with objects to which the association should be set.
+     * Method sets association {@link #resellers}.<br/>
+     *
+     * @param pResellers Collection to which {@link #resellers} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
-    public Builder setResellers( Set<Reseller> pResellers ) {
+    public BuilderBase setResellers( Set<Reseller> pResellers ) {
       // To ensure immutability we have to copy the content of the passed collection.
       if (pResellers != null) {
         resellers = new HashSet<Reseller>(pResellers);
@@ -338,22 +298,40 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "name".
-     * 
-     * @param pName Value to which the attribute "name" should be set.
+     * Method adds the passed objects to association {@link #resellers}.<br/>
+     *
+     * @param pResellers Array of objects that should be added to {@link #resellers}. The parameter may be null.
+     * @return {@link BuilderBase} Instance of this builder to support chaining. Method never returns null.
      */
-    public Builder setName( String pName ) {
+    public BuilderBase addToResellers( Reseller... pResellers ) {
+      if (pResellers != null) {
+        if (resellers == null) {
+          resellers = new HashSet<Reseller>();
+        }
+        resellers.addAll(Arrays.asList(pResellers));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets attribute {@link #name}.<br/>
+     *
+     * @param pName Value to which {@link #name} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public BuilderBase setName( String pName ) {
       // Assign value to attribute
       name = pName;
       return this;
     }
 
     /**
-     * Method sets the attribute "image". Image describing the product.
-     * 
-     * @param pImage Value to which the attribute "image" should be set.
+     * Method sets attribute {@link #image}.<br/>
+     *
+     * @param pImage Value to which {@link #image} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
-    public Builder setImage( byte[] pImage ) {
+    public BuilderBase setImage( byte[] pImage ) {
       // Assign value to attribute
       if (pImage != null) {
         image = new byte[pImage.length];
@@ -366,33 +344,36 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "link".
-     * 
-     * @param pLink Value to which the attribute "link" should be set.
+     * Method sets attribute {@link #link}.<br/>
+     *
+     * @param pLink Value to which {@link #link} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
-    public Builder setLink( URL pLink ) {
+    public BuilderBase setLink( URL pLink ) {
       // Assign value to attribute
       link = pLink;
       return this;
     }
 
     /**
-     * Method sets the attribute "productID".
-     * 
-     * @param pProductID Value to which the attribute "productID" should be set.
+     * Method sets attribute {@link #productID}.<br/>
+     *
+     * @param pProductID Value to which {@link #productID} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
-    public Builder setProductID( UUID pProductID ) {
+    public BuilderBase setProductID( UUID pProductID ) {
       // Assign value to attribute
       productID = pProductID;
       return this;
     }
 
     /**
-     * Method sets the association "supportedCurrencies".
-     * 
-     * @param pSupportedCurrencies Collection with objects to which the association should be set.
+     * Method sets association {@link #supportedCurrencies}.<br/>
+     *
+     * @param pSupportedCurrencies Collection to which {@link #supportedCurrencies} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
-    public Builder setSupportedCurrencies( Set<CurrencyCode> pSupportedCurrencies ) {
+    public BuilderBase setSupportedCurrencies( Set<CurrencyCode> pSupportedCurrencies ) {
       // To ensure immutability we have to copy the content of the passed collection.
       if (pSupportedCurrencies != null) {
         supportedCurrencies = new HashSet<CurrencyCode>(pSupportedCurrencies);
@@ -404,11 +385,29 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the association "productCodes".
-     * 
-     * @param pProductCodes Collection with objects to which the association should be set.
+     * Method adds the passed objects to association {@link #supportedCurrencies}.<br/>
+     *
+     * @param pSupportedCurrencies Array of objects that should be added to {@link #supportedCurrencies}. The parameter
+     * may be null.
+     * @return {@link BuilderBase} Instance of this builder to support chaining. Method never returns null.
      */
-    public Builder setProductCodes( Set<ProductCode> pProductCodes ) {
+    public BuilderBase addToSupportedCurrencies( CurrencyCode... pSupportedCurrencies ) {
+      if (pSupportedCurrencies != null) {
+        if (supportedCurrencies == null) {
+          supportedCurrencies = new HashSet<CurrencyCode>();
+        }
+        supportedCurrencies.addAll(Arrays.asList(pSupportedCurrencies));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets association {@link #productCodes}.<br/>
+     *
+     * @param pProductCodes Collection to which {@link #productCodes} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
+     */
+    public BuilderBase setProductCodes( Set<ProductCode> pProductCodes ) {
       // To ensure immutability we have to copy the content of the passed collection.
       if (pProductCodes != null) {
         productCodes = new HashSet<ProductCode>(pProductCodes);
@@ -420,39 +419,41 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     }
 
     /**
-     * Method sets the attribute "description".
-     * 
-     * @param pDescription Value to which the attribute "description" should be set.
+     * Method adds the passed objects to association {@link #productCodes}.<br/>
+     *
+     * @param pProductCodes Array of objects that should be added to {@link #productCodes}. The parameter may be null.
+     * @return {@link BuilderBase} Instance of this builder to support chaining. Method never returns null.
+     */
+    public BuilderBase addToProductCodes( ProductCode... pProductCodes ) {
+      if (pProductCodes != null) {
+        if (productCodes == null) {
+          productCodes = new HashSet<ProductCode>();
+        }
+        productCodes.addAll(Arrays.asList(pProductCodes));
+      }
+      return this;
+    }
+
+    /**
+     * Method sets attribute {@link #description}.<br/>
+     *
+     * @param pDescription Value to which {@link #description} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
     @Deprecated
-    public Builder setDescription( String pDescription ) {
+    public BuilderBase setDescription( String pDescription ) {
       // Assign value to attribute
       description = pDescription;
       return this;
     }
 
     /**
-     * Method sets the association "sortiments".
-     * 
-     * @param pSortiments Collection with objects to which the association should be set.
+     * Method sets attribute {@link #uri}.<br/>
+     *
+     * @param pUri Value to which {@link #uri} should be set.
+     * @return {@link BuilderBase} Instance of this builder to support chaining setters. Method never returns null.
      */
-    public Builder setSortiments( Set<Sortiment> pSortiments ) {
-      // To ensure immutability we have to copy the content of the passed collection.
-      if (pSortiments != null) {
-        sortiments = new HashSet<Sortiment>(pSortiments);
-      }
-      else {
-        sortiments = null;
-      }
-      return this;
-    }
-
-    /**
-     * Method sets the attribute "uri".
-     * 
-     * @param pUri Value to which the attribute "uri" should be set.
-     */
-    public Builder setUri( String pUri ) {
+    public BuilderBase setUri( String pUri ) {
       // Assign value to attribute
       uri = pUri;
       return this;
@@ -460,7 +461,7 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
 
     /**
      * Method creates a new instance of class Product. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return Product Created object. The method never returns null.
      */
     public Product build( ) {
@@ -470,7 +471,7 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
     /**
      * Method creates a new validated instance of class Product. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return Product Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
@@ -483,7 +484,7 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
 
   /**
    * Method returns the id of this object.
-   * 
+   *
    * @return {@link ServiceObjectID} ID of this object. Since an object must not have an id the method may also return
    * null.
    */
@@ -494,7 +495,7 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
 
   /**
    * Method returns the unversioned object id of this object.
-   * 
+   *
    * @return {@link ServiceObjectID} ID of this object. Since an object must not have an id the method may also return
    * null.
    */
@@ -511,11 +512,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the association "resellers".
-   * 
+   * Method returns association {@link #resellers}.<br/>
    *
-   * @return Collection All Reseller objects that belong to the association "resellers". The method never returns null
-   * and the returned collection is unmodifiable.
+   * @return {@link Set<Reseller>} Value to which {@link #resellers} is set. The method never returns null and the
+   * returned collection is unmodifiable.
    */
   public Set<Reseller> getResellers( ) {
     // Due to restrictions in JSON serialization / deserialization bi-directional associations need a special handling
@@ -531,27 +531,9 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the association "resellers" to the passed collection. All objects that formerly were part of the
-   * association will be removed from it.
-   * 
-   * 
-   * @param pResellers Collection with objects to which the association should be set. The parameter must not be null.
-   */
-  void setResellers( Set<Reseller> pResellers ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "resellers".
-    this.clearResellers();
-    // If the association is null, removing all entries is sufficient.
-    if (pResellers != null) {
-      resellers = new HashSet<Reseller>(pResellers);
-    }
-  }
-
-  /**
-   * Method adds the passed Reseller object to the association "resellers".
-   * 
-   * 
-   * @param pResellers Object that should be added to the association "resellers". The parameter must not be null.
+   * Method adds the passed object to {@link #resellers}.
+   *
+   * @param pResellers Object that should be added to {@link #resellers}. The parameter must not be null.
    */
   public void addToResellers( Reseller pResellers ) {
     // Check parameter "pResellers" for invalid value null.
@@ -566,11 +548,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method adds all passed objects to the association "resellers".
-   * 
-   * 
-   * @param pResellers Collection with all objects that should be added to the association "resellers". The parameter
-   * must not be null.
+   * Method adds all passed objects to {@link #resellers}.
+   *
+   * @param pResellers Collection with all objects that should be added to {@link #resellers}. The parameter must not be
+   * null.
    */
   public void addToResellers( Collection<Reseller> pResellers ) {
     // Check parameter "pResellers" for invalid value null.
@@ -582,10 +563,9 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes the passed Reseller object from the association "resellers".
-   * 
-   * 
-   * @param pResellers Object that should be removed from the association "resellers". The parameter must not be null.
+   * Method removes the passed object from {@link #resellers}.<br/>
+   *
+   * @param pResellers Object that should be removed from {@link #resellers}. The parameter must not be null.
    */
   public void removeFromResellers( Reseller pResellers ) {
     // Check parameter for invalid value null.
@@ -600,33 +580,31 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes all objects from the association "resellers".
-   * 
+   * Method removes all objects from {@link #resellers}.
    */
   public void clearResellers( ) {
     // Remove all objects from association "resellers".
     Collection<Reseller> lResellers = new HashSet<Reseller>(resellers);
     Iterator<Reseller> lIterator = lResellers.iterator();
     while (lIterator.hasNext()) {
+      // As association is bidirectional we have to clear it in both directions.
       this.removeFromResellers(lIterator.next());
     }
   }
 
   /**
-   * Method returns the attribute "name".
-   * 
-   * 
-   * @return String Value to which the attribute "name" is set.
+   * Method returns attribute {@link #name}.<br/>
+   *
+   * @return {@link String} Value to which {@link #name} is set.
    */
   public String getName( ) {
     return name;
   }
 
   /**
-   * Method sets the attribute "name".
-   * 
-   * 
-   * @param pName Value to which the attribute "name" should be set.
+   * Method sets attribute {@link #name}.<br/>
+   *
+   * @param pName Value to which {@link #name} should be set.
    */
   public void setName( String pName ) {
     // Assign value to attribute
@@ -634,9 +612,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "image". Image describing the product.
-   * 
-   * @return byte Value to which the attribute "image" is set.
+   * Method returns attribute {@link #image}.<br/>
+   * Image describing the product.
+   *
+   * @return byte[] Value to which {@link #image} is set.
    */
   public byte[] getImage( ) {
     byte[] lReturnValue;
@@ -651,9 +630,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the attribute "image". Image describing the product.
-   * 
-   * @param pImage Value to which the attribute "image" should be set.
+   * Method sets attribute {@link #image}.<br/>
+   * Image describing the product.
+   *
+   * @param pImage Value to which {@link #image} should be set.
    */
   public void setImage( byte[] pImage ) {
     // Assign value to attribute
@@ -667,20 +647,18 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "link".
-   * 
-   * 
-   * @return URL Value to which the attribute "link" is set.
+   * Method returns attribute {@link #link}.<br/>
+   *
+   * @return {@link URL} Value to which {@link #link} is set.
    */
   public URL getLink( ) {
     return link;
   }
 
   /**
-   * Method sets the attribute "link".
-   * 
-   * 
-   * @param pLink Value to which the attribute "link" should be set.
+   * Method sets attribute {@link #link}.<br/>
+   *
+   * @param pLink Value to which {@link #link} should be set.
    */
   public void setLink( URL pLink ) {
     // Assign value to attribute
@@ -688,21 +666,19 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the attribute "productID".
-   * 
-   * 
-   * @return UUID Value to which the attribute "productID" is set.
+   * Method returns attribute {@link #productID}.<br/>
+   *
+   * @return {@link UUID} Value to which {@link #productID} is set.
    */
   public UUID getProductID( ) {
     return productID;
   }
 
   /**
-   * Method returns the association "supportedCurrencies".
-   * 
+   * Method returns association {@link #supportedCurrencies}.<br/>
    *
-   * @return Collection All CurrencyCode objects that belong to the association "supportedCurrencies". The method never
-   * returns null and the returned collection is unmodifiable.
+   * @return {@link Set<CurrencyCode>} Value to which {@link #supportedCurrencies} is set. The method never returns null
+   * and the returned collection is unmodifiable.
    */
   public Set<CurrencyCode> getSupportedCurrencies( ) {
     // Return all CurrencyCode objects as unmodifiable collection.
@@ -710,29 +686,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the association "supportedCurrencies" to the passed collection. All objects that formerly were part of
-   * the association will be removed from it.
-   * 
-   * 
-   * @param pSupportedCurrencies Collection with objects to which the association should be set. The parameter must not
-   * be null.
-   */
-  void setSupportedCurrencies( Set<CurrencyCode> pSupportedCurrencies ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "supportedCurrencies".
-    this.clearSupportedCurrencies();
-    // If the association is null, removing all entries is sufficient.
-    if (pSupportedCurrencies != null) {
-      supportedCurrencies = new HashSet<CurrencyCode>(pSupportedCurrencies);
-    }
-  }
-
-  /**
-   * Method adds the passed CurrencyCode object to the association "supportedCurrencies".
-   * 
-   * 
-   * @param pSupportedCurrencies Object that should be added to the association "supportedCurrencies". The parameter
-   * must not be null.
+   * Method adds the passed object to {@link #supportedCurrencies}.
+   *
+   * @param pSupportedCurrencies Object that should be added to {@link #supportedCurrencies}. The parameter must not be
+   * null.
    */
   public void addToSupportedCurrencies( CurrencyCode pSupportedCurrencies ) {
     // Check parameter "pSupportedCurrencies" for invalid value null.
@@ -742,11 +699,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method adds all passed objects to the association "supportedCurrencies".
-   * 
-   * 
-   * @param pSupportedCurrencies Collection with all objects that should be added to the association
-   * "supportedCurrencies". The parameter must not be null.
+   * Method adds all passed objects to {@link #supportedCurrencies}.
+   *
+   * @param pSupportedCurrencies Collection with all objects that should be added to {@link #supportedCurrencies}. The
+   * parameter must not be null.
    */
   public void addToSupportedCurrencies( Collection<CurrencyCode> pSupportedCurrencies ) {
     // Check parameter "pSupportedCurrencies" for invalid value null.
@@ -758,11 +714,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes the passed CurrencyCode object from the association "supportedCurrencies".
-   * 
-   * 
-   * @param pSupportedCurrencies Object that should be removed from the association "supportedCurrencies". The parameter
-   * must not be null.
+   * Method removes the passed object from {@link #supportedCurrencies}.<br/>
+   *
+   * @param pSupportedCurrencies Object that should be removed from {@link #supportedCurrencies}. The parameter must not
+   * be null.
    */
   public void removeFromSupportedCurrencies( CurrencyCode pSupportedCurrencies ) {
     // Check parameter for invalid value null.
@@ -772,24 +727,18 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes all objects from the association "supportedCurrencies".
-   * 
+   * Method removes all objects from {@link #supportedCurrencies}.
    */
   public void clearSupportedCurrencies( ) {
     // Remove all objects from association "supportedCurrencies".
-    Collection<CurrencyCode> lSupportedCurrencies = new HashSet<CurrencyCode>(supportedCurrencies);
-    Iterator<CurrencyCode> lIterator = lSupportedCurrencies.iterator();
-    while (lIterator.hasNext()) {
-      this.removeFromSupportedCurrencies(lIterator.next());
-    }
+    supportedCurrencies.clear();
   }
 
   /**
-   * Method returns the association "productCodes".
-   * 
+   * Method returns association {@link #productCodes}.<br/>
    *
-   * @return Collection All ProductCode objects that belong to the association "productCodes". The method never returns
-   * null and the returned collection is unmodifiable.
+   * @return {@link Set<ProductCode>} Value to which {@link #productCodes} is set. The method never returns null and the
+   * returned collection is unmodifiable.
    */
   public Set<ProductCode> getProductCodes( ) {
     // Return all ProductCode objects as unmodifiable collection.
@@ -797,28 +746,9 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the association "productCodes" to the passed collection. All objects that formerly were part of the
-   * association will be removed from it.
-   * 
-   * 
-   * @param pProductCodes Collection with objects to which the association should be set. The parameter must not be
-   * null.
-   */
-  void setProductCodes( Set<ProductCode> pProductCodes ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "productCodes".
-    this.clearProductCodes();
-    // If the association is null, removing all entries is sufficient.
-    if (pProductCodes != null) {
-      productCodes = new HashSet<ProductCode>(pProductCodes);
-    }
-  }
-
-  /**
-   * Method adds the passed ProductCode object to the association "productCodes".
-   * 
-   * 
-   * @param pProductCodes Object that should be added to the association "productCodes". The parameter must not be null.
+   * Method adds the passed object to {@link #productCodes}.
+   *
+   * @param pProductCodes Object that should be added to {@link #productCodes}. The parameter must not be null.
    */
   public void addToProductCodes( ProductCode pProductCodes ) {
     // Check parameter "pProductCodes" for invalid value null.
@@ -828,11 +758,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method adds all passed objects to the association "productCodes".
-   * 
-   * 
-   * @param pProductCodes Collection with all objects that should be added to the association "productCodes". The
-   * parameter must not be null.
+   * Method adds all passed objects to {@link #productCodes}.
+   *
+   * @param pProductCodes Collection with all objects that should be added to {@link #productCodes}. The parameter must
+   * not be null.
    */
   public void addToProductCodes( Collection<ProductCode> pProductCodes ) {
     // Check parameter "pProductCodes" for invalid value null.
@@ -844,11 +773,9 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes the passed ProductCode object from the association "productCodes".
-   * 
-   * 
-   * @param pProductCodes Object that should be removed from the association "productCodes". The parameter must not be
-   * null.
+   * Method removes the passed object from {@link #productCodes}.<br/>
+   *
+   * @param pProductCodes Object that should be removed from {@link #productCodes}. The parameter must not be null.
    */
   public void removeFromProductCodes( ProductCode pProductCodes ) {
     // Check parameter for invalid value null.
@@ -858,23 +785,17 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes all objects from the association "productCodes".
-   * 
+   * Method removes all objects from {@link #productCodes}.
    */
   public void clearProductCodes( ) {
     // Remove all objects from association "productCodes".
-    Collection<ProductCode> lProductCodes = new HashSet<ProductCode>(productCodes);
-    Iterator<ProductCode> lIterator = lProductCodes.iterator();
-    while (lIterator.hasNext()) {
-      this.removeFromProductCodes(lIterator.next());
-    }
+    productCodes.clear();
   }
 
   /**
-   * Method returns the attribute "description".
-   * 
-   * 
-   * @return String Value to which the attribute "description" is set.
+   * Method returns attribute {@link #description}.<br/>
+   *
+   * @return {@link String} Value to which {@link #description} is set.
    */
   @Deprecated
   public String getDescription( ) {
@@ -882,10 +803,9 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the attribute "description".
-   * 
-   * 
-   * @param pDescription Value to which the attribute "description" should be set.
+   * Method sets attribute {@link #description}.<br/>
+   *
+   * @param pDescription Value to which {@link #description} should be set.
    */
   @Deprecated
   public void setDescription( String pDescription ) {
@@ -894,11 +814,10 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns the association "sortiments".
-   * 
+   * Method returns association {@link #sortiments}.<br/>
    *
-   * @return Collection All Sortiment objects that belong to the association "sortiments". The method never returns null
-   * and the returned collection is unmodifiable.
+   * @return {@link Set<Sortiment>} Value to which {@link #sortiments} is set. The method never returns null and the
+   * returned collection is unmodifiable.
    */
   public Set<Sortiment> getSortiments( ) {
     // Return all Sortiment objects as unmodifiable collection.
@@ -906,48 +825,24 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method sets the association "sortiments" to the passed collection. All objects that formerly were part of the
-   * association will be removed from it.
-   * 
-   * 
-   * @param pSortiments Collection with objects to which the association should be set. The parameter must not be null.
+   * Method adds the passed object to {@link #sortiments}.
+   *
+   * @param pSortiments Object that should be added to {@link #sortiments}. The parameter must not be null.
    */
-  void setSortiments( Set<Sortiment> pSortiments ) {
-    // Check of parameter is not required.
-    // Remove all objects from association "sortiments".
-    this.clearSortiments();
-    // If the association is null, removing all entries is sufficient.
-    if (pSortiments != null) {
-      sortiments = new HashSet<Sortiment>(pSortiments);
-    }
-  }
-
-  /**
-   * Method adds the passed Sortiment object to the association "sortiments".
-   * 
-   * 
-   * @param pSortiments Object that should be added to the association "sortiments". The parameter must not be null.
-   */
-  public void addToSortiments( Sortiment pSortiments ) {
+  void addToSortiments( Sortiment pSortiments ) {
     // Check parameter "pSortiments" for invalid value null.
     Check.checkInvalidParameterNull(pSortiments, "pSortiments");
     // Add passed object to collection of associated Sortiment objects.
     sortiments.add(pSortiments);
-    // The association is set in both directions because within the UML model it is defined to be bidirectional.
-    // In case that one side will be removed from the association the other side will also be removed.
-    if (pSortiments != null && pSortiments.getProducts().contains(this) == false) {
-      pSortiments.addToProducts((Product) this);
-    }
   }
 
   /**
-   * Method adds all passed objects to the association "sortiments".
-   * 
-   * 
-   * @param pSortiments Collection with all objects that should be added to the association "sortiments". The parameter
-   * must not be null.
+   * Method adds all passed objects to {@link #sortiments}.
+   *
+   * @param pSortiments Collection with all objects that should be added to {@link #sortiments}. The parameter must not
+   * be null.
    */
-  public void addToSortiments( Collection<Sortiment> pSortiments ) {
+  void addToSortiments( Collection<Sortiment> pSortiments ) {
     // Check parameter "pSortiments" for invalid value null.
     Check.checkInvalidParameterNull(pSortiments, "pSortiments");
     // Add all passed objects.
@@ -957,51 +852,43 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method removes the passed Sortiment object from the association "sortiments".
-   * 
-   * 
-   * @param pSortiments Object that should be removed from the association "sortiments". The parameter must not be null.
+   * Method removes the passed object from {@link #sortiments}.<br/>
+   *
+   * @param pSortiments Object that should be removed from {@link #sortiments}. The parameter must not be null.
    */
-  public void removeFromSortiments( Sortiment pSortiments ) {
+  void removeFromSortiments( Sortiment pSortiments ) {
     // Check parameter for invalid value null.
     Check.checkInvalidParameterNull(pSortiments, "pSortiments");
     // Remove passed object from collection of associated Sortiment objects.
     sortiments.remove(pSortiments);
-    // The association is set in both directions because within the UML model it is defined to be bidirectional.
-    // In case that one side will be removed from the association the other side will also be removed.
-    if (pSortiments.getProducts().contains(this) == true) {
-      pSortiments.removeFromProducts((Product) this);
-    }
   }
 
   /**
-   * Method removes all objects from the association "sortiments".
-   * 
+   * Method removes all objects from {@link #sortiments}.
    */
-  public void clearSortiments( ) {
+  void clearSortiments( ) {
     // Remove all objects from association "sortiments".
     Collection<Sortiment> lSortiments = new HashSet<Sortiment>(sortiments);
     Iterator<Sortiment> lIterator = lSortiments.iterator();
     while (lIterator.hasNext()) {
+      // As association is bidirectional we have to clear it in both directions.
       this.removeFromSortiments(lIterator.next());
     }
   }
 
   /**
-   * Method returns the attribute "uri".
-   * 
-   * 
-   * @return String Value to which the attribute "uri" is set.
+   * Method returns attribute {@link #uri}.<br/>
+   *
+   * @return {@link String} Value to which {@link #uri} is set.
    */
   public String getUri( ) {
     return uri;
   }
 
   /**
-   * Method sets the attribute "uri".
-   * 
-   * 
-   * @param pUri Value to which the attribute "uri" should be set.
+   * Method sets attribute {@link #uri}.<br/>
+   *
+   * @param pUri Value to which {@link #uri} should be set.
    */
   public void setUri( String pUri ) {
     // Assign value to attribute
@@ -1009,39 +896,64 @@ public class Product implements ServiceObject, Identifiable<ServiceObjectID> {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns association {@link #theChannels}.<br/>
+   *
+   * @return {@link Set<Channel>} Value to which {@link #theChannels} is set. The method never returns null and the
+   * returned collection is unmodifiable.
+   */
+  public abstract Set<Channel> getTheChannels( );
+
+  /**
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "name", "" + name));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "link", "" + link));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "productID", "" + productID));
-    lBuilder.append('\n');
-    lBuilder
-        .append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "description", "" + description));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTE, "uri", "" + uri));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("name: ");
+    lBuilder.append(name);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("link: ");
+    lBuilder.append(link);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("productID: ");
+    lBuilder.append(productID);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("description: ");
+    lBuilder.append(description);
+    lBuilder.append(System.lineSeparator());
+    lBuilder.append(pIndent);
+    lBuilder.append("uri: ");
+    lBuilder.append(uri);
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new Product objects. The method never returns null.
+   */
+  public Product.Builder toBuilder( ) {
+    return new Product.Builder((Product) this);
   }
 }

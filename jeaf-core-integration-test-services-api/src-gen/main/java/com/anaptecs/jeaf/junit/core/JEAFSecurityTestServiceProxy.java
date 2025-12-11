@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.core;
@@ -37,11 +37,8 @@ public final class JEAFSecurityTestServiceProxy extends ServiceProxy implements 
   }
 
   /**
-   * Generated proxy implementation for method "checkCurrentUser".
-   * 
-   * Method returns the currently user who is loged in.
-   * 
-   * @return loged in User.
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.JEAFSecurityTestService#checkCurrentUser}
    */
   public void checkCurrentUser( ) {
     try {
@@ -54,9 +51,8 @@ public final class JEAFSecurityTestServiceProxy extends ServiceProxy implements 
   }
 
   /**
-   * Generated proxy implementation for method "checkInvalidServiceAccess".
-   * 
-   * 
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.JEAFSecurityTestService#checkInvalidServiceAccess}
    */
   public void checkInvalidServiceAccess( ) {
     try {
@@ -69,9 +65,8 @@ public final class JEAFSecurityTestServiceProxy extends ServiceProxy implements 
   }
 
   /**
-   * Generated proxy implementation for method "checkCurrentAnonymousUser".
-   * 
-   * checks if the attribute of the currentUser which is an anonymous user are set correctly.
+   * Generated proxy implementation for method
+   * {@link com.anaptecs.jeaf.junit.core.JEAFSecurityTestService#checkCurrentAnonymousUser}
    */
   public void checkCurrentAnonymousUser( ) {
     try {
@@ -123,8 +118,8 @@ final class CheckCurrentUser_JEAFSecurityTestService_Command extends Command {
   /**
    * Initialize object. All parameters from method "checkCurrentUser" have to be passed as parameters to this command
    * object.
-   * 
-   * 
+   *
+   *
    */
   CheckCurrentUser_JEAFSecurityTestService_Command( ) {
     super(JEAFSecurityTestService.class);
@@ -133,7 +128,7 @@ final class CheckCurrentUser_JEAFSecurityTestService_Command extends Command {
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -160,7 +155,7 @@ final class CheckCurrentUser_JEAFSecurityTestService_Command extends Command {
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -170,7 +165,7 @@ final class CheckCurrentUser_JEAFSecurityTestService_Command extends Command {
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -219,8 +214,8 @@ final class CheckInvalidServiceAccess_JEAFSecurityTestService_Command extends Co
   /**
    * Initialize object. All parameters from method "checkInvalidServiceAccess" have to be passed as parameters to this
    * command object.
-   * 
-   * 
+   *
+   *
    */
   CheckInvalidServiceAccess_JEAFSecurityTestService_Command( ) {
     super(JEAFSecurityTestService.class);
@@ -229,7 +224,7 @@ final class CheckInvalidServiceAccess_JEAFSecurityTestService_Command extends Co
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -256,7 +251,7 @@ final class CheckInvalidServiceAccess_JEAFSecurityTestService_Command extends Co
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -266,7 +261,7 @@ final class CheckInvalidServiceAccess_JEAFSecurityTestService_Command extends Co
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */
@@ -315,8 +310,8 @@ final class CheckCurrentAnonymousUser_JEAFSecurityTestService_Command extends Co
   /**
    * Initialize object. All parameters from method "checkCurrentAnonymousUser" have to be passed as parameters to this
    * command object.
-   * 
-   * 
+   *
+   *
    */
   CheckCurrentAnonymousUser_JEAFSecurityTestService_Command( ) {
     super(JEAFSecurityTestService.class);
@@ -325,7 +320,7 @@ final class CheckCurrentAnonymousUser_JEAFSecurityTestService_Command extends Co
 
   /**
    * Method executes the service call represented by this command object via JEAFs service channel.
-   * 
+   *
    * @param pTargetService Reference to the service which should be called by this command. The parameter must not be
    * null.
    * @return Serializable Result object of the service call. Due to the fact that all returned objects of remote calls
@@ -352,7 +347,7 @@ final class CheckCurrentAnonymousUser_JEAFSecurityTestService_Command extends Co
 
   /**
    * Method returns a method object describing the service method that will be called by this command object.
-   * 
+   *
    * @return {@link Method} Method object describing the called service method. The method never returns null.
    */
   @Override
@@ -362,7 +357,7 @@ final class CheckCurrentAnonymousUser_JEAFSecurityTestService_Command extends Co
 
   /**
    * Method returns all parameters that will be passed to the service.
-   * 
+   *
    * @return {@link Object} Object array with all parameters that will be passed to the service. The method may return
    * an empty array in case that the method has no parameters.
    */

@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.openapi.base;
@@ -9,14 +9,8 @@ import javax.validation.ConstraintViolationException;
 
 import com.anaptecs.jeaf.core.api.ServiceObject;
 import com.anaptecs.jeaf.tools.api.validation.ValidationTools;
-import com.anaptecs.jeaf.xfun.api.XFun;
-import com.anaptecs.jeaf.xfun.api.XFunMessages;
 import com.anaptecs.jeaf.xfun.api.checks.Check;
 
-/**
- * @author JEAF Generator
- * @version JEAF Release 1.4.x
- */
 public class BidirectB implements ServiceObject {
   /**
    * Default serial version uid.
@@ -39,18 +33,17 @@ public class BidirectB implements ServiceObject {
   private transient boolean aBackReferenceInitialized;
 
   /**
-   * Default constructor is only intended to be used for deserialization as many frameworks required that. For "normal"
+   * Default constructor is only intended to be used for deserialization by tools like Jackson for JSON. For "normal"
    * object creation builder should be used instead.
    */
   protected BidirectB( ) {
-    // Nothing to do.
     // Bidirectional back reference is not yet set up correctly
     aBackReferenceInitialized = false;
   }
 
   /**
    * Initialize object using the passed builder.
-   * 
+   *
    * @param pBuilder Builder that should be used to initialize this object. The parameter must not be null.
    */
   protected BidirectB( Builder pBuilder ) {
@@ -58,13 +51,25 @@ public class BidirectB implements ServiceObject {
     Check.checkInvalidParameterNull(pBuilder, "pBuilder");
     // Read attribute values from builder.
     a = pBuilder.a;
+    if (a != null) {
+      // As association is bidirectional we also have to set it in the other direction.
+      a.addToTransientBs((BidirectB) this);
+    }
     // Bidirectional back reference is set up correctly as a builder is used.
     aBackReferenceInitialized = true;
   }
 
   /**
-   * Class implements builder to create a new instance of class BidirectB. As the class has read only attributes or
-   * associations instances can not be created directly. Instead this builder class has to be used.
+   * Method returns a new builder.
+   *
+   * @return {@link Builder} New builder that can be used to create new BidirectB objects.
+   */
+  public static Builder builder( ) {
+    return new Builder();
+  }
+
+  /**
+   * Class implements builder to create a new instance of class <code>BidirectB</code>.
    */
   public static class Builder {
     /**
@@ -73,45 +78,26 @@ public class BidirectB implements ServiceObject {
     private BidirectA a;
 
     /**
-     * Use {@link #newBuilder()} instead of private constructor to create new builder.
+     * Use {@link BidirectB#builder()} instead of private constructor to create new builder.
      */
     protected Builder( ) {
     }
 
     /**
-     * Use {@link #newBuilder(BidirectB)} instead of private constructor to create new builder.
+     * Use {@link BidirectB#builder(BidirectB)} instead of private constructor to create new builder.
      */
     protected Builder( BidirectB pObject ) {
       if (pObject != null) {
         // Read attribute values from passed object.
-        a = pObject.a;
+        this.setA(pObject.a);
       }
     }
 
     /**
-     * Method returns a new builder.
-     * 
-     * @return {@link Builder} New builder that can be used to create new ImmutablePOJOParent objects.
-     */
-    public static Builder newBuilder( ) {
-      return new Builder();
-    }
-
-    /**
-     * Method creates a new builder and initialize it with the data from the passed object.
-     * 
-     * @param pObject Object that should be used to initialize the builder. The parameter may be null.
-     * @return {@link Builder} New builder that can be used to create new BidirectB objects. The method never returns
-     * null.
-     */
-    public static Builder newBuilder( BidirectB pObject ) {
-      return new Builder(pObject);
-    }
-
-    /**
-     * Method sets the association "a". the A
-     * 
-     * @param pA BidirectA to which the association "a" should be set.
+     * Method sets association {@link #a}.<br/>
+     *
+     * @param pA Value to which {@link #a} should be set.
+     * @return {@link Builder} Instance of this builder to support chaining setters. Method never returns null.
      */
     public Builder setA( BidirectA pA ) {
       a = pA;
@@ -120,7 +106,7 @@ public class BidirectB implements ServiceObject {
 
     /**
      * Method creates a new instance of class BidirectB. The object will be initialized with the values of the builder.
-     * 
+     *
      * @return BidirectB Created object. The method never returns null.
      */
     public BidirectB build( ) {
@@ -130,21 +116,22 @@ public class BidirectB implements ServiceObject {
     /**
      * Method creates a new validated instance of class BidirectB. The object will be initialized with the values of the
      * builder and validated afterwards.
-     * 
+     *
      * @return BidirectB Created and validated object. The method never returns null.
      * @throws ConstraintViolationException in case that one or more validations for the created object failed.
      */
     public BidirectB buildValidated( ) throws ConstraintViolationException {
-      BidirectB lPOJO = this.build();
-      ValidationTools.getValidationTools().enforceObjectValidation(lPOJO);
-      return lPOJO;
+      BidirectB lObject = this.build();
+      ValidationTools.getValidationTools().enforceObjectValidation(lObject);
+      return lObject;
     }
   }
 
   /**
-   * Method returns the association "a". the A
+   * Method returns association {@link #a}.<br/>
+   * the A
    *
-   * @return BidirectA BidirectA to which the association "a" is set.
+   * @return {@link BidirectA} Value to which {@link #a} is set.
    */
   public BidirectA getA( ) {
     // Due to restrictions in JSON serialization / deserialization bi-directional associations need a special handling
@@ -157,9 +144,10 @@ public class BidirectB implements ServiceObject {
   }
 
   /**
-   * Method sets the association "a". the A
-   * 
-   * @param pA BidirectA to which the association "a" should be set.
+   * Method sets association {@link #a}.<br/>
+   * the A
+   *
+   * @param pA Value to which {@link #a} should be set.
    */
   public void setA( BidirectA pA ) {
     // Release already referenced object before setting a new association.
@@ -175,7 +163,7 @@ public class BidirectB implements ServiceObject {
   }
 
   /**
-   * Method unsets the association "a". the A
+   * Method unsets {@link #a}.
    */
   public final void unsetA( ) {
     // The association is set in both directions because within the UML model it is defined to be bidirectional.
@@ -188,28 +176,37 @@ public class BidirectB implements ServiceObject {
   }
 
   /**
-   * Method returns a StringBuilder that can be used to create a String representation of this object. the returned
+   * Method returns a StringBuilder that can be used to create a String representation of this object. The returned
    * StringBuilder also takes care about attributes of super classes.
    *
    * @return {@link StringBuilder} StringBuilder representing this object. The method never returns null.
    */
-  protected StringBuilder toStringBuilder( ) {
+  public StringBuilder toStringBuilder( String pIndent ) {
     StringBuilder lBuilder = new StringBuilder();
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_INFO, this.getClass().getName()));
-    lBuilder.append('\n');
-    lBuilder.append(XFun.getMessageRepository().getMessage(XFunMessages.OBJECT_ATTRIBUTES_SECTION));
-    lBuilder.append('\n');
+    lBuilder.append(pIndent);
+    lBuilder.append(this.getClass().getName());
+    lBuilder.append(System.lineSeparator());
     return lBuilder;
   }
 
   /**
    * Method creates a new String with the values of all attributes of this class. All references to other objects will
    * be ignored.
-   * 
+   *
    * @return {@link String} String representation of this object. The method never returns null.
    */
   @Override
   public String toString( ) {
-    return this.toStringBuilder().toString();
+    return this.toStringBuilder("").toString();
+  }
+
+  /**
+   * Method creates a new builder and initializes it with the data of this object.
+   *
+   * @return {@link Builder} New builder that can be used to create new BidirectB objects. The method never returns
+   * null.
+   */
+  public Builder toBuilder( ) {
+    return new Builder(this);
   }
 }

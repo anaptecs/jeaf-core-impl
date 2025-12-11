@@ -1,6 +1,6 @@
 /*
  * anaptecs GmbH, Ricarda-Huch-Str. 71, 72760 Reutlingen, Germany
- * 
+ *
  * Copyright 2004 - 2019. All rights reserved.
  */
 package com.anaptecs.jeaf.junit.impl.core;
@@ -35,6 +35,9 @@ abstract class ProductServiceImplBase implements ProductService, ServiceImplemen
   public static final String CREATEPRODUCT_AUTH_TYPE =
       "createProduct.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
+  public static final String DELETESOMETHING_AUTH_TYPE =
+      "deleteSomething.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
   public static final String DEPRECATEDBEANPARAM_AUTH_TYPE =
       "deprecatedBeanParam.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
@@ -55,6 +58,12 @@ abstract class ProductServiceImplBase implements ProductService, ServiceImplemen
 
   public static final String DEPRECTEDCOMPLEXREQUESTBODY_AUTH_TYPE =
       "deprectedComplexRequestBody.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String GENERICMULTIVALUERESPONSE_AUTH_TYPE =
+      "genericMultiValueResponse.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String GENERICSINGLEVALUERESPONSE_AUTH_TYPE =
+      "genericSingleValueResponse.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
   public static final String GETCHANNELS_AUTH_TYPE =
       "getChannels.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
@@ -83,6 +92,9 @@ abstract class ProductServiceImplBase implements ProductService, ServiceImplemen
   public static final String LOADSPECIFICTHINGS_AUTH_TYPE =
       "loadSpecificThings.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
+  public static final String NORETURNTYPE_AUTH_TYPE =
+      "noReturnType.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
   public static final String PING_AUTH_TYPE = "ping.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
   public static final String TESTCHILDBEANPARAMETER_AUTH_TYPE =
@@ -91,11 +103,65 @@ abstract class ProductServiceImplBase implements ProductService, ServiceImplemen
   public static final String TESTCODETYPEUSAGE_AUTH_TYPE =
       "testCodeTypeUsage.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
+  public static final String TESTCONTEXT_AUTH_TYPE =
+      "testContext.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTDATATYPEWITHRESTRITION_AUTH_TYPE =
+      "testDataTypeWithRestrition.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTDATEQUERYPARAMSBEAN_AUTH_TYPE =
+      "testDateQueryParamsBean.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTDATEQUERYPARAMS_AUTH_TYPE =
+      "testDateQueryParams.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTDUPLICATEGENERICS1_AUTH_TYPE =
+      "testDuplicateGenerics1.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTDUPLICATEGENERICS2_AUTH_TYPE =
+      "testDuplicateGenerics2.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
   public static final String TESTEXTERNALBEANPARAMETERTYPE_AUTH_TYPE =
       "testExternalBeanParameterType.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
   public static final String TESTLOCALBEANPARAMTYPE_AUTH_TYPE =
       "testLocalBeanParamType.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTMULITVALUEDBEANPARAMS_AUTH_TYPE =
+      "testMulitValuedBeanParams.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTMULTIVALUEDHEADER_AUTH_TYPE =
+      "testMultivaluedHeader.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTMULTIVALUEDQUERYPARAMS_AUTH_TYPE =
+      "testMultivaluedQueryParams.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTNESTEDGENERICSRESPONSE_AUTH_TYPE =
+      "testNestedGenericsResponse.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTNESTEDMULTIVALUEDRESPONSE_AUTH_TYPE =
+      "testNestedMultivaluedResponse.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTNOTINLINEDBEANPARAM_AUTH_TYPE =
+      "testNotInlinedBeanParam.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTOPTIONALQUERYPARAMS_AUTH_TYPE =
+      "testOptionalQueryParams.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTPRIMITIVEARRAYASQUERYPARAM_AUTH_TYPE =
+      "testPrimitiveArrayAsQueryParam.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTPRIMITIVEARRAY_AUTH_TYPE =
+      "testPrimitiveArray.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTSPECIALHEADERPARAMS_AUTH_TYPE =
+      "testSpecialHeaderParams.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTTECHNICALHEADERBEAN_AUTH_TYPE =
+      "testTechnicalHeaderBean.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
+
+  public static final String TESTTECHNICALHEADERPARAM_AUTH_TYPE =
+      "testTechnicalHeaderParam.com.anaptecs.jeaf.junit.openapi.service1.ProductService";
 
   /**
    * Reference to the component that provides this service implementation. The reference is never null.
@@ -121,10 +187,10 @@ abstract class ProductServiceImplBase implements ProductService, ServiceImplemen
 
   /**
    * Method returns the class object of the service that is implemented by this service instance.
-   * 
+   *
    * @return Class Class object of the service interface that is implemented by the service instance. The method never
    * returns null.
-   * 
+   *
    * @see ServiceImplementation#getServiceType()
    */
   public final Class<? extends Service> getServiceType( ) {
@@ -133,7 +199,7 @@ abstract class ProductServiceImplBase implements ProductService, ServiceImplemen
 
   /**
    * Method returns the service invocation context for the current service call.
-   * 
+   *
    * @return ServiceInvocationContext Service invocation context for the current call. The method never returns null as
    * long as it is called from within a service call.
    */
