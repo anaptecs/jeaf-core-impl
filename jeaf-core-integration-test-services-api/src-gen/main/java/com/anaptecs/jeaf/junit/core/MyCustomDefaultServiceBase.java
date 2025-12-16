@@ -7,14 +7,12 @@ package com.anaptecs.jeaf.junit.core;
 
 import com.anaptecs.jeaf.core.api.Service;
 
-public interface MyCustomDefaultService extends Service {
+public interface MyCustomDefaultServiceBase extends Service {
   /**
    * @param pMessage
    * @return {@link String}
    */
-  default String doSomething( String pMessage ) {
-    return String.valueOf(0);
-  }
+  String doSomething( String pMessage );
 
   /**
    * @return {@link String}
